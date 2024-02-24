@@ -168,7 +168,7 @@ class _MyScreenState extends State<MyScreen> with SingleTickerProviderStateMixin
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => ExampleDragAndDrop(),
+          builder: (context) => ExampleDragAndDrop(selectedLanguage: selectedLanguage),
         ),
       );
     }

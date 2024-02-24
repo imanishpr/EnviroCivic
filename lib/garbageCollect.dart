@@ -229,16 +229,38 @@ List<Item> _itemsBackup = [
   )
 ];
 
+
 @immutable
 class ExampleDragAndDrop extends StatefulWidget {
-  const ExampleDragAndDrop({super.key});
+  final String selectedLanguage;
+  ExampleDragAndDrop({required this.selectedLanguage});
+    
+
+  // Constructor with the argument
+
 
   @override
-  State<ExampleDragAndDrop> createState() => _ExampleDragAndDropState();
+  State<ExampleDragAndDrop> createState() => _ExampleDragAndDropState(selectedLanguage : selectedLanguage);
+
+  Widget build(BuildContext context) {
+    // Check the value of the argument
+    if ( selectedLanguage == "ja-JP") {
+      print('The argument is ja');
+    } else {
+      print('The argument is eng');
+    }
+    // Rest of your widget code
+    return Container(
+      // Your widget content here
+    );
+  }
 }
+
 
 class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     with TickerProviderStateMixin {
+      final String selectedLanguage;
+  _ExampleDragAndDropState({required this.selectedLanguage});
   final List<Customer> _people = [
     Customer(
       name: '    Wet waste    ',
@@ -290,7 +312,45 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     ),
   ];
 
+  List<ChatMessage> chatMessages = [
+    ChatMessage(text: 'Mom, who is this stunning cheetah', isSender: true),
+    ChatMessage(
+      text:
+           'Honey he is Zephyr. He roams around planets and eats rabbits. You have got it as a card reward for collecting all sanitary garbage correctly.',
+      isSender: false,
+    ),
+    ChatMessage(
+      text: 'WOw mom thats awesome, I dont want to loose him, how do I save him',
+      isSender: true,
+    ),
+    ChatMessage(
+      text: 'Add it to your google wallet using the button below',
+      isSender: false,
+    ),
+  ];
+
+List<ChatMessage> jchatMessages = [
+  ChatMessage(text: 'お母さん、この見事なチーターは誰ですか？', isSender: true),
+  ChatMessage(
+    text:
+        'ハニー、彼はゼファーです。彼は惑星を歩き回り、ウサギを食べます。あなたは全てのごみを正しく集めた報酬としてこれを受け取りました。',
+    isSender: false,
+  ),
+  ChatMessage(
+    text: 'おお、お母さん、それは素晴らしいです。彼を失いたくない。どうやって彼を保存できますか？',
+    isSender: true,
+  ),
+  ChatMessage(
+    text: '下のボタンを使用してGoogleウォレットに追加してください。',
+    isSender: false,
+  ),
+];
+
+
   final GlobalKey _draggableKey = GlobalKey();
+  
+  
+
 
   void _itemDroppedOnCustomerCart({
     required Item item,
@@ -314,6 +374,11 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
 
   @override
   Widget build(BuildContext context) {
+    print('lol');
+    print(selectedLanguage);
+    if(selectedLanguage == 'ja-JP') {
+      chatMessages = jchatMessages;
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F7),
       appBar: _buildAppBar(),
@@ -392,7 +457,6 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       );
     }
   }
-
   Widget _buildCongratulationsScreen(Customer customer) {
     final now = new DateTime.now();
     return Center(
@@ -474,43 +538,18 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
                       padding: const EdgeInsets.all(20.0),
                       child: SingleChildScrollView(
                         child: Column(
-                          children: <Widget>[
-                            BubbleSpecialTwo(
-                              text: 'Mom, who is this stunning cheetah',
-                              isSender: true,
-                              color: Color.fromARGB(255, 110, 110, 198),
-                              tail: true,
-                              sent: true,
-                            ),
-                            BubbleSpecialOne(
-                              text:
-                                  'Honey he is Zephyr. He roams around planets and eats rabbits. You have got it as a card reward for collecting all sanitary garbage correctly.',
-                              isSender: false,
-                              color: Color(0xFF1B97F3),
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                            BubbleSpecialTwo(
-                              text:
-                                  'WOw mom thats awesome, I dont want to loose him, how do I save him',
-                              isSender: true,
-                              color: Color.fromARGB(255, 110, 110, 198),
-                              tail: true,
-                              sent: true,
-                            ),
-                            BubbleSpecialOne(
-                              text:
-                                  'Add it to your google wallet using the button below',
-                              isSender: false,
-                              color: Color(0xFF1B97F3),
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                  children: <Widget>[
+                  for (int i = 0; i < chatMessages.length; i++)
+                    FutureBuilder(
+                      future: Future.delayed(Duration(seconds: i+1)),
+                      builder: (context, snapshot) {
+                        return snapshot.connectionState ==
+                                ConnectionState.done
+                            ? buildChatBubble(chatMessages[i])
+                            : Container(); // Placeholder until the delay is done
+                      },
+                    ),
+                ],
                         ),
                       ),
                     ),
@@ -543,6 +582,27 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
         ),
       ),
     );
+  }
+  Widget buildChatBubble(ChatMessage message) {
+    if (message.isSender) {
+      return BubbleSpecialTwo(
+        text: message.text,
+        isSender: true,
+        color: Color.fromARGB(255, 110, 110, 198),
+        tail: true,
+        sent: true,
+      );
+    } else {
+      return BubbleSpecialOne(
+        text: message.text,
+        isSender: false,
+        color: Color(0xFF1B97F3),
+        textStyle: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        ),
+      );
+    }
   }
 
   _launchURL() async {
@@ -751,6 +811,11 @@ class MenuListItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            Container(
+              color: Colors.blue,
+              width: double.infinity,
+              height: double.infinity,
+            ),
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
@@ -878,4 +943,14 @@ class Customer {
         items.fold<int>(0, (prev, item) => prev + item.totalPriceCents);
     return '\$${(totalPriceCents / 100.0).toStringAsFixed(2)}';
   }
+}
+
+class ChatMessage {
+  final String text;
+  final bool isSender;
+
+  ChatMessage({
+    required this.text,
+    required this.isSender,
+  });
 }
