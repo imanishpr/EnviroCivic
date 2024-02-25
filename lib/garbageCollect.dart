@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
@@ -457,39 +460,52 @@ List<ChatMessage> jchatMessages = [
       );
     }
   }
-  Widget _buildCongratulationsScreen(Customer customer) {
-    final now = new DateTime.now();
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Left side with local image and collectible cards
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+Widget _buildCongratulationsScreen(Customer customer) {
+  final now = DateTime.now();
+  return Stack(
+    children: [
+      // Background with sky blue color
+      Container(
+        color: Colors.lightBlue,
+        width: double.infinity,
+        height: double.infinity,
+      ),
+      
+      // Blur filter
+      BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(width: 20),
-                WidgetCircularAnimator(
-                  size: 350,
-                  innerIconsSize: 10,
-                  outerIconsSize: 10,
-                  innerAnimation: Curves.easeInOutBack,
-                  outerAnimation: Curves.easeInOutBack,
-                  innerColor: Colors.deepPurple,
-                  outerColor: Colors.orangeAccent,
-                  innerAnimationSeconds: 5,
-                  outerAnimationSeconds: 5,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.grey[200]),
-                    child: Image.asset(
-                      'assets/mom_congrats.png',
+                // Left side with local image and collectible cards
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 20),
+                    WidgetCircularAnimator(
+                      size: 350,
+                      innerIconsSize: 10,
+                      outerIconsSize: 10,
+                      innerAnimation: Curves.easeInOutBack,
+                      outerAnimation: Curves.easeInOutBack,
+                      innerColor: Colors.deepPurple,
+                      outerColor: Colors.orangeAccent,
+                      innerAnimationSeconds: 5,
+                      outerAnimationSeconds: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[200],
+                        ),
+                        child: Image.asset(
+                          'assets/mom_congrats.png',
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                // const SizedBox(width: 200),
-                Card(
+                    Card(
                   elevation: 50,
                   shadowColor: Colors.black,
                   color: Color.fromARGB(255, 190, 184, 59),
@@ -528,7 +544,7 @@ List<ChatMessage> jchatMessages = [
                     ),
                   ),
                 ),
-                Card(
+                 Card(
                   elevation: 50,
                   shadowColor: Colors.black,
                   child: SizedBox(
@@ -559,31 +575,36 @@ List<ChatMessage> jchatMessages = [
               ],
             ),
             // Congratulations message
-            const Text(
-              'Congratulations! You have won Zephyr the wonder card!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+                const Text(
+                  'Congratulations! You have won Zephyr the wonder card!',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                // Button to add collectibles to Google Wallet
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    print("Collectible collected");
+                  },
+                  child: Image.asset(
+                    'assets/adde.png',
+                    width: 20.0, // Adjust width as needed
+                    height: 20.0, // Adjust height as needed
+                  ),
+                )
+              ],
             ),
-            // Button to add collectibles to Google Wallet
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                print("Collectible collected");
-                setState(() {
-                  customer.items = [];
-                });
-              },
-              child: const Text('Add to Google Wallet'),
-            ),
-          ],
+          ),
         ),
       ),
-    );
-  }
-  Widget buildChatBubble(ChatMessage message) {
+    ],
+  );
+}
+
+ Widget buildChatBubble(ChatMessage message) {
     if (message.isSender) {
       return BubbleSpecialTwo(
         text: message.text,
@@ -811,11 +832,6 @@ class MenuListItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              color: Colors.blue,
-              width: double.infinity,
-              height: double.infinity,
-            ),
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
