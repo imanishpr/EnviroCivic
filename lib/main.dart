@@ -108,9 +108,9 @@ class _MyScreenState extends State<MyScreen>
 
   Future<void> _delayedNextButtonVisibility() async {
     setState(() {
-      isSpeaking = true; // Set isSpeaking to false after the delay
+      isSpeaking = false; // Set isSpeaking to false after the delay
     });
-    await Future.delayed(Duration(seconds: 10));
+    await Future.delayed(Duration(seconds: 20));
     setState(() {
       isSpeaking = false; // Set isSpeaking to false after the delay
     });
@@ -297,6 +297,7 @@ class _MyScreenState extends State<MyScreen>
     await flutterTts.setPitch(0.95);
     await flutterTts.setSpeechRate(2);
     await flutterTts.speak(text);
+     await Future.delayed(Duration(seconds: 10));
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
     });
