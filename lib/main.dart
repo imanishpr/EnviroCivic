@@ -6,7 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:namer_app/animate.dart';
+import 'package:garbage_sorting/animate.dart';
 import 'dart:async';
 import 'garbageCollect.dart';
 
@@ -45,6 +45,7 @@ class _MyScreenState extends State<MyScreen>
     "assets/image4.jpg",
     "assets/image4.jpg",
     "assets/image4.jpg",
+    "assets/gHelp.png",
   ];
 
   List<String> texts = [
@@ -55,6 +56,7 @@ class _MyScreenState extends State<MyScreen>
     "Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?",
     "Of course, Mom. I'll take care of it right away.",
     "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
+    "click the the next button and start playing..",
   ];
   List<String> jTexts = [
     "エミーに会いましょう。27歳のエミーは、賑やかな東京でIT企業で働いています。彼女は母親とアットホームな家を共有し、現代の都市生活と日本の伝統的な温かさを融合させています。エミーはキャリアの挑戦に立ち向かいながら、自分自身を持続可能性への旅に導き、東京の活気ある街を通して物語を紡いでいます。",
@@ -64,6 +66,7 @@ class _MyScreenState extends State<MyScreen>
     "相変わらず忙しいけれど、私には対処できることばかりよ。ところで、あなたの部屋はちょっと散らかっているわね。夕食前に片付けてくれるかしら？",
     "もちろん、お母さん。すぐに片付けます。",
     "エミーが散らかった部屋に足を踏み入れると、彼女を襲うフラストレーションの波が押し寄せます。机に散らばる紙、床に不規則に積まれた服 – まるで混沌です。",
+    "click the the next button and start playing..",
   ];
   List<List<String>> imagePathsList = [
     [
@@ -88,6 +91,7 @@ class _MyScreenState extends State<MyScreen>
     ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
     ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
     ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
+    ["assets/gHelp.png"],
     // Add more lists if needed
   ];
   late AnimationController animationController;
@@ -110,7 +114,7 @@ class _MyScreenState extends State<MyScreen>
     setState(() {
       isSpeaking = false; // Set isSpeaking to false after the delay
     });
-    await Future.delayed(Duration(seconds: 20));
+    await Future.delayed(Duration(seconds: 1));
     setState(() {
       isSpeaking = false; // Set isSpeaking to false after the delay
     });
@@ -297,7 +301,7 @@ class _MyScreenState extends State<MyScreen>
     await flutterTts.setPitch(0.95);
     await flutterTts.setSpeechRate(2);
     await flutterTts.speak(text);
-     await Future.delayed(Duration(seconds: 10));
+    await Future.delayed(Duration(seconds: 1));
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
     });
@@ -309,7 +313,8 @@ class _MyScreenState extends State<MyScreen>
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              ExampleDragAndDrop(selectedLanguage: selectedLanguage),
+              ExampleDragAndDrop(),
+              //ExampleDragAndDrop(selectedLanguage: selectedLanguage),
         ),
       );
     }
@@ -320,7 +325,8 @@ class _MyScreenState extends State<MyScreen>
         return AlertDialog(
       insetPadding: EdgeInsets.all(0),
       contentPadding: EdgeInsets.zero,
-       backgroundColor: const Color.fromARGB(255, 118, 224, 122),
+      title: Text('Urban Eco-Adventures'),
+      backgroundColor: const Color.fromARGB(255, 118, 224, 122),
       content: Container(
         width: double.maxFinite, // Set width to take up the full screen width
         child: Column(

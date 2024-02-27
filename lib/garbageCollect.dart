@@ -1,12 +1,18 @@
+import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 
+import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
+import 'package:garbage_sorting/data.dart';
+import 'package:garbage_sorting/model/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:confetti/confetti.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 // void main() {
 //   runApp(
@@ -17,25 +23,10 @@ import 'package:chat_bubbles/chat_bubbles.dart';
 //   );
 // }
 
-Duration duration = new Duration();
-Duration position = new Duration();
-bool isPlaying = false;
-bool isLoading = false;
-bool isPause = false;
 
-const colorizeColors = [
-  Colors.purple,
-  Colors.blue,
-  Colors.yellow,
-  Colors.red,
-];
+enum GarbageType { dry, wet, sanitary, ewaste }
 
-const colorizeTextStyle = TextStyle(
-  fontSize: 50.0,
-  fontFamily: 'Horizon',
-);
-
-enum GarbageType { wet, dry, sanitary, ewaste }
+enum CollectibleReward { zephyr, kumo, fenrir, ursula }
 
 List<Item> _items = [
   const Item(
@@ -58,255 +49,117 @@ List<Item> _items = [
   ),
 ];
 
-List<Item> _itemsBackup = [
-  const Item(
-    name: 'Aluminium can',
-    totalPriceCents: 1299,
-    uid: '1',
-    imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.dry,
-    incorrectMessageDescription:
-        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  ),
-  const Item(
-    name: 'Band-Aids',
-    totalPriceCents: 799,
-    uid: '2',
-    imageProvider: AssetImage('assets/band_aids.png'),
-    garbageType: GarbageType.sanitary,
-    incorrectMessageDescription:
-        "Uh-oh! Seems like this item is more suited for a specific bin. Consider its material and its journey after disposal.",
-  ),
-  const Item(
-    name: 'Burger',
-    totalPriceCents: 1499,
-    uid: '3',
-    imageProvider: AssetImage('assets/burger.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Oops, looks like this burger's journey has been cut short! Consider where its remaining 'half' belongs",
-  ),
-  const Item(
-    name: 'Cardboard Box',
-    totalPriceCents: 1499,
-    uid: '4',
-    imageProvider: AssetImage('assets/cardboard_box.png'),
-    garbageType: GarbageType.dry,
-    incorrectMessageDescription:
-        "Hmm, this one might need a sturdier home. Think about where you'd put it for a new life.",
-  ),
-  const Item(
-    name: 'Charging Cable',
-    totalPriceCents: 1499,
-    uid: '5',
-    imageProvider: AssetImage('assets/charging_cable.png'),
-    garbageType: GarbageType.ewaste,
-    incorrectMessageDescription:
-        "Whoopsie! This item needs a charge of its own, but in a different bin. Consider its technological nature.",
-  ),
-  const Item(
-    name: 'Disposable Cup',
-    totalPriceCents: 1499,
-    uid: '6',
-    imageProvider: AssetImage('assets/disposable_cup.png'),
-    garbageType: GarbageType.dry,
-    incorrectMessageDescription:
-        "Oh dear, this cup's journey might be a bit different than you think. Reflect on its composition.",
-  ),
-  const Item(
-    name: 'Egg Shells',
-    totalPriceCents: 1499,
-    uid: '7',
-    imageProvider: AssetImage('assets/egg_shells.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Hm, this one's a bit 'shell'-shocked! Imagine where it belongs after its 'cracking' adventure.",
-  ),
-  const Item(
-    name: 'Food Leftover',
-    totalPriceCents: 1499,
-    uid: '8',
-    imageProvider: AssetImage('assets/food_leftover.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Ah, leftovers from a journey! But perhaps a different destination awaits them. Consider their origins.",
-  ),
-  const Item(
-    name: 'Fruit Scraps',
-    totalPriceCents: 1499,
-    uid: '9',
-    imageProvider: AssetImage('assets/fruit_scraps.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Hmm, these scraps may lead to a fruitful destination elsewhere. Ponder their potential.",
-  ),
-  const Item(
-    name: 'Game Console',
-    totalPriceCents: 1499,
-    uid: '10',
-    imageProvider: AssetImage('assets/game_console.png'),
-    garbageType: GarbageType.ewaste,
-    incorrectMessageDescription:
-        "Whoa, a gaming device! But its journey might be to a different bin. Imagine where it 'resets'.",
-  ),
-  const Item(
-    name: 'Keyboard',
-    totalPriceCents: 1499,
-    uid: '11',
-    imageProvider: AssetImage('assets/keyboard.png'),
-    garbageType: GarbageType.ewaste,
-    incorrectMessageDescription:
-        "Oops, seems like this keyboard needs a different key to its journey. Reflect on its functionality.",
-  ),
-  const Item(
-    name: 'Mask',
-    totalPriceCents: 1499,
-    uid: '12',
-    imageProvider: AssetImage('assets/mask.png'),
-    garbageType: GarbageType.sanitary,
-    incorrectMessageDescription:
-        "Ah, a mask! But perhaps a different bin awaits it for a new journey. Consider its protective purpose.",
-  ),
-  const Item(
-    name: 'Mouse',
-    totalPriceCents: 1499,
-    uid: '13',
-    imageProvider: AssetImage('assets/mouse.png'),
-    garbageType: GarbageType.ewaste,
-    incorrectMessageDescription:
-        "Squeak! This mouse's journey might lead it to a different bin. Imagine where it 'clicks'.",
-  ),
-  const Item(
-    name: 'Newspapers',
-    totalPriceCents: 1499,
-    uid: '14',
-    imageProvider: AssetImage('assets/newspaper.png'),
-    garbageType: GarbageType.dry,
-    incorrectMessageDescription:
-        "Hm, this news needs a new destination. Think about where it belongs after being 'read'.",
-  ),
-  const Item(
-    name: 'Plastic Bottle',
-    totalPriceCents: 1499,
-    uid: '15',
-    imageProvider: AssetImage('assets/pastic_bottle.png'),
-    garbageType: GarbageType.dry,
-    incorrectMessageDescription:
-        "Oh, a bottle! But where does it go after quenching its thirst? Imagine its next adventure.",
-  ),
-  const Item(
-    name: 'Broken Phone',
-    totalPriceCents: 1499,
-    uid: '16',
-    imageProvider: AssetImage('assets/phone.png'),
-    garbageType: GarbageType.ewaste,
-    incorrectMessageDescription:
-        "Uh-oh, this phone's journey might need a new 'connection'. Think about where its 'broken' parts should go for a new life",
-  ),
-  const Item(
-    name: 'Sanitary Napkins',
-    totalPriceCents: 1499,
-    uid: '17',
-    imageProvider: AssetImage('assets/sanitary_napkins.png'),
-    garbageType: GarbageType.sanitary,
-    incorrectMessageDescription:
-        "Whoops, this item might need a different destination. Reflect on its hygiene purpose.",
-  ),
-  const Item(
-    name: 'Tampons',
-    totalPriceCents: 1499,
-    uid: '18',
-    imageProvider: AssetImage('assets/tampons.png'),
-    garbageType: GarbageType.sanitary,
-    incorrectMessageDescription:
-        "Hmm, these might need a different bin for their next 'cycle'. Imagine where they belong.",
-  ),
-  const Item(
-    name: 'Tea Bags',
-    totalPriceCents: 1499,
-    uid: '19',
-    imageProvider: AssetImage('assets/tea_bags.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Oops, these bags might need a different brew of a bin. Ponder their compostable potential",
-  )
-];
-
-
 @immutable
 class ExampleDragAndDrop extends StatefulWidget {
-  final String selectedLanguage;
-  ExampleDragAndDrop({required this.selectedLanguage});
-    
-
-  // Constructor with the argument
-
+  const ExampleDragAndDrop({super.key});
 
   @override
-  State<ExampleDragAndDrop> createState() => _ExampleDragAndDropState(selectedLanguage : selectedLanguage);
-
-  Widget build(BuildContext context) {
-    // Check the value of the argument
-    if ( selectedLanguage == "ja-JP") {
-      print('The argument is ja');
-    } else {
-      print('The argument is eng');
-    }
-    // Rest of your widget code
-    return Container(
-      // Your widget content here
-    );
-  }
+  State<ExampleDragAndDrop> createState() => _ExampleDragAndDropState();
 }
-
 
 class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     with TickerProviderStateMixin {
-      final String selectedLanguage;
-  _ExampleDragAndDropState({required this.selectedLanguage});
-  final List<Customer> _people = [
-    Customer(
+  late ConfettiController _topController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // initialize confettiController
+    _topController = ConfettiController(duration: const Duration(seconds: 2));
+  }
+
+  @override
+  void dispose() {
+    // dispose the controller
+    _topController.dispose();
+    super.dispose();
+  }
+
+  bool isCongratsShowing = false;
+  final List<Dustbin> _dustbins = [
+    Dustbin(
       name: '    Wet waste    ',
-      imageProvider: const NetworkImage('https://flutter'
-          '.dev/docs/cookbook/img-files/effects/split-check/Avatar1.jpg'),
       garbageType: GarbageType.wet,
       color: Colors.green,
+      collectibleReward: CollectibleReward.kumo,
+      maxLength: 1, //TODO SAI change this lengths to actual counts
+      mistakes: 0,
+      collectibleType: 'Dog',
+      heroImage:
+          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+      cardImage:
+          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+      cardHeader: 'Kumo',
+      cardSubHeader: 'The Roaming Companion',
+      cardBody:
+          'Kumo, known as the Roaming Companion, trots through the winding streets of the city, his loyal presence a comforting beacon for those in need. With each step, he brings joy and warmth to the hearts of all he encounters, his wagging tail a symbol of unwavering friendship and companionship.',
       icon: const Icon(
         Icons.recycling_rounded,
         color: Colors.white,
         size: 60.0,
       ),
     ),
-    Customer(
+    Dustbin(
       name: '   Dry waste     ',
-      imageProvider: const NetworkImage('https://flutter'
-          '.dev/docs/cookbook/img-files/effects/split-check/Avatar2.jpg'),
       garbageType: GarbageType.dry,
       color: Colors.blue,
+      maxLength: 1,
+      mistakes: 0,
+      collectibleReward: CollectibleReward.zephyr,
+      collectibleType: 'Cheetah',
+      heroImage:
+          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+      cardImage:
+          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+      cardHeader: 'Zephyr',
+      cardSubHeader: 'The Wanderer',
+      cardBody:
+          'Zephyr, the Wanderer, roams majestic landscapes, his enigmatic presence a beacon amidst the horizon. His footsteps weave tales of mystery and wonder through the sprawling wilderness.',
       icon: const Icon(
         Icons.recycling_sharp,
         color: Colors.white,
         size: 60.0,
       ),
     ),
-    Customer(
+    Dustbin(
       name: 'Sanitary waste',
-      imageProvider: const NetworkImage('https://flutter'
-          '.dev/docs/cookbook/img-files/effects/split-check/Avatar3.jpg'),
       garbageType: GarbageType.sanitary,
       color: Colors.red,
+      maxLength: 1,
+      mistakes: 0,
+      collectibleReward: CollectibleReward.fenrir,
+      collectibleType: 'Wolf',
+      heroImage:
+          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+      cardImage:
+          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+      cardHeader: 'Fenrir',
+      cardSubHeader: 'The Silent Stalker',
+      cardBody:
+          'Fenrir, known as the Silent Stalker, prowls through the moonlit night with unmatched grace and stealth. His piercing gaze cuts through the darkness, his primal instincts guiding him through the untamed wilderness. As he hunts beneath the cloak of night, his howl echoes through the silent woods, a haunting melody that strikes fear into the hearts of prey.',
       icon: const Icon(
         Icons.recycling,
         color: Colors.white,
         size: 60.0,
       ),
     ),
-    Customer(
+    Dustbin(
       name: '     E waste       ',
-      imageProvider: const NetworkImage('https://flutter'
-          '.dev/docs/cookbook/img-files/effects/split-check/Avatar3.jpg'),
       garbageType: GarbageType.ewaste,
       color: Colors.grey,
+      maxLength: 1,
+      mistakes: 0,
+      collectibleReward: CollectibleReward.ursula,
+      collectibleType: 'Bear',
+      heroImage:
+          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+      cardImage:
+          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+      cardHeader: 'Ursula',
+      cardSubHeader: 'The Solitary Sentinel',
+      cardBody:
+          'Ursula, known as the Solitary Sentinel, stands tall amidst the dense forest, her formidable presence a testament to the strength and resilience of nature. With a watchful eye and a gentle spirit, she guards the secrets of the wilderness, her majestic form a source of awe and admiration for all who behold her.',
       icon: const Icon(
         Icons.recycling_outlined,
         color: Colors.white,
@@ -315,75 +168,39 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     ),
   ];
 
-  List<ChatMessage> chatMessages = [
-    ChatMessage(text: 'Mom, who is this stunning cheetah', isSender: true),
-    ChatMessage(
-      text:
-           'Honey he is Zephyr. He roams around planets and eats rabbits. You have got it as a card reward for collecting all sanitary garbage correctly.',
-      isSender: false,
-    ),
-    ChatMessage(
-      text: 'WOw mom thats awesome, I dont want to loose him, how do I save him',
-      isSender: true,
-    ),
-    ChatMessage(
-      text: 'Add it to your google wallet using the button below',
-      isSender: false,
-    ),
-  ];
-
-List<ChatMessage> jchatMessages = [
-  ChatMessage(text: 'お母さん、この見事なチーターは誰ですか？', isSender: true),
-  ChatMessage(
-    text:
-        'ハニー、彼はゼファーです。彼は惑星を歩き回り、ウサギを食べます。あなたは全てのごみを正しく集めた報酬としてこれを受け取りました。',
-    isSender: false,
-  ),
-  ChatMessage(
-    text: 'おお、お母さん、それは素晴らしいです。彼を失いたくない。どうやって彼を保存できますか？',
-    isSender: true,
-  ),
-  ChatMessage(
-    text: '下のボタンを使用してGoogleウォレットに追加してください。',
-    isSender: false,
-  ),
-];
-
-
   final GlobalKey _draggableKey = GlobalKey();
-  
-  
 
-
-  void _itemDroppedOnCustomerCart({
+  void _itemDroppedOnDustbin({
     required Item item,
-    required Customer customer,
+    required Dustbin dustbin,
   }) {
     setState(() {
-      customer.items.add(item);
+      dustbin.items.add(item);
       _items.removeWhere((element) => element.uid == item.uid);
+    });
+  }
+
+  void _itemDroppedOnIncorrectDustbin({required Dustbin dustbin}) {
+    print("Made a mistake");
+    setState(() {
+      dustbin.mistakes++;
     });
   }
 
   void _collectibleCollected({
     required Item item,
-    required Customer customer,
+    required Dustbin dustbin,
   }) {
     setState(() {
-      customer.items.add(item);
+      dustbin.items.add(item);
       _items.removeWhere((element) => element.uid == item.uid);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print('lol');
-    print(selectedLanguage);
-    if(selectedLanguage == 'ja-JP') {
-      chatMessages = jchatMessages;
-    }
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F7F7),
+      backgroundColor: Color.fromARGB(255, 198, 233, 192),
       appBar: _buildAppBar(),
       body: _buildContent(),
     );
@@ -400,39 +217,58 @@ List<ChatMessage> jchatMessages = [
               fontWeight: FontWeight.bold,
             ),
       ),
-      backgroundColor: const Color(0xFFF7F7F7),
+      backgroundColor: Color.fromARGB(255, 198, 233, 192),
       elevation: 0,
     );
   }
 
   Widget _buildContent() {
-    return Row(
-      children: [
-        Expanded(
-          flex: 8,
-          child: _buildMenuList(),
+    return Stack(
+      children: <Widget>[
+        Row(
+          children: [
+            Expanded(
+              flex: 18,
+              child: _buildGarbageList(),
+            ),
+            _buildDustbinRow(),
+          ],
         ),
-        Expanded(
-          flex: 2,
-          child: _buildPeopleRow(),
-        ),
+        // Align(
+        //   alignment: Alignment.topCenter,
+        //   child: ConfettiWidget(
+        //     confettiController: _topController,
+        //     blastDirection: pi / 2,
+        //     maxBlastForce: 5,
+        //     minBlastForce: 1,
+        //     emissionFrequency: 0.03,
+
+        //     // 10 paticles will pop-up at a time
+        //     numberOfParticles: 10,
+
+        //     // particles will pop-up
+        //     gravity: 0,
+        //   ),
+        // ),
       ],
     );
   }
 
-  Widget _buildMenuList() {
-    if (_people[0].items.length == 1) {
-      return _buildCongratulationsScreen(_people[0]);
-    } else if (_people[1].items.length == 1) {
-      return _buildCongratulationsScreen(_people[1]);
-    } else if (_people[2].items.length == 1) {
-      return _buildCongratulationsScreen(_people[2]);
-    } else if (_people[3].items.length == 1) {
-      return _buildCongratulationsScreen(_people[3]);
+  Widget _buildGarbageList() {
+    if (_dustbins[0].items.length == _dustbins[0].maxLength) {
+      return _buildCongratulationsScreen(_dustbins[0]);
+    } else if (_dustbins[1].items.length == _dustbins[1].maxLength) {
+      return _buildCongratulationsScreen(_dustbins[1]);
+    } else if (_dustbins[2].items.length == _dustbins[2].maxLength) {
+      return _buildCongratulationsScreen(_dustbins[2]);
+    } else if (_dustbins[3].items.length == _dustbins[3].maxLength) {
+      return _buildCongratulationsScreen(_dustbins[3]);
     }
     if (_items.isEmpty) {
-      return const Text("helo");
+      return const Text("hello");
+      // subwy flow after tha tnext button 
     } else {
+      isCongratsShowing = false;
       return AnimationLimiter(
         child: GridView.count(
           crossAxisCount: 5,
@@ -460,178 +296,220 @@ List<ChatMessage> jchatMessages = [
       );
     }
   }
-Widget _buildCongratulationsScreen(Customer customer) {
-  final now = DateTime.now();
-  return Stack(
-    children: [
-      // Background with sky blue color
-      Container(
-        color: Colors.lightBlue,
-        width: double.infinity,
-        height: double.infinity,
-      ),
-      
-      // Blur filter
-      BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+
+  Widget _buildCongratulationsScreen(Dustbin dustbin) {
+    _topController.play();
+    isCongratsShowing = true;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Left side with local image and collectible cards
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Left side with local image and collectible cards
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(width: 20),
-                    WidgetCircularAnimator(
-                      size: 350,
-                      innerIconsSize: 10,
-                      outerIconsSize: 10,
-                      innerAnimation: Curves.easeInOutBack,
-                      outerAnimation: Curves.easeInOutBack,
-                      innerColor: Colors.deepPurple,
-                      outerColor: Colors.orangeAccent,
-                      innerAnimationSeconds: 5,
-                      outerAnimationSeconds: 5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey[200],
-                        ),
-                        child: Image.asset(
-                          'assets/mom_congrats.png',
-                        ),
-                      ),
-                    ),
-                    Card(
-                  elevation: 50,
-                  shadowColor: Colors.black,
-                  color: Color.fromARGB(255, 190, 184, 59),
-                  child: SizedBox(
-                    width: 300,
-                    height: 500,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/Zephyr.png',
-                            fit: BoxFit.cover,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 250.0,
-                            child: AnimatedTextKit(
-                              animatedTexts: [
-                                ColorizeAnimatedText(
-                                  'Zephyr',
-                                  textStyle: colorizeTextStyle,
-                                  colors: colorizeColors,
-                                ),
-                              ],
-                              isRepeatingAnimation: true,
-                              onTap: () {
-                                print("Tap Event");
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                 Card(
-                  elevation: 50,
-                  shadowColor: Colors.black,
-                  child: SizedBox(
-                    width: 300,
-                    height: 500,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                  children: <Widget>[
-                  for (int i = 0; i < chatMessages.length; i++)
-                    FutureBuilder(
-                      future: Future.delayed(Duration(seconds: i+1)),
-                      builder: (context, snapshot) {
-                        return snapshot.connectionState ==
-                                ConnectionState.done
-                            ? buildChatBubble(chatMessages[i])
-                            : Container(); // Placeholder until the delay is done
-                      },
-                    ),
-                ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
+                //const SizedBox(width: 20),
+                //const AnimatedMomSayingCongratsWidget(),
+                // const SizedBox(width: 200),
+                ChatScreen(),
+                CollectibleCardWidget(
+                    collectibleReward: dustbin.collectibleReward),
+                const SizedBox(height: 100),
               ],
             ),
             // Congratulations message
-                const Text(
-                  'Congratulations! You have won Zephyr the wonder card!',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                // Button to add collectibles to Google Wallet
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    print("Collectible collected");
-                  },
-                  child: Image.asset(
-                    'assets/adde.png',
-                    width: 20.0, // Adjust width as needed
-                    height: 20.0, // Adjust height as needed
-                  ),
-                )
-              ],
+            const Text(
+              'Congratulations! You have won Zephyr the wonder card!',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
-          ),
+            // Button to add collectibles to Google Wallet
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                print("Collectible collected");
+                setState(() {
+                  dustbin.items = [];
+                });
+                //Navigator.of(context).restorablePush(_dialogBuilder);
+                _launchURL(dustbin);
+              },
+              child: SvgPicture.asset(
+                'assets/wallet-eng.svg', // Replace 'assets/your_sample.svg' with your SVG file path
+                width: 250, // Adjust the width as needed
+                height: 50, // Adjust the height as needed
+              ),
+            ),
+          ],
         ),
       ),
-    ],
-  );
-}
-
- Widget buildChatBubble(ChatMessage message) {
-    if (message.isSender) {
-      return BubbleSpecialTwo(
-        text: message.text,
-        isSender: true,
-        color: Color.fromARGB(255, 110, 110, 198),
-        tail: true,
-        sent: true,
-      );
-    } else {
-      return BubbleSpecialOne(
-        text: message.text,
-        isSender: false,
-        color: Color(0xFF1B97F3),
-        textStyle: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
-        ),
-      );
-    }
+    );
   }
 
-  _launchURL() async {
-    final Uri _url = Uri.parse(
-        'https://pay.google.com/gp/v/save/eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdHJhdy1oYXRAZGV2cG9zdGhhY2thdGhvbi5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsImF1ZCI6Imdvb2dsZSIsIm9yaWdpbnMiOltdLCJ0eXAiOiJzYXZldG93YWxsZXQiLCJwYXlsb2FkIjp7ImdlbmVyaWNPYmplY3RzIjpbeyJpZCI6IjMzODgwMDAwMDAwMjIzMjE0MjEubGF0a2Fyc2FpbmF0aF9nbWFpbC5jb20iLCJjbGFzc0lkIjoiMzM4ODAwMDAwMDAyMjMyMTQyMS5jb2RlbGFiX2NsYXNzIiwiZ2VuZXJpY1R5cGUiOiJHRU5FUklDX1RZUEVfVU5TUEVDSUZJRUQiLCJoZXhCYWNrZ3JvdW5kQ29sb3IiOiIjNDI4NWY0IiwibG9nbyI6eyJzb3VyY2VVcmkiOnsidXJpIjoiaHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3dhbGxldC1sYWItdG9vbHMtY29kZWxhYi1hcnRpZmFjdHMtcHVibGljL3Bhc3NfZ29vZ2xlX2xvZ28uanBnIn19LCJjYXJkVGl0bGUiOnsiZGVmYXVsdFZhbHVlIjp7Imxhbmd1YWdlIjoiZW4iLCJ2YWx1ZSI6Ikdvb2dsZSBJL08gJzIyIn19LCJzdWJoZWFkZXIiOnsiZGVmYXVsdFZhbHVlIjp7Imxhbmd1YWdlIjoiZW4iLCJ2YWx1ZSI6IkF0dGVuZGVlIn19LCJoZWFkZXIiOnsiZGVmYXVsdFZhbHVlIjp7Imxhbmd1YWdlIjoiZW4iLCJ2YWx1ZSI6IkFsZXggTWNKYWNvYnMifX0sImJhcmNvZGUiOnsidHlwZSI6IlFSX0NPREUiLCJ2YWx1ZSI6IjMzODgwMDAwMDAwMjIzMjE0MjEubGF0a2Fyc2FpbmF0aF9nbWFpbC5jb20ifSwiaGVyb0ltYWdlIjp7InNvdXJjZVVyaSI6eyJ1cmkiOiJodHRwczovL3N0b3JhZ2UuZ29vZ2xlYXBpcy5jb20vd2FsbGV0LWxhYi10b29scy1jb2RlbGFiLWFydGlmYWN0cy1wdWJsaWMvZ29vZ2xlLWlvLWhlcm8tZGVtby1vbmx5LmpwZyJ9fSwidGV4dE1vZHVsZXNEYXRhIjpbeyJoZWFkZXIiOiJQT0lOVFMiLCJib2R5IjoiMTIzNCIsImlkIjoicG9pbnRzIn0seyJoZWFkZXIiOiJDT05UQUNUUyIsImJvZHkiOiIyMCIsImlkIjoiY29udGFjdHMifV19XX0sImlhdCI6MTcwODE4MDA3Nn0.dpGtIcYN3k4o4nnQjakFADw0zWKK6i_sUgLZ-wWwgfwrc9eNTLtklIq9oqtriRViqXBiXeadXtYoNznECFbev_bi8jfKnc918jH9qH_j3y3uNm3kXZtfjYDGe1ApvSu73HZWpWxTVybTaoVbPzzl3wMSeinOfSU5b2VDLkE49-tpj3ZEeKNPhAhIQHIjiIW2vAFcsr9XlTGNH6A6ZIeQIJrx5X4fSnOXUlKDJC-_qAIbmwoINXEOnY_5LcwEimCjafkJTaXBqqAiv3FnhZ94z5nTbfo9WDZJrQX9pvekTZ73sIvAhFH8FUat029Vc2aZC3oaxwoVMqW6Bd3-NuXNSA');
+  Route<Object?> _dialogBuilder(BuildContext context, Object? arguments) {
+    return DialogRoute<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: 200,
+              width: 200,
+              child: AppBarcodeScannerWidget.defaultStyle(
+                resultCallback: (String code) {
+                  print("Scanned text is " + code);
+                  setState(() {});
+                },
+                openManual: true,
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _launchURL(Dustbin dustbin) async {
+    final jwt = JWT(
+      {
+        'iss': 'straw-hat@devposthackathon.iam.gserviceaccount.com',
+        'aud': 'google',
+        'origins': [],
+        'typ': 'savetowallet',
+        'payload': {
+          'genericObjects': [
+            {
+              'id': '3388000000022321421.123123123123123229',
+              'classId': '3388000000022321421.Starsefdsfs75',
+              'genericType': 'GENERIC_TYPE_UNSPECIFIED',
+              'hexBackgroundColor': '#4285f4',
+              'logo': {
+                'sourceUri': {
+                  'uri':
+                      'https://res.cloudinary.com/parc-india/image/upload/v1642349740/Screen_Shot_2022-01-16_at_9.44.45_PM_hgazpj.png'
+                }
+              },
+              'cardTitle': {
+                'defaultValue': {'language': 'en', 'value': 'Strawhat labs'}
+              },
+              'subheader': {
+                'defaultValue': {
+                  'language': 'en',
+                  'value': dustbin.cardSubHeader
+                }
+              },
+              'header': {
+                'defaultValue': {'language': 'en', 'value': dustbin.cardHeader}
+              },
+              "textModulesData": [
+                {
+                  "id": "points",
+                  "header": "POINTS",
+                  "body":
+                      "${(100 - dustbin.mistakes * 10) > 10 ? 100 - dustbin.mistakes * 10 : 10}",
+                },
+                {
+                  "id": "type",
+                  "header": "type",
+                  "body": dustbin.collectibleType,
+                },
+                {
+                  "id": "cardinfo",
+                  "header": '${dustbin.cardHeader} ${dustbin.cardSubHeader}',
+                  "body": dustbin.cardBody,
+                }
+              ],
+              'heroImage': {
+                'sourceUri': {
+                  'uri': dustbin.heroImage,
+                }
+              },
+              'imageModulesData': [
+                {
+                  'mainImage': {
+                    'kind': 'sdfd',
+                    'sourceUri': {
+                      'uri': dustbin.cardImage,
+                    },
+                    'contentDescription': {
+                      'kind': 'dwqeqw',
+                      'defaultValue': {
+                        'kind': 'dwqeqw1',
+                        'language': 'en-US',
+                        'value': 'COngasegfsgds'
+                      }
+                    }
+                  },
+                  'id': '123123'
+                }
+              ]
+            }
+          ]
+        }
+      },
+      issuer: getIssuerForPass,
+    );
+
+    String pem = getPrivateKey();
+
+    final pkey = RSAPrivateKey(pem);
+
+    String token = jwt.sign(pkey, algorithm: JWTAlgorithm.RS256);
+
+    final Uri _url = Uri.parse('https://pay.google.com/gp/v/save/$token');
+    // print(uri)
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  String get getIssuerForPass =>
+      'straw-hat@devposthackathon.iam.gserviceaccount.com';
+
+  String getPrivateKey() {
+    const pem = '''-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5PHHiqp78VQEt
+FUrs7WUT8NQmNwGWgot5+cHFmd9zQFP9qxtnFbKJL7ZmybiKbeH+vIGsa+sFpOwB
+S3nfvnkyurJfzIoPujY348FmqtCBkUIN+HhW39NIe2hhwN9U6wtWtbRxDaPDXAia
+h64j9yWwlO/BAJmMXHtcrKsxPUMWaLtKqqCJpck0t956Nb7SngMoq3Fvwvgc6LMk
+iA3Nn5x/CbbrkRxsiDEJMbFTNLAGIhYhugM/Unjv9vMKnrvF2fEgYuBp26i9hSbH
+V1xBbcdUuEumL0MZqiWs0KKeezDeJg1oUDXf0T85RzuhA3/CZw/eQCCG+mKNg9F2
+37Vfop9JAgMBAAECggEAJ10f+oI1rPvHdzQqKvU74KPyAXj4/moZh786nWpYoN5P
+uv1solhrC1o3UdqWO9ykBQU8LU71r8pfWNsYOCL7EHu6Qj9uK29v7CqbQ90S2CXt
+OpjNwfBoruOCyBs7mokkbLXKdafnYDGjpmsk54Gy4baUyJf/CWPx1zzeWGVjZ1RX
+ix+qv1tuznBUQyt3VkUHMAzEi5j1qe5MwYUK9Wfj+k0tA4/Dxi70Vqr0CEhcXmAY
+8h3Vat8XIovLwGeiKQhqyI22wU+okg8fHwtmPTKtVNmFGBUzVpfLQog62XGOmwxm
+ROwfIA4P0K3MX4dCp5AUE0gVnADrBm/+QWnVtOBAcQKBgQDpRLiDlplcnjZcOa0O
+lzFMC9cqvSOZtCXd6ynFARM0xkFWib2h7E2x04cEkn2AJ8o7WvsubxMhgaNul7N/
+iT3VSDGOHv6IGHfizIeQRNAO/OQbH1jaQICWmejBWkLE+rD9Ua0tASY4eRcsgh62
+sKbK9AjBSCANS0d94/K5lMRXzQKBgQDLSXnKLUJ2hC1O8KJgYzIWjFnYEh+0PBgz
+38MLFXiLyGwv6i9AYR0O9dvjRKa0g8THH13zXnmAK9KxpT2TBbGG02LMh4Psicd8
+Xw4fnKXC8Ib4OzXbdgvpgVCXulU0wEZeKtlxdSeLosQVtrIDHx6ODGvj4p901OuQ
+QyqdXycxbQKBgCLf2U4jB86nAK2NGehihkY+Ru7m1Bm4qyigbeA8Juju8vnDIgzB
+TWRWoYr3c7fjOwLguUjZ5lxOC2cPWxCoLgxi/LWowJkMP3Ay79mL0CdNe7TqXNhU
+aGUboYa2veDBMhDNUzy1PUeYIvTOh1T82BLjpSNwawpRxOB3YeSI70nJAoGBAL8v
+xz8B+fQEs6f+YHhOUpkqPoUb5n1X11tSItmVw92TDUyy7uWZb/7V84t20WIMW1D6
+ix2LyLFmha1VPue6/w9SVyUMfmJD4j1yGJJafPstw4JKDYjtKJ7fY7CPKfuGqad+
+nSo7iImm9suFGz4cUlw+Cmo0hMsYRMNUqAuBphaxAoGAOq6IpyYQI0ivSluXwpFV
+F8aiZsH6AVadAEMqPl3ue2khYFJHHFFnZb6lm2N3rCwlLct2sJSBu5vYRbhld7qy
+EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
+9U+gS/j67Cz3C3R1aXe/yss=
+-----END PRIVATE KEY-----''';
+    return pem;
   }
 
   Widget _buildMenuItem({
@@ -652,19 +530,30 @@ Widget _buildCongratulationsScreen(Customer customer) {
     );
   }
 
-  Widget _buildPeopleRow() {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 2.5,
-        vertical: 5,
-      ),
-      child: Column(
-        children: _people.map(_buildPersonWithDropZone).toList(),
-      ),
-    );
+  Widget _buildDustbinRow() {
+    if (!isCongratsShowing) {
+      return Expanded(
+        flex: 3,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 1,
+                vertical: 2,
+              ),
+              child: Column(
+                children: _dustbins.map(_buildDustbinWithDropZone).toList(),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Stack();
+    }
   }
 
-  Widget _buildPersonWithDropZone(Customer customer) {
+  Widget _buildDustbinWithDropZone(Dustbin dustbin) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -672,52 +561,71 @@ Widget _buildCongratulationsScreen(Customer customer) {
         ),
         child: DragTarget<Item>(
           builder: (context, candidateItems, rejectedItems) {
-            return CustomerCart(
-              hasItems: customer.items.isNotEmpty,
+            return DustbinCart(
+              hasItems: dustbin.items.isNotEmpty,
               highlighted: candidateItems.isNotEmpty,
-              customer: customer,
+              dustbin: dustbin,
             );
           },
           onAccept: (item) {
-            if (item.garbageType == customer.garbageType) {
-              _itemDroppedOnCustomerCart(
+            if (item.garbageType == dustbin.garbageType) {
+              _itemDroppedOnDustbin(
                 item: item,
-                customer: customer,
+                dustbin: dustbin,
               );
             } else {
+              _itemDroppedOnIncorrectDustbin(dustbin: dustbin);
               showModalBottomSheet<Item>(
-                context: context,
-                builder: (BuildContext context) {
-                  return SizedBox(
-                      height: 200,
-                      // child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 20,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Image(
-                              image: AssetImage('assets/alum_can.png'),
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              item.incorrectMessageDescription,
-                            ),
-                            ElevatedButton(
-                              child: const Text('Thanks'),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ],
-                        ),
-                        // ),
-                      ));
-                },
-              );
-            }
+  context: context,
+  builder: (BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 132, 219, 146), // Set your desired green color
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)), // Set the top border radius
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), // Set the shadow color
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // Set the shadow offset
+          ),
+        ],
+      ),
+      child: SizedBox(
+        height: 200,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 50,
+            vertical: 5,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Image(
+                image: AssetImage('assets/alum_can.png'),
+                fit: BoxFit.cover,
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    item.incorrectMessageDescription,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                child: const Text('Try again'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  },
+);
+ }
           },
         ),
       ),
@@ -725,15 +633,623 @@ Widget _buildCongratulationsScreen(Customer customer) {
   }
 }
 
-class CustomerCart extends StatelessWidget {
-  const CustomerCart({
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  AppTheme theme = LightTheme();
+  bool isDarkTheme = false;
+  final currentUser = ChatUser(
+    id: '1',
+    name: 'Emi',
+    profilePhoto: Data.profileImage,
+  );
+  final _chatController = ChatController(
+    initialMessageList: Data.messageList,
+    scrollController: ScrollController(),
+    chatUsers: [
+      ChatUser(
+        id: '2',
+        name: 'Simform',
+        profilePhoto: Data.profileImage,
+      ),
+      ChatUser(
+        id: '3',
+        name: 'Jhon',
+        profilePhoto: Data.profileImage,
+      ),
+      ChatUser(
+        id: '4',
+        name: 'Mike',
+        profilePhoto: Data.profileImage,
+      ),
+      ChatUser(
+        id: '5',
+        name: 'Rich',
+        profilePhoto: Data.profileImage,
+      ),
+    ],
+  );
+
+  void _showHideTypingIndicator() {
+    _chatController.setTypingIndicator = !_chatController.showTypingIndicator;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 400,
+      height: 300,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ChatView(
+          currentUser: currentUser,
+          chatController: _chatController,
+          onSendTap: _onSendTap,
+          featureActiveConfig: const FeatureActiveConfig(
+            lastSeenAgoBuilderVisibility: true,
+            receiptsBuilderVisibility: true,
+          ),
+          chatViewState: ChatViewState.hasMessages,
+          chatViewStateConfig: ChatViewStateConfiguration(
+            loadingWidgetConfig: ChatViewStateWidgetConfiguration(
+              loadingIndicatorColor: theme.outgoingChatBubbleColor,
+            ),
+            onReloadButtonTap: () {},
+          ),
+          typeIndicatorConfig: TypeIndicatorConfiguration(
+            flashingCircleBrightColor: theme.flashingCircleBrightColor,
+            flashingCircleDarkColor: theme.flashingCircleDarkColor,
+          ),
+          appBar: ChatViewAppBar(
+            elevation: theme.elevation,
+            backGroundColor: theme.appBarColor,
+            profilePicture: Data.profileImage,
+            backArrowColor: theme.backArrowColor,
+            chatTitle: "Mom",
+            chatTitleTextStyle: TextStyle(
+              color: theme.appBarTitleTextStyle,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              letterSpacing: 0.25,
+            ),
+            userStatus: "online",
+            userStatusTextStyle: const TextStyle(color: Colors.grey),
+            actions: [
+              // IconButton(
+              //   onPressed: _onThemeIconTap,
+              //   icon: Icon(
+              //     isDarkTheme
+              //         ? Icons.brightness_4_outlined
+              //         : Icons.dark_mode_outlined,
+              //     color: theme.themeIconColor,
+              //   ),
+              // ),
+              // IconButton(
+              //   tooltip: 'Toggle TypingIndicator',
+              //   onPressed: _showHideTypingIndicator,
+              //   icon: Icon(
+              //     Icons.keyboard,
+              //     color: theme.themeIconColor,
+              //   ),
+              // ),
+            ],
+          ),
+          chatBackgroundConfig: ChatBackgroundConfiguration(
+            messageTimeIconColor: theme.messageTimeIconColor,
+            messageTimeTextStyle: TextStyle(color: theme.messageTimeTextColor),
+            defaultGroupSeparatorConfig: DefaultGroupSeparatorConfiguration(
+              textStyle: TextStyle(
+                color: theme.chatHeaderColor,
+                fontSize: 17,
+              ),
+            ),
+            backgroundColor: theme.backgroundColor,
+          ),
+          sendMessageConfig: SendMessageConfiguration(
+            replyMessageColor: theme.replyMessageColor,
+            defaultSendButtonColor: theme.sendButtonColor,
+            replyDialogColor: theme.replyDialogColor,
+            replyTitleColor: theme.replyTitleColor,
+            textFieldBackgroundColor: theme.textFieldBackgroundColor,
+            closeIconColor: theme.closeIconColor,
+            textFieldConfig: TextFieldConfiguration(
+              onMessageTyping: (status) {
+                /// Do with status
+                debugPrint(status.toString());
+              },
+              compositionThresholdTime: const Duration(seconds: 1),
+              textStyle: TextStyle(color: theme.textFieldTextColor),
+            ),
+          ),
+          chatBubbleConfig: ChatBubbleConfiguration(
+            outgoingChatBubbleConfig: ChatBubble(
+              linkPreviewConfig: LinkPreviewConfiguration(
+                backgroundColor: theme.linkPreviewOutgoingChatColor,
+                bodyStyle: theme.outgoingChatLinkBodyStyle,
+                titleStyle: theme.outgoingChatLinkTitleStyle,
+              ),
+              receiptsWidgetConfig: const ReceiptsWidgetConfig(
+                  showReceiptsIn: ShowReceiptsIn.all),
+              color: theme.outgoingChatBubbleColor,
+            ),
+            inComingChatBubbleConfig: ChatBubble(
+              linkPreviewConfig: LinkPreviewConfiguration(
+                linkStyle: TextStyle(
+                  color: theme.inComingChatBubbleTextColor,
+                  decoration: TextDecoration.underline,
+                ),
+                backgroundColor: theme.linkPreviewIncomingChatColor,
+                bodyStyle: theme.incomingChatLinkBodyStyle,
+                titleStyle: theme.incomingChatLinkTitleStyle,
+              ),
+              textStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
+              onMessageRead: (message) {
+                /// send your message reciepts to the other client
+                debugPrint('Message Read');
+              },
+              senderNameTextStyle:
+                  TextStyle(color: theme.inComingChatBubbleTextColor),
+              color: theme.inComingChatBubbleColor,
+            ),
+          ),
+          replyPopupConfig: ReplyPopupConfiguration(
+            backgroundColor: theme.replyPopupColor,
+            buttonTextStyle: TextStyle(color: theme.replyPopupButtonColor),
+            topBorderColor: theme.replyPopupTopBorderColor,
+          ),
+          reactionPopupConfig: ReactionPopupConfiguration(
+            shadow: BoxShadow(
+              color: isDarkTheme ? Colors.black54 : Colors.grey.shade400,
+              blurRadius: 20,
+            ),
+            backgroundColor: theme.reactionPopupColor,
+          ),
+          messageConfig: MessageConfiguration(
+            messageReactionConfig: MessageReactionConfiguration(
+              backgroundColor: theme.messageReactionBackGroundColor,
+              borderColor: theme.messageReactionBackGroundColor,
+              reactedUserCountTextStyle:
+                  TextStyle(color: theme.inComingChatBubbleTextColor),
+              reactionCountTextStyle:
+                  TextStyle(color: theme.inComingChatBubbleTextColor),
+              reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
+                backgroundColor: theme.backgroundColor,
+                reactedUserTextStyle: TextStyle(
+                  color: theme.inComingChatBubbleTextColor,
+                ),
+                reactionWidgetDecoration: BoxDecoration(
+                  color: theme.inComingChatBubbleColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          isDarkTheme ? Colors.black12 : Colors.grey.shade200,
+                      offset: const Offset(0, 20),
+                      blurRadius: 40,
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            imageMessageConfig: ImageMessageConfiguration(
+              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+              shareIconConfig: ShareIconConfiguration(
+                defaultIconBackgroundColor: theme.shareIconBackgroundColor,
+                defaultIconColor: theme.shareIconColor,
+              ),
+            ),
+          ),
+          profileCircleConfig: const ProfileCircleConfiguration(
+            profileImageUrl: Data.profileImage,
+          ),
+          repliedMessageConfig: RepliedMessageConfiguration(
+            backgroundColor: theme.repliedMessageColor,
+            verticalBarColor: theme.verticalBarColor,
+            repliedMsgAutoScrollConfig: RepliedMsgAutoScrollConfig(
+              enableHighlightRepliedMsg: true,
+              highlightColor: Colors.pinkAccent.shade100,
+              highlightScale: 1.1,
+            ),
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.25,
+            ),
+            replyTitleTextStyle: TextStyle(color: theme.repliedTitleTextColor),
+          ),
+          swipeToReplyConfig: SwipeToReplyConfiguration(
+            replyIconColor: theme.swipeToReplyIconColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onSendTap(
+    String message,
+    ReplyMessage replyMessage,
+    MessageType messageType,
+  ) {
+    final id = int.parse(Data.messageList.last.id) + 1;
+    _chatController.addMessage(
+      Message(
+        id: id.toString(),
+        createdAt: DateTime.now(),
+        message: message,
+        sendBy: currentUser.id,
+        replyMessage: replyMessage,
+        messageType: messageType,
+      ),
+    );
+    Future.delayed(const Duration(milliseconds: 300), () {
+      _chatController.initialMessageList.last.setStatus =
+          MessageStatus.undelivered;
+    });
+    Future.delayed(const Duration(seconds: 1), () {
+      _chatController.initialMessageList.last.setStatus = MessageStatus.read;
+    });
+  }
+
+  void _onThemeIconTap() {
+    setState(() {
+      if (isDarkTheme) {
+        theme = LightTheme();
+        isDarkTheme = false;
+      } else {
+        theme = DarkTheme();
+        isDarkTheme = true;
+      }
+    });
+  }
+}
+
+class AnimatedMomSayingCongratsWidget extends StatelessWidget {
+  const AnimatedMomSayingCongratsWidget({
     super.key,
-    required this.customer,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return WidgetCircularAnimator(
+      size: 350,
+      innerIconsSize: 10,
+      outerIconsSize: 10,
+      innerAnimation: Curves.easeInOutBack,
+      outerAnimation: Curves.easeInOutBack,
+      innerColor: Colors.deepPurple,
+      outerColor: Colors.orangeAccent,
+      innerAnimationSeconds: 5,
+      outerAnimationSeconds: 5,
+      child: Container(
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Colors.grey[200]),
+        child: Image.asset(
+          'assets/mom_congrats.png',
+        ),
+      ),
+    );
+  }
+}
+
+// class ChatWidget extends StatelessWidget {
+//   const ChatWidget({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       elevation: 50,
+//       shadowColor: Colors.black,
+// child: SizedBox(
+//   width: 300,
+//   height: 500,
+//   child: Padding(
+//     padding: const EdgeInsets.all(20.0),
+//     child: ///code here
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+class AnimatedBorderPainter extends CustomPainter {
+  final Animation<double> _animation;
+  final PathType _pathType;
+  final double _strokeWidth;
+  final Color _strokeColor;
+  final Radius _radius;
+  final int _startingPercentage;
+  final AnimationDirection _animationDirection;
+
+  AnimatedBorderPainter({
+    required animation,
+    PathType pathType = PathType.rect,
+    double strokeWidth = 10.0,
+    Color strokeColor = const Color.fromARGB(255, 37, 117, 157),
+    Radius radius = const Radius.circular(4.0),
+    int startingPercentage = 0,
+    AnimationDirection animationDirection = AnimationDirection.clockwise,
+  })  : assert(strokeWidth > 0, 'strokeWidth must be greater than 0.'),
+        assert(startingPercentage >= 0 && startingPercentage <= 100,
+            'startingPercentage must lie between 0 and 100.'),
+        _animation = animation,
+        _pathType = pathType,
+        _strokeWidth = strokeWidth,
+        _strokeColor = strokeColor,
+        _radius = radius,
+        _startingPercentage = startingPercentage,
+        _animationDirection = animationDirection,
+        super(repaint: animation);
+
+  late Path _originalPath;
+  late Paint _paint;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final animationPercent = _animation.value;
+
+    // Construct original path once when animation starts
+    if (animationPercent == 0.0) {
+      _originalPath = _createOriginalPath(size);
+      _paint = Paint()
+        ..strokeWidth = _strokeWidth
+        ..style = PaintingStyle.stroke
+        ..color = _strokeColor;
+    }
+
+    final currentPath = _createAnimatedPath(
+      _originalPath,
+      animationPercent,
+    );
+
+    canvas.drawPath(currentPath, _paint);
+  }
+
+  @override
+  bool shouldRepaint(AnimatedBorderPainter oldDelegate) => true;
+
+  Path _createOriginalPath(Size size) {
+    switch (_pathType) {
+      case PathType.rect:
+        return _createOriginalPathRect(size);
+      case PathType.rRect:
+        return _createOriginalPathRRect(size);
+      case PathType.circle:
+        return _createOriginalPathCircle(size);
+    }
+  }
+
+  Path _createOriginalPathRect(Size size) {
+    Path originalPath = Path()
+      ..addRect(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+      )
+      ..lineTo(0, -(_strokeWidth / 2));
+    if (_startingPercentage > 0 && _startingPercentage < 100) {
+      return _createPathForStartingPercentage(
+          originalPath, PathType.rect, size);
+    }
+    return originalPath;
+  }
+
+  Path _createOriginalPathRRect(Size size) {
+    Path originalPath = Path()
+      ..addRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(0, 0, size.width, size.height),
+          _radius,
+        ),
+      );
+    if (_startingPercentage > 0 && _startingPercentage < 100) {
+      return _createPathForStartingPercentage(originalPath, PathType.rRect);
+    }
+    return originalPath;
+  }
+
+  Path _createOriginalPathCircle(Size size) {
+    Path originalPath = Path()
+      ..addOval(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+      );
+    if (_startingPercentage > 0 && _startingPercentage < 100) {
+      return _createPathForStartingPercentage(originalPath, PathType.circle);
+    }
+    return originalPath;
+  }
+
+  Path _createPathForStartingPercentage(Path originalPath, PathType pathType,
+      [Size? size]) {
+    // Assumes that original path consists of one subpath only
+    final pathMetrics = originalPath.computeMetrics().first;
+    final pathCutoffPoint = (_startingPercentage / 100) * pathMetrics.length;
+    final firstSubPath = pathMetrics.extractPath(0, pathCutoffPoint);
+    final secondSubPath =
+        pathMetrics.extractPath(pathCutoffPoint, pathMetrics.length);
+    if (pathType == PathType.rect) {
+      Path path = Path()
+        ..addPath(secondSubPath, Offset.zero)
+        ..lineTo(0, -(_strokeWidth / 2))
+        ..addPath(firstSubPath, Offset.zero);
+      switch (_startingPercentage) {
+        case 25:
+          path.lineTo(size!.width + _strokeWidth / 2, 0);
+          break;
+        case 50:
+          path.lineTo(size!.width - _strokeWidth / 2, size.height);
+          break;
+        case 75:
+          path.lineTo(0, size!.height + _strokeWidth / 2);
+          break;
+        default:
+      }
+      return path;
+    }
+    return Path()
+      ..addPath(secondSubPath, Offset.zero)
+      ..addPath(firstSubPath, Offset.zero);
+  }
+
+  Path _createAnimatedPath(
+    Path originalPath,
+    double animationPercent,
+  ) {
+    // ComputeMetrics can only be iterated once!
+    final totalLength = originalPath
+        .computeMetrics()
+        .fold(0.0, (double prev, PathMetric metric) => prev + metric.length);
+
+    final currentLength = totalLength * animationPercent;
+
+    return _extractPathUntilLength(originalPath, currentLength);
+  }
+
+  Path _extractPathUntilLength(
+    Path originalPath,
+    double length,
+  ) {
+    var currentLength = 0.0;
+
+    final path = Path();
+
+    var metricsIterator = _animationDirection == AnimationDirection.clockwise
+        ? originalPath.computeMetrics().iterator
+        : originalPath.computeMetrics().toList().reversed.iterator;
+
+    while (metricsIterator.moveNext()) {
+      var metric = metricsIterator.current;
+
+      var nextLength = currentLength + metric.length;
+
+      final isLastSegment = nextLength > length;
+      if (isLastSegment) {
+        final remainingLength = length - currentLength;
+        final pathSegment = _animationDirection == AnimationDirection.clockwise
+            ? metric.extractPath(0.0, remainingLength)
+            : metric.extractPath(
+                metric.length - remainingLength, metric.length);
+
+        path.addPath(pathSegment, Offset.zero);
+        break;
+      } else {
+        // There might be a more efficient way of extracting an entire path
+        final pathSegment = metric.extractPath(0.0, metric.length);
+        path.addPath(pathSegment, Offset.zero);
+      }
+
+      currentLength = nextLength;
+    }
+
+    return path;
+  }
+}
+
+enum PathType {
+  rect,
+  rRect,
+  circle,
+}
+
+enum AnimationDirection {
+  clockwise,
+  counterclockwise,
+}
+
+class CollectibleCardWidget extends StatefulWidget {
+  final CollectibleReward collectibleReward;
+
+  CollectibleCardWidget({Key? key, required this.collectibleReward})
+      : super(key: key);
+
+  @override
+  State<CollectibleCardWidget> createState() => _CollectibleCardWidgetState();
+}
+
+class _CollectibleCardWidgetState extends State<CollectibleCardWidget>
+    with TickerProviderStateMixin {
+  late AnimationController _controller1;
+  @override
+  void initState() {
+    super.initState();
+    _controller1 = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 2000,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller1.dispose();
+    super.dispose();
+  }
+
+  void _startAnimation1() {
+    _controller1.reset();
+    _controller1.animateTo(1.0, curve: Curves.easeInOut);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      foregroundPainter: AnimatedBorderPainter(
+        animation: _controller1,
+        strokeColor: Colors.black54,
+        pathType: PathType.rRect,
+        animationDirection: AnimationDirection.clockwise,
+        startingPercentage: 40,
+        radius: const Radius.circular(12),
+      ),
+      child: SizedBox(
+        width: 350,
+        height: 500,
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Center(
+            child: GestureDetector(
+              onTap: _startAnimation1,
+              child: Container(
+                  width: 350,
+                  height: 500,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image:
+                            getCardImageFromCardType(widget.collectibleReward),
+                        fit: BoxFit.fill,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromARGB(170, 19, 31, 194),
+                          blurRadius: 28,
+                        )
+                      ])),
+            ),
+          ),
+          // ),
+        ),
+      ),
+    );
+  }
+
+  AssetImage getCardImageFromCardType(collectibleReward) =>
+      AssetImage('assets/$collectibleReward.png');
+}
+
+class DustbinCart extends StatelessWidget {
+  const DustbinCart({
+    super.key,
+    required this.dustbin,
     this.highlighted = false,
     this.hasItems = false,
   });
 
-  final Customer customer;
+  final Dustbin dustbin;
   final bool highlighted;
   final bool hasItems;
 
@@ -748,7 +1264,7 @@ class CustomerCart extends StatelessWidget {
         borderRadius: BorderRadius.circular(22),
         color: highlighted
             ? const Color.fromARGB(184, 223, 133, 233)
-            : customer.color,
+            : dustbin.color,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 12,
@@ -761,12 +1277,12 @@ class CustomerCart extends StatelessWidget {
                 child: SizedBox(
                   width: 75,
                   height: 75,
-                  child: customer.icon,
+                  child: dustbin.icon,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                customer.name,
+                dustbin.name,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: textColor,
                       fontWeight:
@@ -780,18 +1296,9 @@ class CustomerCart extends StatelessWidget {
                 maintainSize: true,
                 child: Column(
                   children: [
-                    // const SizedBox(height: 4),
-                    // Text(
-                    //   customer.formattedTotalItemPrice,
-                    //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    //         color: textColor,
-                    //         fontSize: 16,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    // ),
                     const SizedBox(height: 4),
                     Text(
-                      '${customer.items.length} item${customer.items.length != 1 ? 's' : ''}',
+                      '${dustbin.items.length} item${dustbin.items.length != 1 ? 's' : ''}',
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             color: textColor,
                             fontSize: 12,
@@ -937,36 +1444,41 @@ class Item {
       '\$${(totalPriceCents / 100.0).toStringAsFixed(2)}';
 }
 
-class Customer {
-  Customer({
+class Dustbin {
+  Dustbin({
     required this.name,
-    required this.imageProvider,
     required this.garbageType,
     required this.color,
     required this.icon,
+    required this.collectibleReward,
+    required this.maxLength,
+    required this.mistakes,
+    required this.collectibleType,
+    required this.heroImage,
+    required this.cardImage,
+    required this.cardHeader,
+    required this.cardSubHeader,
+    required this.cardBody,
     List<Item>? items,
   }) : items = items ?? [];
 
   final String name;
-  final ImageProvider imageProvider;
   List<Item> items;
   final GarbageType garbageType;
   final Color color;
   final Icon icon;
-
+  final CollectibleReward collectibleReward;
+  final int maxLength;
+  final String collectibleType;
+  final String heroImage;
+  final String cardImage;
+  final String cardHeader;
+  final String cardSubHeader;
+  final String cardBody;
+  int mistakes;
   String get formattedTotalItemPrice {
     final totalPriceCents =
         items.fold<int>(0, (prev, item) => prev + item.totalPriceCents);
     return '\$${(totalPriceCents / 100.0).toStringAsFixed(2)}';
   }
-}
-
-class ChatMessage {
-  final String text;
-  final bool isSender;
-
-  ChatMessage({
-    required this.text,
-    required this.isSender,
-  });
 }

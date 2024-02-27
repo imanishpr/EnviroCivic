@@ -1,0 +1,13 @@
+1. If item is dropped incorrectly, then showing a popup from bottom. Need that popup to look good.
+@Sainath Need Good image for left size. Right side X icon
+2. Congratulations Screen image change for left side. Sainath
+3. Original card Needs border animation twice.
+4. Chat messages should come in animation. 
+5. Dustbin should not be visible in congratulations
+6. Add to wallet -> localization buttons -> 2 SVG based on config
+7. Code rename + refactor before submission.
+8. All cards collected screen building.
+9. Transition to subway screen.
+10. Cycle image for EMI
+11. QR for Subway
+12.  Scan and display QR content and allow
