@@ -265,8 +265,9 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       return _buildCongratulationsScreen(_dustbins[3]);
     }
     if (_items.isEmpty) {
-      return const Text("hello");
-      // subwy flow after tha tnext button 
+      Navigator.pop(context);
+     return const Text("hello");
+      
     } else {
       isCongratsShowing = false;
       return AnimationLimiter(

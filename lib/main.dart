@@ -31,6 +31,7 @@ class MyScreen extends StatefulWidget {
 class _MyScreenState extends State<MyScreen>
     with SingleTickerProviderStateMixin {
   bool shouldRenderFirstWidget = true;
+  bool shouldRenderSubwayWidget = false;
   bool isSpeaking = true;
   int currentIndex = 0;
   int rotator = 0;
@@ -94,6 +95,44 @@ class _MyScreenState extends State<MyScreen>
     ["assets/gHelp.png"],
     // Add more lists if needed
   ];
+
+  List<List<String>> imagePathsListSubWay = [
+    [
+      "/intro/intro1.jpg",
+      "/intro/intro2.jpg",
+      "/intro/intro3.jpg",
+      "/intro/intro4.jpg",
+      "/intro/intro5.jpg",
+      "/intro/intro6.jpg",
+      "/intro/intro7.jpg",
+      "/intro/intro8.jpg"
+    ],
+    [
+      "/drive/d.jpg",
+      "/drive/d2.jpg",
+      "/drive/d3.jpg",
+      "/drive/d4.jpg",
+      "/drive/d5.jpg"
+    ],
+    ["/mom/mom1.jpg"],
+    ["/mom/tmom1.jpg", "/mom/tmom2.jpg", "/mom/tmom1.jpg", "/mom/tmom2.jpg"],
+    ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
+    ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
+    ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
+    ["assets/gHelp.png"],
+    // Add more lists if needed
+  ];
+    List<String> subWaytexts = [
+    "subway is goo",
+    "go in subway",
+    "yey",
+    "lol",
+    "Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?",
+    "Of course, Mom. I'll take care of it right away.",
+    "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
+    "click the the next button and start playing..",
+  ];
+  
   late AnimationController animationController;
   late Timer timer;
 
@@ -153,8 +192,8 @@ class _MyScreenState extends State<MyScreen>
               Align(
                 alignment: Alignment.center,
                 child: Swiper(
-                  itemWidth: 200,
-                  itemHeight: 200,
+                  itemWidth: 300,
+                  itemHeight: 300,
                   loop: true,
                   autoplay: true,
                   duration: 2000,
@@ -162,12 +201,12 @@ class _MyScreenState extends State<MyScreen>
                   itemCount: 6,
                   itemBuilder: (context, index) {
                     return Container(
-                      width: 200,
-                      height: 200,
+                      width: 300,
+                      height: 300,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(imagePaths[index])),
-                        borderRadius: BorderRadius.circular(100),
+                        borderRadius: BorderRadius.circular(300),
                       ),
                     );
                   },
@@ -305,18 +344,22 @@ class _MyScreenState extends State<MyScreen>
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
     });
-    // Check if all images have been processed
-    if (currentIndex == imagePaths.length - 1) {
+  if (currentIndex == imagePaths.length - 1 && !shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 5));
-      // Show congratulatory page
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacement(
+      // Navigate to ExampleDragAndDrop and wait for it to return
+      await Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) =>
-              ExampleDragAndDrop(),
-              //ExampleDragAndDrop(selectedLanguage: selectedLanguage),
+          builder: (context) => ExampleDragAndDrop(),
         ),
       );
+      currentIndex = 0;
+      rotator = 0;
+      shouldRenderSubwayWidget = true;
+      imagePathsList = imagePathsListSubWay;
+      texts = subWaytexts;
+      // This code will be executed after ExampleDragAndDrop is popped
+      // You can render a widget or perform any action here
+      print("Returned from ExampleDragAndDrop");
     }
   }
 
@@ -326,7 +369,7 @@ class _MyScreenState extends State<MyScreen>
       insetPadding: EdgeInsets.all(0),
       contentPadding: EdgeInsets.zero,
       title: Text('Urban Eco-Adventures'),
-      backgroundColor: const Color.fromARGB(255, 118, 224, 122),
+      backgroundColor: Colors.indigo.shade50,
       content: Container(
         width: double.maxFinite, // Set width to take up the full screen width
         child: Column(
@@ -337,27 +380,26 @@ class _MyScreenState extends State<MyScreen>
             Align(
               alignment: Alignment.center,
               child: Swiper(
-              itemWidth: 200,
-              itemHeight: 200,
-              loop: true,
-              autoplay: true,
-              duration: 2000,
-              scrollDirection: Axis.horizontal,
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(imagePaths[index]),
-                    ),
-                  
-                  ),
-                );
-              },
-              layout: SwiperLayout.STACK,
-            ),
+                  itemWidth: 250,
+                  itemHeight: 250,
+                  loop: true,
+                  autoplay: true,
+                  duration: 2000,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 300,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(imagePaths[index])),
+                        borderRadius: BorderRadius.circular(70),
+                      ),
+                    );
+                  },
+                  layout: SwiperLayout.STACK,
+                ),
             ),
             SizedBox(height: 30.0),
             Text(
@@ -454,10 +496,12 @@ class _MyScreenState extends State<MyScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (shouldRenderFirstWidget) {
+    if (shouldRenderFirstWidget && !shouldRenderSubwayWidget) {
       return firstWidget();
-    } else {
+    } else if(!shouldRenderFirstWidget && !shouldRenderSubwayWidget) {
       return secondWidget();
+    } else {
+      return subWayWidget();
     }
 }
 
@@ -467,6 +511,106 @@ class _MyScreenState extends State<MyScreen>
         children: [
           Image.asset(
             imagePathsList[currentIndex][rotator],
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          // Button and description strip
+          Positioned(
+            bottom: 10,
+            left: 10,
+            right: 10,
+            child: Container(
+              height: 110,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 118, 224, 122).withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.transparent,
+                      blurRadius: 3,
+                      spreadRadius: 5,
+                      offset: Offset(1, 1)),
+                  BoxShadow(
+                      color:Colors.transparent,
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                      offset: Offset(5, 5)),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Description strip (90% width)
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9 -
+                        40, // Adjusting width considering padding
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          texts[currentIndex],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: GoogleFonts.caveatBrush().fontFamily,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Next button (10% width)
+                  Visibility(
+                    visible:
+                        !isSpeaking, // Show the button only when not speaking
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          print(currentIndex);
+
+                          setState(() {
+                            isSpeaking = false;
+                            _speak(texts[++currentIndex]);
+                            rotator = 0;
+                          });
+                        },
+                        child: Icon(
+        Icons.arrow_forward,
+        color: Colors.white,
+        size: 70.0, // Adjust the size as needed
+      ),
+                        style: ElevatedButton.styleFrom(
+                          primary:Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+                          
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+
+  Widget subWayWidget() {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Image.asset(
+            imagePathsListSubWay[currentIndex][rotator],
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
