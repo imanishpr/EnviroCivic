@@ -67,7 +67,7 @@ class _MyScreenState extends State<MyScreen>
     "相変わらず忙しいけれど、私には対処できることばかりよ。ところで、あなたの部屋はちょっと散らかっているわね。夕食前に片付けてくれるかしら？",
     "もちろん、お母さん。すぐに片付けます。",
     "エミーが散らかった部屋に足を踏み入れると、彼女を襲うフラストレーションの波が押し寄せます。机に散らばる紙、床に不規則に積まれた服 – まるで混沌です。",
-    "click the the next button and start playing..",
+    "次のボタンをクリックしてプレイを開始してください。",
   ];
   List<List<String>> imagePathsList = [
     [
@@ -92,45 +92,31 @@ class _MyScreenState extends State<MyScreen>
     ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
     ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
     ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
-    ["assets/gHelp.png"],
+    ["/assets/gHelp.png"],
     // Add more lists if needed
   ];
 
   List<List<String>> imagePathsListSubWay = [
     [
-      "/intro/intro1.jpg",
-      "/intro/intro2.jpg",
-      "/intro/intro3.jpg",
-      "/intro/intro4.jpg",
-      "/intro/intro5.jpg",
-      "/intro/intro6.jpg",
-      "/intro/intro7.jpg",
-      "/intro/intro8.jpg"
+      "/subway/coffee/coffee1.jpeg",
+      "/subway/coffee/coffee2.jpeg",
+      "/subway/coffee/coffee3.jpeg",
+      "/subway/coffee/coffee4.jpeg",
     ],
     [
-      "/drive/d.jpg",
-      "/drive/d2.jpg",
-      "/drive/d3.jpg",
-      "/drive/d4.jpg",
-      "/drive/d5.jpg"
+      "/subway/friend/friend.jpeg",
+      "/subway/friend/friend2.jpeg",
+      "/subway/friend/friend3.jpeg",
     ],
-    ["/mom/mom1.jpg"],
-    ["/mom/tmom1.jpg", "/mom/tmom2.jpg", "/mom/tmom1.jpg", "/mom/tmom2.jpg"],
-    ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
-    ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
-    ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
-    ["assets/gHelp.png"],
+    ["/subway/friend/waitfortrain.jpeg","/subway/friend/waitfortrain2.jpeg","/subway/friend/waitfortrain3.jpeg","/subway/friend/waitfortrain4.jpeg",],
+    ["/subway/police/policeman.jpeg", "/subway/police/ticketbuy.png",]
     // Add more lists if needed
   ];
     List<String> subWaytexts = [
-    "subway is goo",
-    "go in subway",
-    "yey",
-    "lol",
-    "Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?",
-    "Of course, Mom. I'll take care of it right away.",
-    "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
-    "click the the next button and start playing..",
+    "having coffee",
+    "talk to friend",
+    "wait for friend",
+    "show your ticket",
   ];
   
   late AnimationController animationController;
@@ -856,3 +842,177 @@ class LanguageOptionWidget extends StatelessWidget {
     );
   }
 }
+
+List<Item> _itemsBackup = [
+  const Item(
+    name: 'Aluminium can',
+    totalPriceCents: 1299,
+    uid: '1',
+    imageProvider: AssetImage('assets/alum_can.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription:
+        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  ),
+  const Item(
+    name: 'Band-Aids',
+    totalPriceCents: 799,
+    uid: '2',
+    imageProvider: AssetImage('assets/band_aids.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription:
+        "Uh-oh! Seems like this item is more suited for a specific bin. Consider its material and its journey after disposal.",
+  ),
+  const Item(
+    name: 'Burger',
+    totalPriceCents: 1499,
+    uid: '3',
+    imageProvider: AssetImage('assets/burger.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Oops, looks like this burger's journey has been cut short! Consider where its remaining 'half' belongs",
+  ),
+  const Item(
+    name: 'Cardboard Box',
+    totalPriceCents: 1499,
+    uid: '4',
+    imageProvider: AssetImage('assets/cardboard_box.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription:
+        "Hmm, this one might need a sturdier home. Think about where you'd put it for a new life.",
+  ),
+  const Item(
+    name: 'Charging Cable',
+    totalPriceCents: 1499,
+    uid: '5',
+    imageProvider: AssetImage('assets/charging_cable.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription:
+        "Whoopsie! This item needs a charge of its own, but in a different bin. Consider its technological nature.",
+  ),
+  const Item(
+    name: 'Disposable Cup',
+    totalPriceCents: 1499,
+    uid: '6',
+    imageProvider: AssetImage('assets/disposable_cup.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription:
+        "Oh dear, this cup's journey might be a bit different than you think. Reflect on its composition.",
+  ),
+  const Item(
+    name: 'Egg Shells',
+    totalPriceCents: 1499,
+    uid: '7',
+    imageProvider: AssetImage('assets/egg_shells.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Hm, this one's a bit 'shell'-shocked! Imagine where it belongs after its 'cracking' adventure.",
+  ),
+  const Item(
+    name: 'Food Leftover',
+    totalPriceCents: 1499,
+    uid: '8',
+    imageProvider: AssetImage('assets/food_leftover.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Ah, leftovers from a journey! But perhaps a different destination awaits them. Consider their origins.",
+  ),
+  const Item(
+    name: 'Fruit Scraps',
+    totalPriceCents: 1499,
+    uid: '9',
+    imageProvider: AssetImage('assets/fruit_scraps.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Hmm, these scraps may lead to a fruitful destination elsewhere. Ponder their potential.",
+  ),
+  const Item(
+    name: 'Game Console',
+    totalPriceCents: 1499,
+    uid: '10',
+    imageProvider: AssetImage('assets/game_console.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription:
+        "Whoa, a gaming device! But its journey might be to a different bin. Imagine where it 'resets'.",
+  ),
+  const Item(
+    name: 'Keyboard',
+    totalPriceCents: 1499,
+    uid: '11',
+    imageProvider: AssetImage('assets/keyboard.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription:
+        "Oops, seems like this keyboard needs a different key to its journey. Reflect on its functionality.",
+  ),
+  const Item(
+    name: 'Mask',
+    totalPriceCents: 1499,
+    uid: '12',
+    imageProvider: AssetImage('assets/mask.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription:
+        "Ah, a mask! But perhaps a different bin awaits it for a new journey. Consider its protective purpose.",
+  ),
+  const Item(
+    name: 'Mouse',
+    totalPriceCents: 1499,
+    uid: '13',
+    imageProvider: AssetImage('assets/mouse.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription:
+        "Squeak! This mouse's journey might lead it to a different bin. Imagine where it 'clicks'.",
+  ),
+  const Item(
+    name: 'Newspapers',
+    totalPriceCents: 1499,
+    uid: '14',
+    imageProvider: AssetImage('assets/newspaper.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription:
+        "Hm, this news needs a new destination. Think about where it belongs after being 'read'.",
+  ),
+  const Item(
+    name: 'Plastic Bottle',
+    totalPriceCents: 1499,
+    uid: '15',
+    imageProvider: AssetImage('assets/pastic_bottle.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription:
+        "Oh, a bottle! But where does it go after quenching its thirst? Imagine its next adventure.",
+  ),
+  const Item(
+    name: 'Broken Phone',
+    totalPriceCents: 1499,
+    uid: '16',
+    imageProvider: AssetImage('assets/phone.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription:
+        "Uh-oh, this phone's journey might need a new 'connection'. Think about where its 'broken' parts should go for a new life",
+  ),
+  const Item(
+    name: 'Sanitary Napkins',
+    totalPriceCents: 1499,
+    uid: '17',
+    imageProvider: AssetImage('assets/sanitary_napkins.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription:
+        "Whoops, this item might need a different destination. Reflect on its hygiene purpose.",
+  ),
+  const Item(
+    name: 'Tampons',
+    totalPriceCents: 1499,
+    uid: '18',
+    imageProvider: AssetImage('assets/tampons.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription:
+        "Hmm, these might need a different bin for their next 'cycle'. Imagine where they belong.",
+  ),
+  const Item(
+    name: 'Tea Bags',
+    totalPriceCents: 1499,
+    uid: '19',
+    imageProvider: AssetImage('assets/tea_bags.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Oops, these bags might need a different brew of a bin. Ponder their compostable potential",
+  )
+];

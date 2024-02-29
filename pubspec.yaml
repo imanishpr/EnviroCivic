@@ -136,6 +136,19 @@ flutter:
     - assets/collectible_card_0.png
     - assets/gHelp.png
     - assets/wallet-eng.svg
+    - assets/subway/coffee/coffee1.jpeg
+    - assets/subway/coffee/coffee2.jpeg
+    - assets/subway/coffee/coffee3.jpeg
+    - assets/subway/coffee/coffee4.jpeg
+    - assets/subway/friend/friend.jpeg
+    - assets/subway/friend/friend2.jpeg
+    - assets/subway/friend/friend3.jpeg
+    - assets/subway/friend/waitfortrain.jpeg
+    - assets/subway/friend/waitfortrain2.jpeg
+    - assets/subway/friend/waitfortrain3.jpeg
+    - assets/subway/friend/waitfortrain4.jpeg
+    - assets/subway/police/policeman.jpeg
+    - assets/subway/police/ticketbuy.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
