@@ -9,6 +9,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:garbage_sorting/animate.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'garbageCollect.dart';
 
@@ -116,7 +118,7 @@ class _MyScreenState extends State<MyScreen>
       "/subway/friend/waitfortrain4.jpeg",
     ],
     [
-     "/subway/police/ticketbuy.png",
+      "/subway/police/ticketbuy.png",
     ],
     [
       "/subway/police/policeman.jpeg",
@@ -189,7 +191,8 @@ class _MyScreenState extends State<MyScreen>
     );
   }
 
-    Route<Object?> _addSubwayPassDialogBuilder(BuildContext context, Object? arguments) {
+  Route<Object?> _addSubwayPassDialogBuilder(
+      BuildContext context, Object? arguments) {
     return DialogRoute<void>(
       context: context,
       builder: (BuildContext context) {
@@ -198,9 +201,9 @@ class _MyScreenState extends State<MyScreen>
           content: SingleChildScrollView(
             child: ElevatedButton(
               onPressed: () {
-                print("Collectible collected");
+                print("Adding qr to wallet");
                 //Navigator.of(context).restorablePush(_dialogBuilder);
-                //_launchURL(dustbin);
+                _launchURL();
               },
               child: SvgPicture.asset(
                 'assets/wallet-eng.svg', // Replace 'assets/your_sample.svg' with your SVG file path
@@ -417,17 +420,18 @@ class _MyScreenState extends State<MyScreen>
       // You can render a widget or perform any action here
       print("Returned from ExampleDragAndDrop");
     }
-    if (currentIndex == imagePathsListSubWay.length - 1 && shouldRenderSubwayWidget) {
+    if (currentIndex == imagePathsListSubWay.length - 1 &&
+        shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 2));
       print("Returned from scan");
       Navigator.of(context).restorablePush(_dialogBuilder);
     }
-    if (currentIndex == imagePathsListSubWay.length - 2 && shouldRenderSubwayWidget) {
+    if (currentIndex == imagePathsListSubWay.length - 2 &&
+        shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 2));
       print("Returned from scan");
       Navigator.of(context).restorablePush(_addSubwayPassDialogBuilder);
     }
-
   }
 
   Widget firstWidget() {
@@ -770,6 +774,90 @@ class _MyScreenState extends State<MyScreen>
     flutterTts.stop();
     super.dispose();
   }
+}
+
+Future<void> _launchURL() async {
+  final jwt = JWT(
+    {
+      'iss': 'straw-hat@devposthackathon.iam.gserviceaccount.com',
+      'aud': 'google',
+      'origins': [],
+      'typ': 'savetowallet',
+      'payload': {
+        'genericObjects': [
+          {
+            'id': '3388000000022321421.123123123123121',
+            'classId': '3388000000022321421.Starsefdsfs77',
+            'genericType': 'GENERIC_TYPE_UNSPECIFIED',
+            'hexBackgroundColor': '#4285f4',
+            'logo': {
+              'sourceUri': {
+                'uri':
+                    'https://res.cloudinary.com/parc-india/image/upload/v1642349740/Screen_Shot_2022-01-16_at_9.44.45_PM_hgazpj.png'
+              }
+            },
+            'cardTitle': {
+              'defaultValue': {'language': 'en', 'value': 'Straw hat labs'}
+            },
+            'subheader': {
+              'defaultValue': {'language': 'en', 'value': 'Entire day'}
+            },
+            'header': {
+              'defaultValue': {'language': 'en', 'value': 'Subway pass'}
+            }
+          }
+        ]
+      }
+    },
+    issuer: getIssuerForPass,
+  );
+
+  String pem = getPrivateKey();
+
+  final pkey = RSAPrivateKey(pem);
+
+  String token = jwt.sign(pkey, algorithm: JWTAlgorithm.RS256);
+
+  final Uri _url = Uri.parse('https://pay.google.com/gp/v/save/$token');
+  // print(uri)
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
+  }
+}
+
+String get getIssuerForPass =>
+    'straw-hat@devposthackathon.iam.gserviceaccount.com';
+
+String getPrivateKey() {
+  const pem = '''-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5PHHiqp78VQEt
+FUrs7WUT8NQmNwGWgot5+cHFmd9zQFP9qxtnFbKJL7ZmybiKbeH+vIGsa+sFpOwB
+S3nfvnkyurJfzIoPujY348FmqtCBkUIN+HhW39NIe2hhwN9U6wtWtbRxDaPDXAia
+h64j9yWwlO/BAJmMXHtcrKsxPUMWaLtKqqCJpck0t956Nb7SngMoq3Fvwvgc6LMk
+iA3Nn5x/CbbrkRxsiDEJMbFTNLAGIhYhugM/Unjv9vMKnrvF2fEgYuBp26i9hSbH
+V1xBbcdUuEumL0MZqiWs0KKeezDeJg1oUDXf0T85RzuhA3/CZw/eQCCG+mKNg9F2
+37Vfop9JAgMBAAECggEAJ10f+oI1rPvHdzQqKvU74KPyAXj4/moZh786nWpYoN5P
+uv1solhrC1o3UdqWO9ykBQU8LU71r8pfWNsYOCL7EHu6Qj9uK29v7CqbQ90S2CXt
+OpjNwfBoruOCyBs7mokkbLXKdafnYDGjpmsk54Gy4baUyJf/CWPx1zzeWGVjZ1RX
+ix+qv1tuznBUQyt3VkUHMAzEi5j1qe5MwYUK9Wfj+k0tA4/Dxi70Vqr0CEhcXmAY
+8h3Vat8XIovLwGeiKQhqyI22wU+okg8fHwtmPTKtVNmFGBUzVpfLQog62XGOmwxm
+ROwfIA4P0K3MX4dCp5AUE0gVnADrBm/+QWnVtOBAcQKBgQDpRLiDlplcnjZcOa0O
+lzFMC9cqvSOZtCXd6ynFARM0xkFWib2h7E2x04cEkn2AJ8o7WvsubxMhgaNul7N/
+iT3VSDGOHv6IGHfizIeQRNAO/OQbH1jaQICWmejBWkLE+rD9Ua0tASY4eRcsgh62
+sKbK9AjBSCANS0d94/K5lMRXzQKBgQDLSXnKLUJ2hC1O8KJgYzIWjFnYEh+0PBgz
+38MLFXiLyGwv6i9AYR0O9dvjRKa0g8THH13zXnmAK9KxpT2TBbGG02LMh4Psicd8
+Xw4fnKXC8Ib4OzXbdgvpgVCXulU0wEZeKtlxdSeLosQVtrIDHx6ODGvj4p901OuQ
+QyqdXycxbQKBgCLf2U4jB86nAK2NGehihkY+Ru7m1Bm4qyigbeA8Juju8vnDIgzB
+TWRWoYr3c7fjOwLguUjZ5lxOC2cPWxCoLgxi/LWowJkMP3Ay79mL0CdNe7TqXNhU
+aGUboYa2veDBMhDNUzy1PUeYIvTOh1T82BLjpSNwawpRxOB3YeSI70nJAoGBAL8v
+xz8B+fQEs6f+YHhOUpkqPoUb5n1X11tSItmVw92TDUyy7uWZb/7V84t20WIMW1D6
+ix2LyLFmha1VPue6/w9SVyUMfmJD4j1yGJJafPstw4JKDYjtKJ7fY7CPKfuGqad+
+nSo7iImm9suFGz4cUlw+Cmo0hMsYRMNUqAuBphaxAoGAOq6IpyYQI0ivSluXwpFV
+F8aiZsH6AVadAEMqPl3ue2khYFJHHFFnZb6lm2N3rCwlLct2sJSBu5vYRbhld7qy
+EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
+9U+gS/j67Cz3C3R1aXe/yss=
+-----END PRIVATE KEY-----''';
+  return pem;
 }
 
 class CongratulatoryPage extends StatelessWidget {
