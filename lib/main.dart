@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:garbage_sorting/animate.dart';
 import 'dart:async';
@@ -45,8 +46,7 @@ class _MyScreenState extends State<MyScreen>
     "assets/image4.jpg",
     "assets/image4.jpg",
     "assets/image4.jpg",
-    "assets/image4.jpg",
-    "assets/gHelp.png",
+    "assets/image4.jpg"
   ];
 
   List<String> texts = [
@@ -92,7 +92,7 @@ class _MyScreenState extends State<MyScreen>
     ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
     ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
     ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
-    ["/assets/gHelp.png"],
+    ["/assets/ghelp.png"]
     // Add more lists if needed
   ];
 
@@ -108,17 +108,25 @@ class _MyScreenState extends State<MyScreen>
       "/subway/friend/friend2.jpeg",
       "/subway/friend/friend3.jpeg",
     ],
-    ["/subway/friend/waitfortrain.jpeg","/subway/friend/waitfortrain2.jpeg","/subway/friend/waitfortrain3.jpeg","/subway/friend/waitfortrain4.jpeg",],
-    ["/subway/police/policeman.jpeg", "/subway/police/ticketbuy.png",]
+    [
+      "/subway/friend/waitfortrain.jpeg",
+      "/subway/friend/waitfortrain2.jpeg",
+      "/subway/friend/waitfortrain3.jpeg",
+      "/subway/friend/waitfortrain4.jpeg",
+      "/subway/police/ticketbuy.png",
+    ],
+    [
+      "/subway/police/policeman.jpeg",
+    ]
     // Add more lists if needed
   ];
-    List<String> subWaytexts = [
+  List<String> subWaytexts = [
     "having coffee",
     "talk to friend",
     "wait for friend",
     "show your ticket",
   ];
-  
+
   late AnimationController animationController;
   late Timer timer;
 
@@ -143,6 +151,38 @@ class _MyScreenState extends State<MyScreen>
     setState(() {
       isSpeaking = false; // Set isSpeaking to false after the delay
     });
+  }
+
+  Route<Object?> _dialogBuilder(BuildContext context, Object? arguments) {
+    return DialogRoute<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: 200,
+              width: 200,
+              child: AppBarcodeScannerWidget.defaultStyle(
+                resultCallback: (String code) {
+                  print("Scanned text is " + code);
+                  setState(() {});
+                },
+                openManual: true,
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _startImageRotation() async {
@@ -326,11 +366,12 @@ class _MyScreenState extends State<MyScreen>
     await flutterTts.setPitch(0.95);
     await flutterTts.setSpeechRate(2);
     await flutterTts.speak(text);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 0));
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
     });
-  if (currentIndex == imagePaths.length - 1 && !shouldRenderSubwayWidget) {
+    print("hello im running");
+    if (currentIndex == imagePaths.length - 1 && !shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 5));
       // Navigate to ExampleDragAndDrop and wait for it to return
       await Navigator.of(context).push(
@@ -347,11 +388,15 @@ class _MyScreenState extends State<MyScreen>
       // You can render a widget or perform any action here
       print("Returned from ExampleDragAndDrop");
     }
+    if (currentIndex == imagePathsList.length - 1 && shouldRenderSubwayWidget) {
+      await Future.delayed(Duration(seconds: 2));
+      print("Returned from scan");
+      Navigator.of(context).restorablePush(_dialogBuilder);
+    }
   }
 
-
   Widget firstWidget() {
-        return AlertDialog(
+    return AlertDialog(
       insetPadding: EdgeInsets.all(0),
       contentPadding: EdgeInsets.zero,
       title: Text('Urban Eco-Adventures'),
@@ -366,26 +411,26 @@ class _MyScreenState extends State<MyScreen>
             Align(
               alignment: Alignment.center,
               child: Swiper(
-                  itemWidth: 250,
-                  itemHeight: 250,
-                  loop: true,
-                  autoplay: true,
-                  duration: 2000,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 6,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(imagePaths[index])),
-                        borderRadius: BorderRadius.circular(70),
-                      ),
-                    );
-                  },
-                  layout: SwiperLayout.STACK,
-                ),
+                itemWidth: 250,
+                itemHeight: 250,
+                loop: true,
+                autoplay: true,
+                duration: 2000,
+                scrollDirection: Axis.horizontal,
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image:
+                          DecorationImage(image: AssetImage(imagePaths[index])),
+                      borderRadius: BorderRadius.circular(70),
+                    ),
+                  );
+                },
+                layout: SwiperLayout.STACK,
+              ),
             ),
             SizedBox(height: 30.0),
             Text(
@@ -397,12 +442,12 @@ class _MyScreenState extends State<MyScreen>
             ),
             SizedBox(height: 30.0),
             const AvatarStack(
-            avatars: [
-              'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-              'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-              'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-            ],
-          ),
+              avatars: [
+                'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+                'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+                'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+              ],
+            ),
             SizedBox(height: 60.0),
             Text(
               'Language Settings / 言語の設定',
@@ -414,13 +459,13 @@ class _MyScreenState extends State<MyScreen>
             SizedBox(height: 8.0),
             GestureDetector(
               onTap: () {
-                  shouldRenderFirstWidget = false;
-                  setState(() {
-                    selectedLanguage = "en-US";
-                    isSpeaking = true;
-                    _speak(texts[currentIndex]);
-                    _startImageRotation();
-                  });
+                shouldRenderFirstWidget = false;
+                setState(() {
+                  selectedLanguage = "en-US";
+                  isSpeaking = true;
+                  _speak(texts[currentIndex]);
+                  _startImageRotation();
+                });
               },
               child: LanguageOptionWidget(
                 label: 'English',
@@ -430,11 +475,11 @@ class _MyScreenState extends State<MyScreen>
             GestureDetector(
               onTap: () {
                 shouldRenderFirstWidget = false;
-                 selectedLanguage = "ja-JP";
-                    isSpeaking = true;
-                    texts = jTexts;
-                    _speak(texts[currentIndex]);
-                    _startImageRotation();
+                selectedLanguage = "ja-JP";
+                isSpeaking = true;
+                texts = jTexts;
+                _speak(texts[currentIndex]);
+                _startImageRotation();
               },
               child: LanguageOptionWidget(
                 label: '日本語',
@@ -484,12 +529,12 @@ class _MyScreenState extends State<MyScreen>
   Widget build(BuildContext context) {
     if (shouldRenderFirstWidget && !shouldRenderSubwayWidget) {
       return firstWidget();
-    } else if(!shouldRenderFirstWidget && !shouldRenderSubwayWidget) {
+    } else if (!shouldRenderFirstWidget && !shouldRenderSubwayWidget) {
       return secondWidget();
     } else {
       return subWayWidget();
     }
-}
+  }
 
   Widget secondWidget() {
     return Scaffold(
@@ -519,7 +564,7 @@ class _MyScreenState extends State<MyScreen>
                       spreadRadius: 5,
                       offset: Offset(1, 1)),
                   BoxShadow(
-                      color:Colors.transparent,
+                      color: Colors.transparent,
                       blurRadius: 5,
                       spreadRadius: 1,
                       offset: Offset(5, 5)),
@@ -565,13 +610,13 @@ class _MyScreenState extends State<MyScreen>
                           });
                         },
                         child: Icon(
-        Icons.arrow_forward,
-        color: Colors.white,
-        size: 70.0, // Adjust the size as needed
-      ),
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: 70.0, // Adjust the size as needed
+                        ),
                         style: ElevatedButton.styleFrom(
-                          primary:Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
-                          
+                          primary: Color.fromARGB(255, 118, 224, 122)
+                              .withOpacity(0.4),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
@@ -587,9 +632,6 @@ class _MyScreenState extends State<MyScreen>
       ),
     );
   }
-
-
-
 
   Widget subWayWidget() {
     return Scaffold(
@@ -619,7 +661,7 @@ class _MyScreenState extends State<MyScreen>
                       spreadRadius: 5,
                       offset: Offset(1, 1)),
                   BoxShadow(
-                      color:Colors.transparent,
+                      color: Colors.transparent,
                       blurRadius: 5,
                       spreadRadius: 1,
                       offset: Offset(5, 5)),
@@ -665,13 +707,13 @@ class _MyScreenState extends State<MyScreen>
                           });
                         },
                         child: Icon(
-        Icons.arrow_forward,
-        color: Colors.white,
-        size: 70.0, // Adjust the size as needed
-      ),
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: 70.0, // Adjust the size as needed
+                        ),
                         style: ElevatedButton.styleFrom(
-                          primary:Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
-                          
+                          primary: Color.fromARGB(255, 118, 224, 122)
+                              .withOpacity(0.4),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
