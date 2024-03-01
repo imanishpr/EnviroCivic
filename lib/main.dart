@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
@@ -92,7 +93,7 @@ class _MyScreenState extends State<MyScreen>
     ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
     ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
     ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
-    ["/assets/ghelp.png"]
+    ["/angry/angry1.jpg"]
     // Add more lists if needed
   ];
 
@@ -113,17 +114,20 @@ class _MyScreenState extends State<MyScreen>
       "/subway/friend/waitfortrain2.jpeg",
       "/subway/friend/waitfortrain3.jpeg",
       "/subway/friend/waitfortrain4.jpeg",
-      "/subway/police/ticketbuy.png",
+    ],
+    [
+     "/subway/police/ticketbuy.png",
     ],
     [
       "/subway/police/policeman.jpeg",
-    ]
+    ],
     // Add more lists if needed
   ];
   List<String> subWaytexts = [
     "having coffee",
     "talk to friend",
     "wait for friend",
+    "emie bought ticket",
     "show your ticket",
   ];
 
@@ -180,6 +184,31 @@ class _MyScreenState extends State<MyScreen>
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+    Route<Object?> _addSubwayPassDialogBuilder(BuildContext context, Object? arguments) {
+    return DialogRoute<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ElevatedButton(
+              onPressed: () {
+                print("Collectible collected");
+                //Navigator.of(context).restorablePush(_dialogBuilder);
+                //_launchURL(dustbin);
+              },
+              child: SvgPicture.asset(
+                'assets/wallet-eng.svg', // Replace 'assets/your_sample.svg' with your SVG file path
+                width: 250, // Adjust the width as needed
+                height: 50, // Adjust the height as needed
+              ),
+            ),
+          ),
         );
       },
     );
@@ -388,11 +417,17 @@ class _MyScreenState extends State<MyScreen>
       // You can render a widget or perform any action here
       print("Returned from ExampleDragAndDrop");
     }
-    if (currentIndex == imagePathsList.length - 1 && shouldRenderSubwayWidget) {
+    if (currentIndex == imagePathsListSubWay.length - 1 && shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 2));
       print("Returned from scan");
       Navigator.of(context).restorablePush(_dialogBuilder);
     }
+    if (currentIndex == imagePathsListSubWay.length - 2 && shouldRenderSubwayWidget) {
+      await Future.delayed(Duration(seconds: 2));
+      print("Returned from scan");
+      Navigator.of(context).restorablePush(_addSubwayPassDialogBuilder);
+    }
+
   }
 
   Widget firstWidget() {
@@ -699,10 +734,10 @@ class _MyScreenState extends State<MyScreen>
                       child: ElevatedButton(
                         onPressed: () async {
                           print(currentIndex);
-
                           setState(() {
                             isSpeaking = false;
-                            _speak(texts[++currentIndex]);
+                            _speak(subWaytexts[currentIndex]);
+                            currentIndex++;
                             rotator = 0;
                           });
                         },
