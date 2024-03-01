@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -234,162 +234,162 @@ class _MyScreenState extends State<MyScreen>
     });
   }
 
-  Future<void> _showLanguageDialog() async {
-    return showDialog<void>(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          insetPadding: EdgeInsets.all(0),
-          title: Text('Urban Eco-Adventures'),
-          elevation: 50.0,
-          backgroundColor: Color.fromARGB(255, 132, 219, 146),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Swiper(
-                  itemWidth: 300,
-                  itemHeight: 300,
-                  loop: true,
-                  autoplay: true,
-                  duration: 2000,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 6,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(imagePaths[index])),
-                        borderRadius: BorderRadius.circular(300),
-                      ),
-                    );
-                  },
-                  layout: SwiperLayout.STACK,
-                ),
-              ),
-              // Image container (replace with your image widget)
-              // Text description followed by images (replace with your content)
-              Text(
-                'Welcome to the Game!\nPlay and Win to Collect Your Collectible Card!',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              SizedBox(height: 8.0), // Adjust spacing as needed
-              const AvatarStack(
-                avatars: [
-                  'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-                  'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-                  'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-                ],
-              ),
-              SizedBox(height: 16.0), // Adjust spacing as needed
+  // Future<void> _showLanguageDialog() async {
+  //   return showDialog<void>(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         insetPadding: EdgeInsets.all(0),
+  //         title: Text('Urban Eco-Adventures'),
+  //         elevation: 50.0,
+  //         backgroundColor: Color.fromARGB(255, 132, 219, 146),
+  //         content: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Align(
+  //               alignment: Alignment.center,
+  //               child: Swiper(
+  //                 itemWidth: 300,
+  //                 itemHeight: 300,
+  //                 loop: true,
+  //                 autoplay: true,
+  //                 duration: 2000,
+  //                 scrollDirection: Axis.horizontal,
+  //                 itemCount: 6,
+  //                 itemBuilder: (context, index) {
+  //                   return Container(
+  //                     width: 300,
+  //                     height: 300,
+  //                     decoration: BoxDecoration(
+  //                       image: DecorationImage(
+  //                           image: AssetImage(imagePaths[index])),
+  //                       borderRadius: BorderRadius.circular(300),
+  //                     ),
+  //                   );
+  //                 },
+  //                 layout: SwiperLayout.STACK,
+  //               ),
+  //             ),
+  //             // Image container (replace with your image widget)
+  //             // Text description followed by images (replace with your content)
+  //             Text(
+  //               'Welcome to the Game!\nPlay and Win to Collect Your Collectible Card!',
+  //               style: TextStyle(
+  //                   fontSize: 16.0,
+  //                   fontFamily: GoogleFonts.poppins().fontFamily),
+  //             ),
+  //             SizedBox(height: 8.0), // Adjust spacing as needed
+  //             const AvatarStack(
+  //               avatars: [
+  //                 'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+  //                 'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+  //                 'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+  //               ],
+  //             ),
+  //             SizedBox(height: 16.0), // Adjust spacing as needed
 
-              Text(
-                'Language Settings / 言語の設定',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontFamily: GoogleFonts.poppins().fontFamily),
-              ),
-              SizedBox(height: 8.0), // Adjust spacing as needed
-              // Language selection
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedLanguage = "en-US";
-                    isSpeaking = true;
-                    _speak(texts[currentIndex]);
-                    _startImageRotation();
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: Color.fromARGB(255, 132, 219, 146),
-                    border: Border.all(color: Colors.green, width: 2.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.green.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Material(
-                    elevation: 4.0,
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'English',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
-                          color: Color.fromARGB(255, 132, 219, 146),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+  //             Text(
+  //               'Language Settings / 言語の設定',
+  //               style: TextStyle(
+  //                   fontSize: 16.0,
+  //                   fontFamily: GoogleFonts.poppins().fontFamily),
+  //             ),
+  //             SizedBox(height: 8.0), // Adjust spacing as needed
+  //             // Language selection
+  //             GestureDetector(
+  //               onTap: () {
+  //                 setState(() {
+  //                   selectedLanguage = "en-US";
+  //                   isSpeaking = true;
+  //                   _speak(texts[currentIndex]);
+  //                   _startImageRotation();
+  //                 });
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(8.0),
+  //                   color: Color.fromARGB(255, 132, 219, 146),
+  //                   border: Border.all(color: Colors.green, width: 2.0),
+  //                   boxShadow: [
+  //                     BoxShadow(
+  //                       color: Colors.green.withOpacity(0.5),
+  //                       spreadRadius: 2,
+  //                       blurRadius: 4,
+  //                       offset: Offset(0, 3),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 child: Material(
+  //                   elevation: 4.0,
+  //                   borderRadius: BorderRadius.circular(8.0),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.all(8.0),
+  //                     child: Text(
+  //                       'English',
+  //                       style: TextStyle(
+  //                         fontSize: 16.0,
+  //                         fontFamily: GoogleFonts.poppins().fontFamily,
+  //                         color: Color.fromARGB(255, 132, 219, 146),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
 
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedLanguage = "ja-JP";
-                    isSpeaking = true;
-                    texts = jTexts;
-                    _speak(texts[currentIndex]);
-                    _startImageRotation();
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 132, 219, 146),
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: Colors.green, width: 2.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.green.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Material(
-                    elevation: 4.0,
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        '日本語',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
-                          color: Color.fromARGB(255, 132, 219, 146),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+  //             GestureDetector(
+  //               onTap: () {
+  //                 setState(() {
+  //                   selectedLanguage = "ja-JP";
+  //                   isSpeaking = true;
+  //                   texts = jTexts;
+  //                   _speak(texts[currentIndex]);
+  //                   _startImageRotation();
+  //                 });
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                   color: Color.fromARGB(255, 132, 219, 146),
+  //                   borderRadius: BorderRadius.circular(8.0),
+  //                   border: Border.all(color: Colors.green, width: 2.0),
+  //                   boxShadow: [
+  //                     BoxShadow(
+  //                       color: Colors.green.withOpacity(0.5),
+  //                       spreadRadius: 2,
+  //                       blurRadius: 4,
+  //                       offset: Offset(0, 3),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 child: Material(
+  //                   elevation: 4.0,
+  //                   borderRadius: BorderRadius.circular(8.0),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.all(8.0),
+  //                     child: Text(
+  //                       '日本語',
+  //                       style: TextStyle(
+  //                         fontSize: 16.0,
+  //                         fontFamily: GoogleFonts.poppins().fontFamily,
+  //                         color: Color.fromARGB(255, 132, 219, 146),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
 
-              // Add more language options as needed
-            ],
-          ),
-        );
-      },
-    );
-  }
+  //             // Add more language options as needed
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Future<void> _speak(String text) async {
     setState(() {
@@ -496,31 +496,28 @@ class _MyScreenState extends State<MyScreen>
                     },
                   ),
                 ),
-                // Your existing content here
                 Align(
-                  alignment: Alignment.center,
-                  child: Swiper(
-                    itemWidth: 250,
-                    itemHeight: 250,
-                    loop: true,
-                    autoplay: true,
-                    duration: 2000,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 6,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 300,
-                        height: 300,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(imagePaths[index])),
-                          borderRadius: BorderRadius.circular(70),
-                        ),
-                      );
-                    },
-                    layout: SwiperLayout.STACK,
-                  ),
-                ),
+                    alignment: Alignment.center,
+                    child: Swiper(
+                      itemBuilder: (BuildContext context, int index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: SizedBox.fromSize(
+                            size: Size.fromRadius(50), // Image radius
+                            child: Image.asset(imagePaths[index],
+                                fit: BoxFit.cover),
+                          ),
+                        );
+                        // )
+                      },
+                      axisDirection: AxisDirection.right,
+                      loop: true,
+                      autoplay: true,
+                      itemCount: 3,
+                      itemWidth: 300.0,
+                      itemHeight: 200.0,
+                      layout: SwiperLayout.STACK,
+                    )),
                 SizedBox(height: 30.0),
                 Text(
                   'Welcome to the Game!\nPlay and Win to Collect Your Collectible Card!',
