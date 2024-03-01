@@ -13,6 +13,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'garbageCollect.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 void main() {
   runApp(MyApp());
@@ -434,99 +435,150 @@ class _MyScreenState extends State<MyScreen>
     }
   }
 
+  static const colorizeColors = [
+    Colors.purple,
+    Colors.blue,
+    Colors.yellow,
+    Colors.red,
+  ];
+
+  static const colorizeTextStyle = TextStyle(
+    fontSize: 50.0,
+    fontFamily: 'Horizon',
+  );
+
   Widget firstWidget() {
     return AlertDialog(
       insetPadding: EdgeInsets.all(0),
       contentPadding: EdgeInsets.zero,
-      title: Text('Urban Eco-Adventures'),
+      // title: Text('Urban Eco-Adventures'),
       backgroundColor: Colors.indigo.shade50,
-      content: Container(
-        width: double.maxFinite, // Set width to take up the full screen width
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            // Your existing content here
-            Align(
-              alignment: Alignment.center,
-              child: Swiper(
-                itemWidth: 250,
-                itemHeight: 250,
-                loop: true,
-                autoplay: true,
-                duration: 2000,
-                scrollDirection: Axis.horizontal,
-                itemCount: 6,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 300,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      image:
-                          DecorationImage(image: AssetImage(imagePaths[index])),
-                      borderRadius: BorderRadius.circular(70),
-                    ),
-                  );
-                },
-                layout: SwiperLayout.STACK,
+      content: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage("assets/background.png"),
+                fit: BoxFit.fill,
               ),
             ),
-            SizedBox(height: 30.0),
-            Text(
-              'Welcome to the Game!\nPlay and Win to Collect Your Collectible Card!',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontFamily: GoogleFonts.poppins().fontFamily,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              child: Container(
+                decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
               ),
             ),
-            SizedBox(height: 30.0),
-            const AvatarStack(
-              avatars: [
-                'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-                'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-                'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          ),
+          Container(
+            width:
+                double.maxFinite, // Set width to take up the full screen width
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 500,
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      ColorizeAnimatedText(
+                        'Urban Eco Adventures',
+                        textStyle: colorizeTextStyle,
+                        colors: colorizeColors,
+                      ),
+                    ],
+                    isRepeatingAnimation: true,
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  ),
+                ),
+                // Your existing content here
+                Align(
+                  alignment: Alignment.center,
+                  child: Swiper(
+                    itemWidth: 250,
+                    itemHeight: 250,
+                    loop: true,
+                    autoplay: true,
+                    duration: 2000,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: 300,
+                        height: 300,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(imagePaths[index])),
+                          borderRadius: BorderRadius.circular(70),
+                        ),
+                      );
+                    },
+                    layout: SwiperLayout.STACK,
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Text(
+                  'Welcome to the Game!\nPlay and Win to Collect Your Collectible Card!',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                const AvatarStack(
+                  avatars: [
+                    'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+                    'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+                    'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+                  ],
+                ),
+                SizedBox(height: 60.0),
+                Text(
+                  'Language Settings / 言語の設定',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                GestureDetector(
+                  onTap: () {
+                    shouldRenderFirstWidget = false;
+                    setState(() {
+                      selectedLanguage = "en-US";
+                      isSpeaking = true;
+                      _speak(texts[currentIndex]);
+                      _startImageRotation();
+                    });
+                  },
+                  child: LanguageOptionWidget(
+                    label: 'English',
+                    isSelected: selectedLanguage == "en-US",
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    shouldRenderFirstWidget = false;
+                    selectedLanguage = "ja-JP";
+                    isSpeaking = true;
+                    texts = jTexts;
+                    _speak(texts[currentIndex]);
+                    _startImageRotation();
+                  },
+                  child: LanguageOptionWidget(
+                    label: '日本語',
+                    isSelected: selectedLanguage == "ja-JP",
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 60.0),
-            Text(
-              'Language Settings / 言語の設定',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-              ),
-            ),
-            SizedBox(height: 8.0),
-            GestureDetector(
-              onTap: () {
-                shouldRenderFirstWidget = false;
-                setState(() {
-                  selectedLanguage = "en-US";
-                  isSpeaking = true;
-                  _speak(texts[currentIndex]);
-                  _startImageRotation();
-                });
-              },
-              child: LanguageOptionWidget(
-                label: 'English',
-                isSelected: selectedLanguage == "en-US",
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                shouldRenderFirstWidget = false;
-                selectedLanguage = "ja-JP";
-                isSpeaking = true;
-                texts = jTexts;
-                _speak(texts[currentIndex]);
-                _startImageRotation();
-              },
-              child: LanguageOptionWidget(
-                label: '日本語',
-                isSelected: selectedLanguage == "ja-JP",
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
