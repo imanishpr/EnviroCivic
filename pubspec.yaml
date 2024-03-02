@@ -139,20 +139,45 @@ flutter:
     - assets/collectible_card_0.png
     - assets/wallet-eng.svg
     - assets/subway/coffee/coffee1.jpeg
-    - assets/subway/coffee/coffee2.jpeg
-    - assets/subway/coffee/coffee3.jpeg
-    - assets/subway/coffee/coffee4.jpeg
     - assets/subway/friend/friend.jpeg
     - assets/subway/friend/friend2.jpeg
     - assets/subway/friend/friend3.jpeg
-    - assets/subway/friend/waitfortrain.jpeg
-    - assets/subway/friend/waitfortrain2.jpeg
-    - assets/subway/friend/waitfortrain3.jpeg
-    - assets/subway/friend/waitfortrain4.jpeg
     - assets/subway/police/policeman.jpeg
     - assets/subway/police/ticketbuy.png
     - assets/ghelp.png
     - assets/background.png
+    - assets/drive/d4.jpg
+    - assets/subway/coffee/coffee1.jpeg
+    - assets/mom/tmom33.jpg
+    - assets/sliders/talking32.jpeg
+    - assets/mom/talking34.jpeg
+    - assets/image4.jpg
+    - assets/sliders/reachedoffice43.jpeg
+    - assets/intro/intro39.jpeg
+    - assets/intro/intro38.jpg
+    - assets/intro/intro40.jpg
+    - assets/intro/intro44.jpg
+    - assets/drive/d15.jpg
+    - assets/drive/drivin14.jpeg
+    - assets/mom/mom25.jpeg
+    - assets/mom/talking34.jpeg
+    - assets/mom/mom22.jpg
+    - assets/mom/tmom33.jpg
+    - assets/angry/28badroom.jpg
+    - assets/angry/angry30.jpg
+    - assets/mom/mom21.jpeg
+    - assets/drive/d13.jpg 
+    - assets/drive/drivin14.jpeg
+    - assets/subway/coffee/coffee10.jpeg
+    - assets/subway/coffee/coffee11.jpeg
+    - assets/subway/coffee/coffee12.jpeg
+    - assets/subway/friend/friend.jpeg
+    - assets/subway/friend/friend2.jpeg
+    - assets/subway/friend/friend3.jpeg
+    - assets/subway/coffee/coffee12.jpeg
+    - assets/subway/friend/wait4.jpeg
+    - assets/subway/friend/wait5.jpeg
+    - assets/subway/friend/wait2.jpeg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
