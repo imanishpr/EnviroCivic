@@ -48,8 +48,10 @@ dependencies:
   flutter_animate: ^4.5.0
   card_swiper: 3.0.1
   flutter_tts: ^3.8.5
-  flutter_svg: 0.22.0
+  flutter_svg: ^2.0.10+1
   avatar_glow: 3.0.1
+  country_flags: ^2.2.0
+  dropdown_button2: ^2.3.9
   
 
 
