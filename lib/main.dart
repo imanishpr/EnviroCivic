@@ -409,14 +409,17 @@ class _MyScreenState extends State<MyScreen>
   // }
 
   Future<void> _speak(String text) async {
+    print("WIll speak this " + text);
     setState(() {
       isSpeaking = true; // Set isSpeaking to true when text-to-speech starts
     });
-    await flutterTts.setLanguage(selectedLanguage);
-    await flutterTts.setPitch(0.95);
-    await flutterTts.setSpeechRate(2);
-    await flutterTts.speak(text);
-    await Future.delayed(Duration(seconds: 0));
+    if (!isMuted) {
+      await flutterTts.setLanguage(selectedLanguage);
+      await flutterTts.setPitch(0.95);
+      await flutterTts.setSpeechRate(2);
+      await flutterTts.speak(text);
+      await Future.delayed(Duration(seconds: 0));
+    }
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
     });
@@ -788,7 +791,7 @@ class _MyScreenState extends State<MyScreen>
                       shouldRenderFirstWidget = false;
                       selectedLanguage = isEnglish ? "en-US" : "ja-JP";
                       isSpeaking = true;
-                      texts = jTexts;
+                      texts = isEnglish ? texts : jTexts;
                       _speak(texts[currentIndex]);
                       _startImageRotation();
                       // print("Adding qr to wallet");
