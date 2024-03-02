@@ -41,10 +41,12 @@ class _MyScreenState extends State<MyScreen>
   var isEnglish = true;
   bool isMuted = false;
   bool isSubwayComplete = false;
+  bool chapter2 = true;
   bool shouldRenderFirstWidget = true;
   bool shouldRenderSubwayWidget = false;
   bool isSpeaking = true;
   int currentIndex = 0;
+  int scurrentIndex = 0;
   int rotator = 0;
   FlutterTts flutterTts = FlutterTts();
   String selectedLanguage = "en-US"; // Default language is English
@@ -62,13 +64,13 @@ class _MyScreenState extends State<MyScreen>
   );
 
   List<String> imagePaths = [
-    "assets/image1.jpg",
-    "assets/image2.jpg",
-    "assets/image3.jpg",
-    "assets/image4.jpg",
-    "assets/image4.jpg",
-    "assets/image4.jpg",
-    "assets/image4.jpg"
+    "/drive/d4.jpg",
+    "/subway/coffee/coffee1.jpeg",
+    "/subway/friend/wait4.jpeg",
+    "/mom/tmom33.jpg",
+    "/sliders/talking32.jpeg",
+    "/mom/talking34.jpeg",
+    "/sliders/reachedoffice43.jpeg"
   ];
 
   List<String> texts = [
@@ -79,7 +81,7 @@ class _MyScreenState extends State<MyScreen>
     "Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?",
     "Of course, Mom. I'll take care of it right away.",
     "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
-    "click the the next button and start playing..",
+    "Shall we start by gathering the garbage?",
   ];
   List<String> jTexts = [
     "エミーに会いましょう。27歳のエミーは、賑やかな東京でIT企業で働いています。彼女は母親とアットホームな家を共有し、現代の都市生活と日本の伝統的な温かさを融合させています。エミーはキャリアの挑戦に立ち向かいながら、自分自身を持続可能性への旅に導き、東京の活気ある街を通して物語を紡いでいます。",
@@ -93,76 +95,73 @@ class _MyScreenState extends State<MyScreen>
   ];
   List<List<String>> imagePathsList = [
     [
-      "/intro/intro1.jpg",
-      "/intro/intro2.jpg",
-      "/intro/intro3.jpg",
-      "/intro/intro4.jpg",
-      "/intro/intro5.jpg",
-      "/intro/intro6.jpg",
-      "/intro/intro7.jpg",
-      "/intro/intro8.jpg",
+      "/intro/intro39.jpeg",
+      "/intro/intro38.jpg",
+      "/intro/intro40.jpg",
+      "/intro/intro44.jpg"
     ],
     [
-      "/drive/d.jpg",
-      "/drive/d2.jpg",
-      "/drive/d3.jpg",
-      "/drive/d4.jpg",
-      "/drive/d5.jpg",
+      "/drive/d15.jpg",
+      "/drive/drivin14.jpeg"
     ],
-    ["/mom/mom1.jpg"],
-    [
-      "/mom/tmom1.jpg",
-      "/mom/tmom2.jpg",
-      "/mom/tmom1.jpg",
-      "/mom/tmom2.jpg",
-    ],
-    ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
-    ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
-    ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
+    ["/mom/mom25.jpeg"],
+    ["/mom/talking34.jpeg"],
+    ["/mom/mom22.jpg"],
+    ["/mom/tmom33.jpg"],
+    ["/angry/28badroom.jpg"],
+    ["/angry/angry30.jpg"],
     // Add more lists if needed
   ];
-
   List<List<String>> imagePathsListSubWay = [
-    [
-      "/subway/coffee/coffee1.jpeg",
-      "/subway/coffee/coffee2.jpeg",
-      "/subway/coffee/coffee3.jpeg",
-      "/subway/coffee/coffee4.jpeg",
-    ],
+    ["/drive/d13.jpg", "/drive/drivin14.jpeg"],
     [
       "/subway/friend/friend.jpeg",
-      "/subway/friend/friend2.jpeg",
+    ],
+
+    ["/subway/coffee/coffee10.jpeg"],
+    [
+      "/subway/friend/friend2.jpeg"
+    ],
+    [ 
+      "/subway/coffee/coffee11.jpeg"
+    ],
+    [
       "/subway/friend/friend3.jpeg",
     ],
     [
-      "/subway/friend/waitfortrain.jpeg",
-      "/subway/friend/waitfortrain2.jpeg",
-      "/subway/friend/waitfortrain3.jpeg",
-      "/subway/friend/waitfortrain4.jpeg",
+      "/subway/coffee/coffee12.jpeg",
     ],
     [
       "/subway/police/ticketbuy.png",
     ],
     [
-      "/subway/police/policeman.jpeg",
+      "/subway/friend/wait4.jpeg",
     ],
     [
-      "/subway/police/policeman.jpeg",
+      "/subway/police/policeman.jpeg"
     ],
     [
-      "/subway/police/policeman.jpeg",
+      "/subway/police/policeman.jpeg"
     ],
+    ["/subway/friend/wait3.jpeg"],
+    ["/subway/friend/wait5.jpeg"]
     // Add more lists if needed
   ];
   List<String> subWaytexts = [
-    "having coffee",
-    "talk to friend",
-    "wait for friend",
-    "emie bought ticket",
-    "show your ticket",
-    "show your ticket",
+    "As Emi drove through the bustling streets of Tokyo, an hour passed before she finally arrived at her office. Maneuvering through the busy traffic and stopping at intersections, she navigated the city's vibrant roads, focused on reaching her destination",
+    "You look a bit worn out. Rough commute?",
+    "Yeah, the traffic was brutal. Took me a whole hour just to get here.",
+    "Why not give the subway a shot? It's not only better for the environment but also saves you time and stress. Plus, you can relax or catch up on reading during the ride.",
+    "Hmm, you might be onto something there. I'll give it a try tomorrow.",
+    "And here's a pro tip: skip the lines by purchasing your pass online. It's super easy to add it to your Google Wallet, too.",
+    "Oh, I didn't know that! Thanks for the heads up. I'll definitely look into it right away.",
+    "After browsing the subway website, Emi decides to purchase a ticket. With a few clicks, she completes the transaction and a button appears, allowing her to conveniently add the ticket to her Google Wallet.",
+    "As she reached the entrance, the hustle and bustle of commuters filled the air, signaling the start of her journey towards a more sustainable lifestyle.",
+    "Excuse me, miss. Could I see your ticket, If you have a pass added to your google wallet I can quickly scan it!",
+    "I've scanned it. You're all set to board the subway now.",
+    "I didn't have to stand in line to buy tickets. Saved a lot of time. Scan was also quick. Thank you.",
+    "Emi patiently waited on the platform as the train approached, taking only three minutes to arrive. Boarding swiftly, she knew her entire commute would last just 30 minutes. With a sense of satisfaction, she settled into her seat, reflecting on the positive impact of her eco-friendly decision"
   ];
-
   late AnimationController animationController;
   late Timer timer;
 
@@ -254,7 +253,7 @@ class _MyScreenState extends State<MyScreen>
       print("currentIndex");
       print(currentIndex);
       setState(() {
-        if (currentIndex < 5) {
+        if (currentIndex < imagePathsList.length -1) {
           if (rotator < imagePathsList[currentIndex].length - 1) {
             rotator++;
           } else {
@@ -437,8 +436,7 @@ class _MyScreenState extends State<MyScreen>
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
     });
-    print("hello im running");
-    if (currentIndex == imagePaths.length - 1 && !shouldRenderSubwayWidget) {
+    if (currentIndex == imagePathsList.length - 1 && !shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 5));
       // Navigate to ExampleDragAndDrop and wait for it to return
       await Navigator.of(context).push(
@@ -455,13 +453,13 @@ class _MyScreenState extends State<MyScreen>
       // You can render a widget or perform any action here
       print("Returned from ExampleDragAndDrop");
     }
-    if (currentIndex == imagePathsListSubWay.length - 1 &&
+    if (currentIndex == imagePathsListSubWay.length - 4 &&
         shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 2));
       print("Returned from scan");
       Navigator.of(context).restorablePush(_dialogBuilder);
     }
-    if (currentIndex == imagePathsListSubWay.length - 2 &&
+    if (currentIndex == imagePathsListSubWay.length - 6 &&
         shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 2));
       print("Returned from scan");
@@ -572,7 +570,41 @@ class _MyScreenState extends State<MyScreen>
           ),
         )
       ]);
-    } else if (!isSubwayComplete) {
+    } else if (chapter2) {
+      return Stack(children: <Widget>[
+        chapter2Welcome(),
+        SizedBox(
+          width: 60,
+          height: 60,
+          child: TextButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+            onPressed: () {
+              // print("You pressed Icon Elevated Button");
+              setState(() {
+                isMuted = !isMuted;
+              });
+              if (isMuted) {
+                print("muting snowekfbsknfslfnds");
+                flutterTts.stop();
+              }
+            },
+            child: isMuted
+                ? Icon(
+                    Icons.volume_off,
+                    color: Colors.white,
+                  )
+                : Icon(Icons.volume_up,
+                    color: Colors.white), //icon data for elevated button
+            //label text
+          ),
+        )
+      ]);
+    }else if (!isSubwayComplete) {
       return Stack(children: <Widget>[
         subWayWidget(),
         SizedBox(
@@ -589,7 +621,6 @@ class _MyScreenState extends State<MyScreen>
               // print("You pressed Icon Elevated Button");
               setState(() {
                 isMuted = !isMuted;
-                isSubwayComplete = true;
               });
               if (isMuted) {
                 print("muting snowekfbsknfslfnds");
@@ -822,7 +853,7 @@ class _MyScreenState extends State<MyScreen>
                       selectedLanguage = isEnglish ? "en-US" : "ja-JP";
                       isSpeaking = true;
                       texts = isEnglish ? texts : jTexts;
-                      _speak(texts[currentIndex++]);
+                      _speak(texts[currentIndex]);
                       _startImageRotation();
                       // print("Adding qr to wallet");
                       //Navigator.of(context).restorablePush(_dialogBuilder);
@@ -877,6 +908,132 @@ class _MyScreenState extends State<MyScreen>
       ),
     );
   }
+
+  
+  Widget chapter2Welcome() {
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: Stack(alignment: Alignment.center, children: <Widget>[
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage("assets/background.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+              child: Container(
+                decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: double.maxFinite,
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                  fontSize: 35.0,
+                  fontFamily: 'Agne',
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: AnimatedTextKit(
+                    // displayFullTextOnTap: true,
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        'Congratulations, Urban Eco-Adventurer!',
+                        speed: const Duration(milliseconds: 100),
+                        textStyle: const TextStyle(
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TypewriterAnimatedText(
+                        "You've successfully completed all the levels of 'Urban Eco-Adventures' and helped Emi embark on her journey toward sustainability in bustling Tokyo. Your dedication to sorting garbage, embracing public transportation, and exploring eco-friendly practices has made a significant impact on the environment within the game world.",
+                        speed: const Duration(milliseconds: 50),
+                      ),
+                      TypewriterAnimatedText(
+                        "But remember, the journey toward sustainability doesn't end here. Just as Emi continues to learn and grow, so too can you make a difference in the real world by implementing the lessons you've learned in the game.",
+                        speed: const Duration(milliseconds: 50),
+                      ),
+                      TypewriterAnimatedText(
+                        "Thank you for playing 'Urban Eco-Adventures' and joining us on this important journey. Together, we can make a difference, one small action at a time.",
+                        speed: const Duration(milliseconds: 50),
+                      ),
+                      TypewriterAnimatedText(
+                        "Keep exploring, keep learning, and keep making a positive impact on the world around you.",
+                        speed: const Duration(milliseconds: 50),
+                      ),
+                      TypewriterAnimatedText("Thank you!",
+                          speed: const Duration(milliseconds: 100),
+                          textStyle: const TextStyle(
+                            fontSize: 75.0,
+                            fontWeight: FontWeight.bold,
+                          ))
+                    ],
+                    isRepeatingAnimation: false,
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Description strip (90% width)
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9 -
+                        40, // Adjusting width considering padding
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ),
+                  // Next button (10% width)
+                  Visibility(
+                    visible:
+                        !isSpeaking, // Show the button only when not speaking
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          print(currentIndex);
+                          setState(() {
+                            chapter2 = false;
+                            _speak(subWaytexts[currentIndex]);
+                          });
+                        },
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: 70.0, // Adjust the size as needed
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color.fromARGB(255, 118, 224, 122)
+                              .withOpacity(0.4),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+        ]));
+  }
+
+
 
   Widget secondWidget() {
     return Scaffold(
@@ -947,10 +1104,10 @@ class _MyScreenState extends State<MyScreen>
 
                           setState(() {
                             isSpeaking = false;
-                            if (currentIndex > texts.length - 1) {
-                              currentIndex--;
+                            if(currentIndex<imagePathsList.length-1) {
+                              currentIndex++;
                             }
-                            _speak(texts[currentIndex++]);
+                            _speak(texts[currentIndex]);
                             rotator = 0;
                           });
                         },
@@ -1033,6 +1190,7 @@ class _MyScreenState extends State<MyScreen>
                           ),
                         ),
                       ],
+                      
                     ),
                   ),
                   // Next button (10% width)
@@ -1045,9 +1203,7 @@ class _MyScreenState extends State<MyScreen>
                         onPressed: () async {
                           print(currentIndex);
                           setState(() {
-                            isSpeaking = false;
-                            _speak(subWaytexts[currentIndex]);
-                            currentIndex++;
+                            _speak(subWaytexts[++currentIndex]);
                             rotator = 0;
                           });
                         },
@@ -1892,3 +2048,4 @@ abstract class MenuItems {
 //     );
 //   }
 // }
+
