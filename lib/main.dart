@@ -418,7 +418,7 @@ class _MyScreenState extends State<MyScreen>
       await flutterTts.setPitch(0.95);
       await flutterTts.setSpeechRate(2);
       await flutterTts.speak(text);
-      await Future.delayed(Duration(seconds: 0));
+      await Future.delayed(Duration(seconds: 3));
     }
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
@@ -508,6 +508,10 @@ class _MyScreenState extends State<MyScreen>
               setState(() {
                 isMuted = !isMuted;
               });
+              if (isMuted) {
+                print("muting snowekfbsknfslfnds");
+                flutterTts.stop();
+              }
             },
             child: isMuted
                 ? Icon(
@@ -538,6 +542,10 @@ class _MyScreenState extends State<MyScreen>
               setState(() {
                 isMuted = !isMuted;
               });
+              if (isMuted) {
+                print("muting snowekfbsknfslfnds");
+                flutterTts.stop();
+              }
             },
             child: isMuted
                 ? Icon(
@@ -568,6 +576,10 @@ class _MyScreenState extends State<MyScreen>
               setState(() {
                 isMuted = !isMuted;
               });
+              if (isMuted) {
+                print("muting snowekfbsknfslfnds");
+                flutterTts.stop();
+              }
             },
             child: isMuted
                 ? Icon(
