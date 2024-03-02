@@ -38,6 +38,8 @@ class MyScreen extends StatefulWidget {
 
 class _MyScreenState extends State<MyScreen>
     with SingleTickerProviderStateMixin {
+  var isEnglish = true;
+  bool isMuted = false;
   bool shouldRenderFirstWidget = true;
   bool shouldRenderSubwayWidget = false;
   bool isSpeaking = true;
@@ -45,6 +47,18 @@ class _MyScreenState extends State<MyScreen>
   int rotator = 0;
   FlutterTts flutterTts = FlutterTts();
   String selectedLanguage = "en-US"; // Default language is English
+
+  static const colorizeColors = [
+    Colors.purple,
+    Colors.blue,
+    Colors.yellow,
+    Colors.red,
+  ];
+
+  static const colorizeTextStyle = TextStyle(
+    fontSize: 50.0,
+    fontFamily: 'Horizon',
+  );
 
   List<String> imagePaths = [
     "assets/image1.jpg",
@@ -474,12 +488,361 @@ class _MyScreenState extends State<MyScreen>
   @override
   Widget build(BuildContext context) {
     if (shouldRenderFirstWidget && !shouldRenderSubwayWidget) {
-      return FirstWidget();
+      return Stack(children: <Widget>[
+        FirstPageWidget(),
+        SizedBox(
+          width: 60,
+          height: 60,
+          child: TextButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+            onPressed: () {
+              // print("You pressed Icon Elevated Button");
+              setState(() {
+                isMuted = !isMuted;
+              });
+            },
+            child: isMuted
+                ? Icon(
+                    Icons.volume_off,
+                    color: Colors.white,
+                  )
+                : Icon(Icons.volume_up,
+                    color: Colors.white), //icon data for elevated button
+            //label text
+          ),
+        )
+      ]);
     } else if (!shouldRenderFirstWidget && !shouldRenderSubwayWidget) {
-      return secondWidget();
+      return Stack(children: <Widget>[
+        secondWidget(),
+        SizedBox(
+          width: 60,
+          height: 60,
+          child: TextButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+            onPressed: () {
+              // print("You pressed Icon Elevated Button");
+              setState(() {
+                isMuted = !isMuted;
+              });
+            },
+            child: isMuted
+                ? Icon(
+                    Icons.volume_off,
+                    color: Colors.white,
+                  )
+                : Icon(Icons.volume_up,
+                    color: Colors.white), //icon data for elevated button
+            //label text
+          ),
+        )
+      ]);
     } else {
-      return subWayWidget();
+      return Stack(children: <Widget>[
+        subWayWidget(),
+        SizedBox(
+          width: 60,
+          height: 60,
+          child: TextButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+            onPressed: () {
+              // print("You pressed Icon Elevated Button");
+              setState(() {
+                isMuted = !isMuted;
+              });
+            },
+            child: isMuted
+                ? Icon(
+                    Icons.volume_off,
+                    color: Colors.white,
+                  )
+                : Icon(Icons.volume_up,
+                    color: Colors.white), //icon data for elevated button
+            //label text
+          ),
+        )
+      ]);
     }
+  }
+
+  AlertDialog FirstPageWidget() {
+    return AlertDialog(
+      insetPadding: EdgeInsets.all(0),
+      contentPadding: EdgeInsets.zero,
+      // title: Text('Urban Eco-Adventures'),
+      backgroundColor: Colors.indigo.shade50,
+      content: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage("assets/background.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+              child: Container(
+                decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
+              ),
+            ),
+          ),
+          Container(
+            width:
+                double.maxFinite, // Set width to take up the full screen width
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 500,
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      ColorizeAnimatedText(
+                        'Urban Eco Adventures',
+                        textStyle: colorizeTextStyle,
+                        colors: colorizeColors,
+                      ),
+                    ],
+                    isRepeatingAnimation: true,
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  ),
+                ),
+                Align(
+                    alignment: Alignment.center,
+                    child: Swiper(
+                      itemBuilder: (BuildContext context, int index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: SizedBox.fromSize(
+                            size: Size.fromRadius(50), // Image radius
+                            child: Image.asset(imagePaths[index],
+                                fit: BoxFit.cover),
+                          ),
+                        );
+                        // )
+                      },
+                      axisDirection: AxisDirection.right,
+                      loop: true,
+                      autoplay: true,
+                      itemCount: 3,
+                      itemWidth: 300.0,
+                      itemHeight: 200.0,
+                      layout: SwiperLayout.STACK,
+                    )),
+                SizedBox(height: 30.0),
+                Text(
+                  'Embark on a Sustainable Journey!',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
+                ),
+                Text(
+                  'Explore, Learn, Collect Rewards for your Google Wallet',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                const AvatarStack(
+                  avatars: [
+                    '/assets/newspaper.png',
+                    '/assets/pastic_bottle.png',
+                    '/assets/phone.png',
+                    '/assets/tea_bags.png'
+                  ],
+                ),
+                SizedBox(height: 60.0),
+                Text(
+                  'Language Settings / 言語の設定',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                DropdownButtonHideUnderline(
+                  child: DropdownButton2(
+                    customButton: SizedBox(
+                      width: 100,
+                      height: 40,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 30,
+                            height: 20,
+                            child: isEnglish
+                                ? CountryFlag.fromLanguageCode('en-us')
+                                : CountryFlag.fromCountryCode('jp'),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: isEnglish
+                                ? Text(
+                                    "English",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : Text(
+                                    "日本語",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    items: [
+                      ...MenuItems.firstItems.map(
+                        (item) => DropdownMenuItem<MenuItem>(
+                          value: item,
+                          child: MenuItems.buildItem(item),
+                        ),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value == MenuItems.english) {
+                        setState(() {
+                          isEnglish = true;
+                        });
+                      } else {
+                        setState(() {
+                          isEnglish = false;
+                        });
+                      }
+                    },
+                    dropdownStyleData: DropdownStyleData(
+                      width: 160,
+                      padding: const EdgeInsets.symmetric(vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.black12,
+                      ),
+                      offset: const Offset(0, 8),
+                    ),
+                    menuItemStyleData: MenuItemStyleData(
+                      customHeights: [
+                        ...List<double>.filled(MenuItems.firstItems.length, 48),
+                      ],
+                      padding: const EdgeInsets.only(left: 16, right: 16),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 90.0),
+                Container(
+                  width: 300.0,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.green.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(
+                        300.0), // Adjust the value as needed
+                    border: Border.all(
+                        color: Colors.white12,
+                        width: 7.0), // Optional: Add border color and width
+                  ),
+                  child: ElevatedButton(
+                    // style: Stylel
+                    style: ElevatedButton.styleFrom(
+                      primary:
+                          Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                    onPressed: () {
+                      shouldRenderFirstWidget = false;
+                      selectedLanguage = "ja-JP";
+                      isSpeaking = true;
+                      texts = jTexts;
+                      _speak(texts[currentIndex]);
+                      _startImageRotation();
+                      // print("Adding qr to wallet");
+                      //Navigator.of(context).restorablePush(_dialogBuilder);
+                      // _launchURL();
+                    },
+                    child: Center(
+                      child: Text(
+                        'START',
+                        style: TextStyle(
+                          fontSize: 36.0,
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     shouldRenderFirstWidget = false;
+                //     setState(() {
+                //       selectedLanguage = "en-US";
+                //       isSpeaking = true;
+                //       _speak(texts[currentIndex]);
+                //       _startImageRotation();
+                //     });
+                //   },
+                //   child: LanguageOptionWidget(
+                //     label: 'English',
+                //     isSelected: selectedLanguage == "en-US",
+                //   ),
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     shouldRenderFirstWidget = false;
+                //     selectedLanguage = "ja-JP";
+                //     isSpeaking = true;
+                //     texts = jTexts;
+                //     _speak(texts[currentIndex]);
+                //     _startImageRotation();
+                //   },
+                //   child: LanguageOptionWidget(
+                //     label: '日本語',
+                //     isSelected: selectedLanguage == "ja-JP",
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget secondWidget() {
@@ -1163,298 +1526,298 @@ abstract class MenuItems {
   }
 }
 
-class FirstWidget extends StatefulWidget {
-  static const colorizeColors = [
-    Colors.purple,
-    Colors.blue,
-    Colors.yellow,
-    Colors.red,
-  ];
+// class FirstWidget extends StatefulWidget {
+// static const colorizeColors = [
+//   Colors.purple,
+//   Colors.blue,
+//   Colors.yellow,
+//   Colors.red,
+// ];
 
-  static const colorizeTextStyle = TextStyle(
-    fontSize: 50.0,
-    fontFamily: 'Horizon',
-  );
+// static const colorizeTextStyle = TextStyle(
+//   fontSize: 50.0,
+//   fontFamily: 'Horizon',
+// );
 
-  @override
-  State<FirstWidget> createState() => _FirstWidgetState();
-}
+//   @override
+//   State<FirstWidget> createState() => _FirstWidgetState();
+// }
 
-class _FirstWidgetState extends State<FirstWidget> {
-  var isEnglish = true;
-  List<String> imagePaths = [
-    "assets/image1.jpg",
-    "assets/image2.jpg",
-    "assets/image3.jpg",
-    "assets/image4.jpg",
-    "assets/image4.jpg",
-    "assets/image4.jpg",
-    "assets/image4.jpg"
-  ];
+// class _FirstWidgetState extends State<FirstWidget> {
+//   var isEnglish = true;
+//   List<String> imagePaths = [
+//     "assets/image1.jpg",
+//     "assets/image2.jpg",
+//     "assets/image3.jpg",
+//     "assets/image4.jpg",
+//     "assets/image4.jpg",
+//     "assets/image4.jpg",
+//     "assets/image4.jpg"
+//   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      insetPadding: EdgeInsets.all(0),
-      contentPadding: EdgeInsets.zero,
-      // title: Text('Urban Eco-Adventures'),
-      backgroundColor: Colors.indigo.shade50,
-      content: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: ExactAssetImage("assets/background.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
-              ),
-            ),
-          ),
-          Container(
-            width:
-                double.maxFinite, // Set width to take up the full screen width
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: 500,
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      ColorizeAnimatedText(
-                        'Urban Eco Adventures',
-                        textStyle: FirstWidget.colorizeTextStyle,
-                        colors: FirstWidget.colorizeColors,
-                      ),
-                    ],
-                    isRepeatingAnimation: true,
-                    onTap: () {
-                      print("Tap Event");
-                    },
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.center,
-                    child: Swiper(
-                      itemBuilder: (BuildContext context, int index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: SizedBox.fromSize(
-                            size: Size.fromRadius(50), // Image radius
-                            child: Image.asset(imagePaths[index],
-                                fit: BoxFit.cover),
-                          ),
-                        );
-                        // )
-                      },
-                      axisDirection: AxisDirection.right,
-                      loop: true,
-                      autoplay: true,
-                      itemCount: 3,
-                      itemWidth: 300.0,
-                      itemHeight: 200.0,
-                      layout: SwiperLayout.STACK,
-                    )),
-                SizedBox(height: 30.0),
-                Text(
-                  'Embark on a Sustainable Journey!',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                  ),
-                ),
-                Text(
-                  'Explore, Learn, Collect Rewards for your Google Wallet',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                  ),
-                ),
-                SizedBox(height: 30.0),
-                const AvatarStack(
-                  avatars: [
-                    '/assets/newspaper.png',
-                    '/assets/pastic_bottle.png',
-                    '/assets/phone.png',
-                    '/assets/tea_bags.png'
-                  ],
-                ),
-                SizedBox(height: 60.0),
-                Text(
-                  'Language Settings / 言語の設定',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                DropdownButtonHideUnderline(
-                  child: DropdownButton2(
-                    customButton: SizedBox(
-                      width: 100,
-                      height: 40,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                            height: 20,
-                            child: isEnglish
-                                ? CountryFlag.fromLanguageCode('en-us')
-                                : CountryFlag.fromCountryCode('jp'),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: isEnglish
-                                ? Text(
-                                    "English",
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                : Text(
-                                    "日本語",
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    items: [
-                      ...MenuItems.firstItems.map(
-                        (item) => DropdownMenuItem<MenuItem>(
-                          value: item,
-                          child: MenuItems.buildItem(item),
-                        ),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      if (value == MenuItems.english) {
-                        setState(() {
-                          isEnglish = true;
-                        });
-                      } else {
-                        setState(() {
-                          isEnglish = false;
-                        });
-                      }
-                    },
-                    dropdownStyleData: DropdownStyleData(
-                      width: 160,
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: Colors.black12,
-                      ),
-                      offset: const Offset(0, 8),
-                    ),
-                    menuItemStyleData: MenuItemStyleData(
-                      customHeights: [
-                        ...List<double>.filled(MenuItems.firstItems.length, 48),
-                      ],
-                      padding: const EdgeInsets.only(left: 16, right: 16),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 90.0),
-                Container(
-                  width: 300.0,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.green.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(
-                        300.0), // Adjust the value as needed
-                    border: Border.all(
-                        color: Colors.white12,
-                        width: 7.0), // Optional: Add border color and width
-                  ),
-                  child: ElevatedButton(
-                    // style: Stylel
-                    style: ElevatedButton.styleFrom(
-                      primary:
-                          Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    onPressed: () {
-                      // shouldRenderFirstWidget = false;
-                      // selectedLanguage = "ja-JP";
-                      // isSpeaking = true;
-                      // texts = jTexts;
-                      // _speak(texts[currentIndex]);
-                      // _startImageRotation();
-                      // print("Adding qr to wallet");
-                      //Navigator.of(context).restorablePush(_dialogBuilder);
-                      // _launchURL();
-                    },
-                    child: Center(
-                      child: Text(
-                        'START',
-                        style: TextStyle(
-                          fontSize: 36.0,
-                          color: Colors.white70,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                // GestureDetector(
-                //   onTap: () {
-                //     shouldRenderFirstWidget = false;
-                //     setState(() {
-                //       selectedLanguage = "en-US";
-                //       isSpeaking = true;
-                //       _speak(texts[currentIndex]);
-                //       _startImageRotation();
-                //     });
-                //   },
-                //   child: LanguageOptionWidget(
-                //     label: 'English',
-                //     isSelected: selectedLanguage == "en-US",
-                //   ),
-                // ),
-                // GestureDetector(
-                //   onTap: () {
-                //     shouldRenderFirstWidget = false;
-                //     selectedLanguage = "ja-JP";
-                //     isSpeaking = true;
-                //     texts = jTexts;
-                //     _speak(texts[currentIndex]);
-                //     _startImageRotation();
-                //   },
-                //   child: LanguageOptionWidget(
-                //     label: '日本語',
-                //     isSelected: selectedLanguage == "ja-JP",
-                //   ),
-                // ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       insetPadding: EdgeInsets.all(0),
+//       contentPadding: EdgeInsets.zero,
+//       // title: Text('Urban Eco-Adventures'),
+//       backgroundColor: Colors.indigo.shade50,
+//       content: Stack(
+//         alignment: Alignment.center,
+//         children: <Widget>[
+//           Container(
+//             decoration: BoxDecoration(
+//               image: DecorationImage(
+//                 image: ExactAssetImage("assets/background.png"),
+//                 fit: BoxFit.fill,
+//               ),
+//             ),
+//             child: BackdropFilter(
+//               filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+//               child: Container(
+//                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
+//               ),
+//             ),
+//           ),
+//           Container(
+//             width:
+//                 double.maxFinite, // Set width to take up the full screen width
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               mainAxisSize: MainAxisSize.max,
+//               children: [
+//                 SizedBox(
+//                   height: 20,
+//                 ),
+//                 SizedBox(
+//                   width: 500,
+//                   child: AnimatedTextKit(
+//                     animatedTexts: [
+//                       ColorizeAnimatedText(
+//                         'Urban Eco Adventures',
+//                         textStyle: FirstWidget.colorizeTextStyle,
+//                         colors: FirstWidget.colorizeColors,
+//                       ),
+//                     ],
+//                     isRepeatingAnimation: true,
+//                     onTap: () {
+//                       print("Tap Event");
+//                     },
+//                   ),
+//                 ),
+//                 Align(
+//                     alignment: Alignment.center,
+//                     child: Swiper(
+//                       itemBuilder: (BuildContext context, int index) {
+//                         return ClipRRect(
+//                           borderRadius: BorderRadius.circular(20),
+//                           child: SizedBox.fromSize(
+//                             size: Size.fromRadius(50), // Image radius
+//                             child: Image.asset(imagePaths[index],
+//                                 fit: BoxFit.cover),
+//                           ),
+//                         );
+//                         // )
+//                       },
+//                       axisDirection: AxisDirection.right,
+//                       loop: true,
+//                       autoplay: true,
+//                       itemCount: 3,
+//                       itemWidth: 300.0,
+//                       itemHeight: 200.0,
+//                       layout: SwiperLayout.STACK,
+//                     )),
+//                 SizedBox(height: 30.0),
+//                 Text(
+//                   'Embark on a Sustainable Journey!',
+//                   style: TextStyle(
+//                     fontSize: 16.0,
+//                     fontWeight: FontWeight.bold,
+//                     fontFamily: GoogleFonts.poppins().fontFamily,
+//                   ),
+//                 ),
+//                 Text(
+//                   'Explore, Learn, Collect Rewards for your Google Wallet',
+//                   style: TextStyle(
+//                     fontSize: 16.0,
+//                     fontWeight: FontWeight.bold,
+//                     fontFamily: GoogleFonts.poppins().fontFamily,
+//                   ),
+//                 ),
+//                 SizedBox(height: 30.0),
+//                 const AvatarStack(
+//                   avatars: [
+//                     '/assets/newspaper.png',
+//                     '/assets/pastic_bottle.png',
+//                     '/assets/phone.png',
+//                     '/assets/tea_bags.png'
+//                   ],
+//                 ),
+//                 SizedBox(height: 60.0),
+//                 Text(
+//                   'Language Settings / 言語の設定',
+//                   style: TextStyle(
+//                     fontSize: 16.0,
+//                     fontFamily: GoogleFonts.poppins().fontFamily,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8.0),
+//                 DropdownButtonHideUnderline(
+//                   child: DropdownButton2(
+//                     customButton: SizedBox(
+//                       width: 100,
+//                       height: 40,
+//                       child: Row(
+//                         children: [
+//                           SizedBox(
+//                             width: 30,
+//                             height: 20,
+//                             child: isEnglish
+//                                 ? CountryFlag.fromLanguageCode('en-us')
+//                                 : CountryFlag.fromCountryCode('jp'),
+//                           ),
+//                           const SizedBox(
+//                             width: 10,
+//                           ),
+//                           Expanded(
+//                             child: isEnglish
+//                                 ? Text(
+//                                     "English",
+//                                     style: const TextStyle(
+//                                       color: Colors.white,
+//                                     ),
+//                                   )
+//                                 : Text(
+//                                     "日本語",
+//                                     style: const TextStyle(
+//                                       color: Colors.white,
+//                                     ),
+//                                   ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     items: [
+//                       ...MenuItems.firstItems.map(
+//                         (item) => DropdownMenuItem<MenuItem>(
+//                           value: item,
+//                           child: MenuItems.buildItem(item),
+//                         ),
+//                       ),
+//                     ],
+//                     onChanged: (value) {
+//                       if (value == MenuItems.english) {
+//                         setState(() {
+//                           isEnglish = true;
+//                         });
+//                       } else {
+//                         setState(() {
+//                           isEnglish = false;
+//                         });
+//                       }
+//                     },
+//                     dropdownStyleData: DropdownStyleData(
+//                       width: 160,
+//                       padding: const EdgeInsets.symmetric(vertical: 6),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(4),
+//                         color: Colors.black12,
+//                       ),
+//                       offset: const Offset(0, 8),
+//                     ),
+//                     menuItemStyleData: MenuItemStyleData(
+//                       customHeights: [
+//                         ...List<double>.filled(MenuItems.firstItems.length, 48),
+//                       ],
+//                       padding: const EdgeInsets.only(left: 16, right: 16),
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: 90.0),
+//                 Container(
+//                   width: 300.0,
+//                   decoration: BoxDecoration(
+//                     boxShadow: [
+//                       BoxShadow(
+//                         color: Colors.green.withOpacity(0.5),
+//                         spreadRadius: 2,
+//                         blurRadius: 4,
+//                         offset: Offset(0, 3),
+//                       ),
+//                     ],
+//                     borderRadius: BorderRadius.circular(
+//                         300.0), // Adjust the value as needed
+//                     border: Border.all(
+//                         color: Colors.white12,
+//                         width: 7.0), // Optional: Add border color and width
+//                   ),
+//                   child: ElevatedButton(
+//                     // style: Stylel
+//                     style: ElevatedButton.styleFrom(
+//                       primary:
+//                           Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+//                       shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(100),
+//                       ),
+//                     ),
+//                     onPressed: () {
+//                       // shouldRenderFirstWidget = false;
+//                       // selectedLanguage = "ja-JP";
+//                       // isSpeaking = true;
+//                       // texts = jTexts;
+//                       // _speak(texts[currentIndex]);
+//                       // _startImageRotation();
+//                       // print("Adding qr to wallet");
+//                       //Navigator.of(context).restorablePush(_dialogBuilder);
+//                       // _launchURL();
+//                     },
+//                     child: Center(
+//                       child: Text(
+//                         'START',
+//                         style: TextStyle(
+//                           fontSize: 36.0,
+//                           color: Colors.white70,
+//                           fontWeight: FontWeight.bold,
+//                           fontFamily: GoogleFonts.poppins().fontFamily,
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 // GestureDetector(
+//                 //   onTap: () {
+//                 //     shouldRenderFirstWidget = false;
+//                 //     setState(() {
+//                 //       selectedLanguage = "en-US";
+//                 //       isSpeaking = true;
+//                 //       _speak(texts[currentIndex]);
+//                 //       _startImageRotation();
+//                 //     });
+//                 //   },
+//                 //   child: LanguageOptionWidget(
+//                 //     label: 'English',
+//                 //     isSelected: selectedLanguage == "en-US",
+//                 //   ),
+//                 // ),
+//                 // GestureDetector(
+//                 //   onTap: () {
+//                 //     shouldRenderFirstWidget = false;
+//                 //     selectedLanguage = "ja-JP";
+//                 //     isSpeaking = true;
+//                 //     texts = jTexts;
+//                 //     _speak(texts[currentIndex]);
+//                 //     _startImageRotation();
+//                 //   },
+//                 //   child: LanguageOptionWidget(
+//                 //     label: '日本語',
+//                 //     isSelected: selectedLanguage == "ja-JP",
+//                 //   ),
+//                 // ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
