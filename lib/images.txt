@@ -8,32 +8,41 @@ opening :
     34 talking to mom
 
 intro: 
+Text : Meet Emie, a 27-year-old working at an IT firm in bustling Tokyo. She shares a cozy home with her mother, embracing the blend of modern city life and traditional Japanese warmth. As Emie navigates the challenges of her career, she finds herself on a journey toward sustainability, weaving her story through the vibrant streets of Tokyo
     39 intro
     38 intro
     40 intro
     44 intro
 
+Chapter 1 :
 Drining home from office
+Text : In the heart of Tokyo, amidst the ceaseless rhythm of the city, Emie makes her way home after another day at the office.
     14 driving 
     13 driving
 
 Mom: welcome back emi
+Text : Welcome back, Emie. How was your day?
     25 mom
 
 Emi : long but productive
+Text : Long, but productive. How about you, Mom?
     34 talking to mom
 
 Mom : busy as always 
+Text : Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?
     22 mom
 
 Emi : off couse mom 
+Text : Of course, Mom. I'll take care of it right away.
     33 talking tom mom
 
 emi enters room
+Text: As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.
     28 bad room
 
 
 Emi : lets clear this mess
+Text: Shall we start by gathering the garbage?
     30 bad room angry
 
 This is how you play : video
@@ -45,11 +54,14 @@ Desing chat text
 add to wallet sleep
 
 Mom : Nice cleaning
+Text :  Emi, well done! You've sorted the garbage so neatly into the respective bins. I'm proud of you for taking such initiative in keeping our home clean and environmentally friendly
     21 mom
 
+Chapter 2 :
 Text transation : Next day emi goes to office
 
 Car image: took her 1.5 hours to reach office
+Text : As Emi drove through the bustling streets of Tokyo, an hour passed before she finally arrived at her office. Maneuvering through the busy traffic and stopping at intersections, she navigated the city's vibrant roads, focused on reaching her destination
     14 driving 
     13 driving
 
@@ -65,27 +77,40 @@ Friend interaction
     Emi :
         12 coffee : ill check it out right away
 
+Friend: "You look a bit worn out. Rough commute?"
+Emi: "Yeah, the traffic was brutal. Took me a whole hour just to get here."
+Friend: "Why not give the subway a shot? It's not only better for the environment but also saves you time and stress. Plus, you can relax or catch up on reading during the ride."
+Emi: "Hmm, you might be onto something there. I'll give it a try tomorrow."
+Friend: "And here's a pro tip: skip the lines by purchasing your pass online. It's super easy to add it to your Google Wallet, too."
+Emi: "Oh, I didn't know that! Thanks for the heads up. I'll definitely look into it right away."
+
 Compute screen:
+Text : After browsing the subway website, Emi decides to purchase a ticket. With a few clicks, she completes the transaction and a button appears, allowing her to conveniently add the ticket to her Google Wallet."
     Add to wallet
 
 Text transation : Next day emi goes to subway station
 
 Emi reaches subway
+Text : As she reached the entrance, the hustle and bustle of commuters filled the air, signaling the start of her journey towards a more sustainable lifestyle.
     4 waiting for train
 
 Police man:
+Text : Excuse me, miss. Could I see your ticket, If you have a pass added to your google wallet I can quickly scan it!
     Show ticket
-    Popop says : scan your google wallet code
+    Popop says : Scan your google wallet code
     You are good to go:
-
+Text : I've scanned it. You're all set to board the subway now.
 Emi says thanks that was quick
-I did not have to stand in line to buy tickets. saved a lot of time.
-    image:
+Text :
+I didn't have to stand in line to buy tickets. Saved a lot of time. Scan was also quick. Thank you.
+
+Image:
     5 waiting for train
-    
+Text : Emi patiently waited on the platform as the train approached, taking only three minutes to arrive. Boarding swiftly, she knew her entire commute would last just 30 minutes. With a sense of satisfaction, she settled into her seat, reflecting on the positive impact of her eco-friendly decision    
+
 Last page :
     2 wait for train
-    
+
 
 
 
