@@ -1,0 +1,102 @@
+opening : 
+    13 driving
+    9 coffee in office
+    4 waiting for train
+    43 reached office may
+    33 talking to mom
+    32 talking to mom
+    34 talking to mom
+
+intro: 
+    39 intro
+    38 intro
+    40 intro
+    44 intro
+
+Drining home from office
+    14 driving 
+    13 driving
+
+Mom: welcome back emi
+    25 mom
+
+Emi : long but productive
+    34 talking to mom
+
+Mom : busy as always 
+    22 mom
+
+Emi : off couse mom 
+    33 talking tom mom
+
+emi enters room
+    28 bad room
+
+
+Emi : lets clear this mess
+    30 bad room angry
+
+This is how you play : video
+
+Make the garbage battle look good
+
+Desing chat text
+
+add to wallet sleep
+
+Mom : Nice cleaning
+    21 mom
+
+Text transation : Next day emi goes to office
+
+Car image: took her 1.5 hours to reach office
+    14 driving 
+    13 driving
+
+Friend interaction
+    Emi : 
+        12 coffee
+        11 coffee
+        10 coffee
+    Fried : 
+        8 Fried
+        7 Fried
+        6 friend in office   
+    Emi :
+        12 coffee : ill check it out right away
+
+Compute screen:
+    Add to wallet
+
+Text transation : Next day emi goes to subway station
+
+Emi reaches subway
+    4 waiting for train
+
+Police man:
+    Show ticket
+    Popop says : scan your google wallet code
+    You are good to go:
+
+Emi says thanks that was quick
+I did not have to stand in line to buy tickets. saved a lot of time.
+    image:
+    5 waiting for train
+    
+Last page :
+    2 wait for train
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+

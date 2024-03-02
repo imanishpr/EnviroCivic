@@ -40,6 +40,7 @@ class _MyScreenState extends State<MyScreen>
     with SingleTickerProviderStateMixin {
   var isEnglish = true;
   bool isMuted = false;
+  bool isSubwayComplete = false;
   bool shouldRenderFirstWidget = true;
   bool shouldRenderSubwayWidget = false;
   bool isSpeaking = true;
@@ -99,21 +100,25 @@ class _MyScreenState extends State<MyScreen>
       "/intro/intro5.jpg",
       "/intro/intro6.jpg",
       "/intro/intro7.jpg",
-      "/intro/intro8.jpg"
+      "/intro/intro8.jpg",
     ],
     [
       "/drive/d.jpg",
       "/drive/d2.jpg",
       "/drive/d3.jpg",
       "/drive/d4.jpg",
-      "/drive/d5.jpg"
+      "/drive/d5.jpg",
     ],
     ["/mom/mom1.jpg"],
-    ["/mom/tmom1.jpg", "/mom/tmom2.jpg", "/mom/tmom1.jpg", "/mom/tmom2.jpg"],
+    [
+      "/mom/tmom1.jpg",
+      "/mom/tmom2.jpg",
+      "/mom/tmom1.jpg",
+      "/mom/tmom2.jpg",
+    ],
     ["/mom/mom3.jpg", "/mom/mom4.jpg", "/mom/mom3.jpg", "/mom/mom4.jpg"],
     ["/mom/tmom4.jpg", "/mom/tmom5.jpg", "/mom/tmom4.jpg", "/mom/tmom5.jpg"],
     ["/angry/angry1.jpg", "/angry/angry2.jpg", "/angry/angry3.jpg"],
-    ["/angry/angry1.jpg"]
     // Add more lists if needed
   ];
 
@@ -141,6 +146,12 @@ class _MyScreenState extends State<MyScreen>
     [
       "/subway/police/policeman.jpeg",
     ],
+    [
+      "/subway/police/policeman.jpeg",
+    ],
+    [
+      "/subway/police/policeman.jpeg",
+    ],
     // Add more lists if needed
   ];
   List<String> subWaytexts = [
@@ -148,6 +159,7 @@ class _MyScreenState extends State<MyScreen>
     "talk to friend",
     "wait for friend",
     "emie bought ticket",
+    "show your ticket",
     "show your ticket",
   ];
 
@@ -242,10 +254,12 @@ class _MyScreenState extends State<MyScreen>
       print("currentIndex");
       print(currentIndex);
       setState(() {
-        if (rotator < imagePathsList[currentIndex].length - 1) {
-          rotator++;
-        } else {
-          rotator = 0;
+        if (currentIndex < 5) {
+          if (rotator < imagePathsList[currentIndex].length - 1) {
+            rotator++;
+          } else {
+            rotator = 0;
+          }
         }
       });
     });
@@ -558,7 +572,7 @@ class _MyScreenState extends State<MyScreen>
           ),
         )
       ]);
-    } else {
+    } else if (!isSubwayComplete) {
       return Stack(children: <Widget>[
         subWayWidget(),
         SizedBox(
@@ -575,6 +589,7 @@ class _MyScreenState extends State<MyScreen>
               // print("You pressed Icon Elevated Button");
               setState(() {
                 isMuted = !isMuted;
+                isSubwayComplete = true;
               });
               if (isMuted) {
                 print("muting snowekfbsknfslfnds");
@@ -592,6 +607,9 @@ class _MyScreenState extends State<MyScreen>
           ),
         )
       ]);
+    } else {
+      //when subway completed
+      return byeWidget();
     }
   }
 
@@ -804,7 +822,7 @@ class _MyScreenState extends State<MyScreen>
                       selectedLanguage = isEnglish ? "en-US" : "ja-JP";
                       isSpeaking = true;
                       texts = isEnglish ? texts : jTexts;
-                      _speak(texts[currentIndex]);
+                      _speak(texts[currentIndex++]);
                       _startImageRotation();
                       // print("Adding qr to wallet");
                       //Navigator.of(context).restorablePush(_dialogBuilder);
@@ -929,7 +947,10 @@ class _MyScreenState extends State<MyScreen>
 
                           setState(() {
                             isSpeaking = false;
-                            _speak(texts[++currentIndex]);
+                            if (currentIndex > texts.length - 1) {
+                              currentIndex--;
+                            }
+                            _speak(texts[currentIndex++]);
                             rotator = 0;
                           });
                         },
@@ -1050,6 +1071,41 @@ class _MyScreenState extends State<MyScreen>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget byeWidget() {
+    return SizedBox(
+      width: 250.0,
+      child: DefaultTextStyle(
+        style: const TextStyle(
+          fontSize: 30.0,
+          fontFamily: 'Agne',
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AnimatedTextKit(
+              animatedTexts: [
+                TypewriterAnimatedText(
+                    'Congratulations, Urban Eco-Adventurer!'),
+                TypewriterAnimatedText(
+                    "You've successfully completed all the levels of 'Urban Eco-Adventures' and helped Emi embark on her journey toward sustainability in bustling Tokyo. Your dedication to sorting garbage, embracing public transportation, and exploring eco-friendly practices has made a significant impact on the environment within the game world."),
+                TypewriterAnimatedText(
+                    "But remember, the journey toward sustainability doesn't end here. Just as Emi continues to learn and grow, so too can you make a difference in the real world by implementing the lessons you've learned in the game."),
+                TypewriterAnimatedText(
+                    "Thank you for playing 'Urban Eco-Adventures' and joining us on this important journey. Together, we can make a difference, one small action at a time."),
+                TypewriterAnimatedText(
+                    "Keep exploring, keep learning, and keep making a positive impact on the world around you."),
+              ],
+              isRepeatingAnimation: false,
+              onTap: () {
+                print("Tap Event");
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
