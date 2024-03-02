@@ -786,7 +786,7 @@ class _MyScreenState extends State<MyScreen>
                     ),
                     onPressed: () {
                       shouldRenderFirstWidget = false;
-                      selectedLanguage = "ja-JP";
+                      selectedLanguage = isEnglish ? "en-US" : "ja-JP";
                       isSpeaking = true;
                       texts = jTexts;
                       _speak(texts[currentIndex]);
