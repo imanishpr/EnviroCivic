@@ -14,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'garbageCollect.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 void main() {
   runApp(MyApp());
@@ -464,7 +465,7 @@ class _MyScreenState extends State<MyScreen>
               ),
             ),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
               child: Container(
                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
               ),
@@ -520,18 +521,28 @@ class _MyScreenState extends State<MyScreen>
                     )),
                 SizedBox(height: 30.0),
                 Text(
-                  'Welcome to the Game!\nPlay and Win to Collect Your Collectible Card!',
+                  'Embark on a Sustainable Journey!',
                   style: TextStyle(
                     fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                  ),
+                ),
+                Text(
+                  'Explore, Learn, Collect Rewards for your Google Wallet',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
                     fontFamily: GoogleFonts.poppins().fontFamily,
                   ),
                 ),
                 SizedBox(height: 30.0),
                 const AvatarStack(
                   avatars: [
-                    'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-                    'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-                    'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+                    '/assets/newspaper.png',
+                    '/assets/pastic_bottle.png',
+                    '/assets/phone.png',
+                    '/assets/tea_bags.png'
                   ],
                 ),
                 SizedBox(height: 60.0),
@@ -996,15 +1007,32 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius.toDouble() + 2,
-      backgroundColor: Colors.white,
-      child: CircleAvatar(
-        radius: radius.toDouble(),
-        backgroundImage: NetworkImage(imageUrl),
-        child: child,
+    return AvatarGlow(
+      startDelay: const Duration(milliseconds: 1000),
+      glowColor: Colors.white,
+      glowShape: BoxShape.circle,
+      animate: true,
+      curve: Curves.easeInBack,
+      child: Material(
+        elevation: 8.0,
+        shape: CircleBorder(),
+        color: Colors.transparent,
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(imageUrl),
+          radius: 50.0,
+        ),
       ),
     );
+
+    // return CircleAvatar(
+    //   radius: radius.toDouble() + 2,
+    //   backgroundColor: Colors.white,
+    //   child: CircleAvatar(
+    //     radius: radius.toDouble(),
+    //     backgroundImage: NetworkImage(imageUrl),
+    //     child: child,
+    //   ),
+    // );
   }
 }
 

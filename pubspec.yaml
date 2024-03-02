@@ -49,6 +49,7 @@ dependencies:
   card_swiper: 3.0.1
   flutter_tts: ^3.8.5
   flutter_svg: 0.22.0
+  avatar_glow: 3.0.1
   
 
 
