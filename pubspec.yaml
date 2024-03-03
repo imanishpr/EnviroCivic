@@ -52,6 +52,7 @@ dependencies:
   avatar_glow: 3.0.1
   country_flags: ^2.2.0
   dropdown_button2: ^2.3.9
+  lottie: ^2.7.0
   
 
 
@@ -78,6 +79,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/green_waste.json
+    - assets/blue_waste.json
+    - assets/red_waste.json
+    - assets/gray_waste.json
     - assets/alum_can.png
     - assets/band_aids.png
     - assets/burger.png

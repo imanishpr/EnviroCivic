@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyScreen(),
+      routes: {
+        "/garbageBattle": (_) => ExampleDragAndDrop(),
+      },
     );
   }
 }
@@ -75,13 +78,13 @@ class _MyScreenState extends State<MyScreen>
 
   List<String> texts = [
     "Meet Emie, a 27-year-old working at an IT firm in bustling Tokyo. She shares a cozy home with her mother, embracing the blend of modern city life and traditional Japanese warmth. As Emie navigates the challenges of her career, she finds herself on a journey toward sustainability, weaving her story through the vibrant streets of Tokyo",
-    "In the heart of Tokyo, amidst the ceaseless rhythm of the city, Emie makes her way home after another day at the office.",
-    "Welcome back, Emie. How was your day?",
-    "Long, but productive. How about you, Mom?",
-    "Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?",
-    "Of course, Mom. I'll take care of it right away.",
-    "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
-    "Shall we start by gathering the garbage?",
+    // "In the heart of Tokyo, amidst the ceaseless rhythm of the city, Emie makes her way home after another day at the office.",
+    // "Welcome back, Emie. How was your day?",
+    // "Long, but productive. How about you, Mom?",
+    // "Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?",
+    // "Of course, Mom. I'll take care of it right away.",
+    // "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
+    // "Shall we start by gathering the garbage?",
   ];
   List<String> jTexts = [
     "エミーに会ってください。彼女は賑やかな東京のIT企業で働く27歳です。彼女は母親と一緒に居心地の良い家を共有し、現代の都市生活と伝統的な日本の温かさを取り入れています。エミーがキャリアの挑戦に立ち向かう中で、彼女は持続可能性への旅に自分自身を見つけ、その物語を東京の活気ある街並みを通して織り交ぜています。",
@@ -100,67 +103,56 @@ class _MyScreenState extends State<MyScreen>
       "/intro/intro40.jpg",
       "/intro/intro44.jpg"
     ],
-    [
-      "/drive/d15.jpg",
-      "/drive/drivin14.jpeg"
-    ],
-    ["/mom/mom25.jpeg"],
-    ["/mom/talking34.jpeg"],
-    ["/mom/mom22.jpg"],
-    ["/mom/tmom33.jpg"],
-    ["/angry/28badroom.jpg"],
-    ["/angry/angry30.jpg"],
+    // ["/drive/d15.jpg", "/drive/drivin14.jpeg"],
+    // ["/mom/mom25.jpeg"],
+    // ["/mom/talking34.jpeg"],
+    // ["/mom/mom22.jpg"],
+    // ["/mom/tmom33.jpg"],
+    // ["/angry/28badroom.jpg"],
+    // ["/angry/angry30.jpg"],
     // Add more lists if needed
   ];
   List<List<String>> imagePathsListSubWay = [
     ["/drive/d13.jpg", "/drive/drivin14.jpeg"],
-    [
-      "/subway/friend/friend.jpeg",
-    ],
+    // [
+    //   "/subway/friend/friend.jpeg",
+    // ],
 
-    ["/subway/coffee/coffee10.jpeg"],
-    [
-      "/subway/friend/friend2.jpeg"
-    ],
-    [ 
-      "/subway/coffee/coffee11.jpeg"
-    ],
-    [
-      "/subway/friend/friend3.jpeg",
-    ],
-    [
-      "/subway/coffee/coffee12.jpeg",
-    ],
-    [
-      "/subway/police/ticketbuy.png",
-    ],
-    [
-      "/subway/friend/wait4.jpeg",
-    ],
-    [
-      "/subway/police/policeman.jpeg"
-    ],
-    [
-      "/subway/police/policeman.jpeg"
-    ],
-    ["/subway/friend/wait3.jpeg"],
-    ["/subway/friend/wait5.jpeg"]
+    // ["/subway/coffee/coffee10.jpeg"],
+    // ["/subway/friend/friend2.jpeg"],
+    // ["/subway/coffee/coffee11.jpeg"],
+    // [
+    //   "/subway/friend/friend3.jpeg",
+    // ],
+    // [
+    //   "/subway/coffee/coffee12.jpeg",
+    // ],
+    // [
+    //   "/subway/police/ticketbuy.png",
+    // ],
+    // [
+    //   "/subway/friend/wait4.jpeg",
+    // ],
+    // ["/subway/police/policeman.jpeg"],
+    // ["/subway/police/policeman.jpeg"],
+    // ["/subway/friend/wait3.jpeg"],
+    // ["/subway/friend/wait5.jpeg"]
     // Add more lists if needed
   ];
   List<String> subWaytexts = [
     "As Emi drove through the bustling streets of Tokyo, an hour passed before she finally arrived at her office. Maneuvering through the busy traffic and stopping at intersections, she navigated the city's vibrant roads, focused on reaching her destination",
-    "You look a bit worn out. Rough commute?",
-    "Yeah, the traffic was brutal. Took me a whole hour just to get here.",
-    "Why not give the subway a shot? It's not only better for the environment but also saves you time and stress. Plus, you can relax or catch up on reading during the ride.",
-    "Hmm, you might be onto something there. I'll give it a try tomorrow.",
-    "And here's a pro tip: skip the lines by purchasing your pass online. It's super easy to add it to your Google Wallet, too.",
-    "Oh, I didn't know that! Thanks for the heads up. I'll definitely look into it right away.",
-    "After browsing the subway website, Emi decides to purchase a ticket. With a few clicks, she completes the transaction and a button appears, allowing her to conveniently add the ticket to her Google Wallet.",
-    "As she reached the entrance, the hustle and bustle of commuters filled the air, signaling the start of her journey towards a more sustainable lifestyle.",
-    "Excuse me, miss. Could I see your ticket, If you have a pass added to your google wallet I can quickly scan it!",
-    "I've scanned it. You're all set to board the subway now.",
-    "I didn't have to stand in line to buy tickets. Saved a lot of time. Scan was also quick. Thank you.",
-    "Emi patiently waited on the platform as the train approached, taking only three minutes to arrive. Boarding swiftly, she knew her entire commute would last just 30 minutes. With a sense of satisfaction, she settled into her seat, reflecting on the positive impact of her eco-friendly decision"
+    // "You look a bit worn out. Rough commute?",
+    // "Yeah, the traffic was brutal. Took me a whole hour just to get here.",
+    // "Why not give the subway a shot? It's not only better for the environment but also saves you time and stress. Plus, you can relax or catch up on reading during the ride.",
+    // "Hmm, you might be onto something there. I'll give it a try tomorrow.",
+    // "And here's a pro tip: skip the lines by purchasing your pass online. It's super easy to add it to your Google Wallet, too.",
+    // "Oh, I didn't know that! Thanks for the heads up. I'll definitely look into it right away.",
+    // "After browsing the subway website, Emi decides to purchase a ticket. With a few clicks, she completes the transaction and a button appears, allowing her to conveniently add the ticket to her Google Wallet.",
+    // "As she reached the entrance, the hustle and bustle of commuters filled the air, signaling the start of her journey towards a more sustainable lifestyle.",
+    // "Excuse me, miss. Could I see your ticket, If you have a pass added to your google wallet I can quickly scan it!",
+    // "I've scanned it. You're all set to board the subway now.",
+    // "I didn't have to stand in line to buy tickets. Saved a lot of time. Scan was also quick. Thank you.",
+    // "Emi patiently waited on the platform as the train approached, taking only three minutes to arrive. Boarding swiftly, she knew her entire commute would last just 30 minutes. With a sense of satisfaction, she settled into her seat, reflecting on the positive impact of her eco-friendly decision"
   ];
 
   List<String> jsubWaytexts = [
@@ -270,7 +262,7 @@ class _MyScreenState extends State<MyScreen>
       print("currentIndex");
       print(currentIndex);
       setState(() {
-        if (currentIndex < imagePathsList.length -1) {
+        if (currentIndex < imagePathsList.length - 1) {
           if (rotator < imagePathsList[currentIndex].length - 1) {
             rotator++;
           } else {
@@ -280,163 +272,6 @@ class _MyScreenState extends State<MyScreen>
       });
     });
   }
-
-  // Future<void> _showLanguageDialog() async {
-  //   return showDialog<void>(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         insetPadding: EdgeInsets.all(0),
-  //         title: Text('Urban Eco-Adventures'),
-  //         elevation: 50.0,
-  //         backgroundColor: Color.fromARGB(255, 132, 219, 146),
-  //         content: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             Align(
-  //               alignment: Alignment.center,
-  //               child: Swiper(
-  //                 itemWidth: 300,
-  //                 itemHeight: 300,
-  //                 loop: true,
-  //                 autoplay: true,
-  //                 duration: 2000,
-  //                 scrollDirection: Axis.horizontal,
-  //                 itemCount: 6,
-  //                 itemBuilder: (context, index) {
-  //                   return Container(
-  //                     width: 300,
-  //                     height: 300,
-  //                     decoration: BoxDecoration(
-  //                       image: DecorationImage(
-  //                           image: AssetImage(imagePaths[index])),
-  //                       borderRadius: BorderRadius.circular(300),
-  //                     ),
-  //                   );
-  //                 },
-  //                 layout: SwiperLayout.STACK,
-  //               ),
-  //             ),
-  //             // Image container (replace with your image widget)
-  //             // Text description followed by images (replace with your content)
-  //             Text(
-  //               'Welcome to the Game!\nPlay and Win to Collect Your Collectible Card!',
-  //               style: TextStyle(
-  //                   fontSize: 16.0,
-  //                   fontFamily: GoogleFonts.poppins().fontFamily),
-  //             ),
-  //             SizedBox(height: 8.0), // Adjust spacing as needed
-  //             const AvatarStack(
-  //               avatars: [
-  //                 'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-  //                 'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-  //                 'https://res.cloudinary.com/parc-india/image/upload/e_blur:2000/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
-  //               ],
-  //             ),
-  //             SizedBox(height: 16.0), // Adjust spacing as needed
-
-  //             Text(
-  //               'Language Settings / 言語の設定',
-  //               style: TextStyle(
-  //                   fontSize: 16.0,
-  //                   fontFamily: GoogleFonts.poppins().fontFamily),
-  //             ),
-  //             SizedBox(height: 8.0), // Adjust spacing as needed
-  //             // Language selection
-  //             GestureDetector(
-  //               onTap: () {
-  //                 setState(() {
-  //                   selectedLanguage = "en-US";
-  //                   isSpeaking = true;
-  //                   _speak(texts[currentIndex]);
-  //                   _startImageRotation();
-  //                 });
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: Container(
-  //                 decoration: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                   color: Color.fromARGB(255, 132, 219, 146),
-  //                   border: Border.all(color: Colors.green, width: 2.0),
-  //                   boxShadow: [
-  //                     BoxShadow(
-  //                       color: Colors.green.withOpacity(0.5),
-  //                       spreadRadius: 2,
-  //                       blurRadius: 4,
-  //                       offset: Offset(0, 3),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 child: Material(
-  //                   elevation: 4.0,
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                   child: Padding(
-  //                     padding: EdgeInsets.all(8.0),
-  //                     child: Text(
-  //                       'English',
-  //                       style: TextStyle(
-  //                         fontSize: 16.0,
-  //                         fontFamily: GoogleFonts.poppins().fontFamily,
-  //                         color: Color.fromARGB(255, 132, 219, 146),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-
-  //             GestureDetector(
-  //               onTap: () {
-  //                 setState(() {
-  //                   selectedLanguage = "ja-JP";
-  //                   isSpeaking = true;
-  //                   texts = jTexts;
-  //                   _speak(texts[currentIndex]);
-  //                   _startImageRotation();
-  //                 });
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: Container(
-  //                 decoration: BoxDecoration(
-  //                   color: Color.fromARGB(255, 132, 219, 146),
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                   border: Border.all(color: Colors.green, width: 2.0),
-  //                   boxShadow: [
-  //                     BoxShadow(
-  //                       color: Colors.green.withOpacity(0.5),
-  //                       spreadRadius: 2,
-  //                       blurRadius: 4,
-  //                       offset: Offset(0, 3),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 child: Material(
-  //                   elevation: 4.0,
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                   child: Padding(
-  //                     padding: EdgeInsets.all(8.0),
-  //                     child: Text(
-  //                       '日本語',
-  //                       style: TextStyle(
-  //                         fontSize: 16.0,
-  //                         fontFamily: GoogleFonts.poppins().fontFamily,
-  //                         color: Color.fromARGB(255, 132, 219, 146),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-
-  //             // Add more language options as needed
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 
   Future<void> _speak(String text) async {
     print("WIll speak this " + text);
@@ -453,14 +288,16 @@ class _MyScreenState extends State<MyScreen>
     setState(() {
       isSpeaking = false; // Set isSpeaking to true when text-to-speech starts
     });
-    if (currentIndex == imagePathsList.length - 1 && !shouldRenderSubwayWidget) {
+    if (currentIndex == imagePathsList.length - 1 &&
+        !shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 5));
       // Navigate to ExampleDragAndDrop and wait for it to return
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => ExampleDragAndDrop(),
-        ),
-      );
+      // await Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (context) => ExampleDragAndDrop(),
+      //   ),
+      // );
+      Navigator.pushReplacementNamed(context, "/garbageBattle");
       currentIndex = 0;
       rotator = 0;
       shouldRenderSubwayWidget = true;
@@ -621,7 +458,7 @@ class _MyScreenState extends State<MyScreen>
           ),
         )
       ]);
-    }else if (!isSubwayComplete) {
+    } else if (!isSubwayComplete) {
       return Stack(children: <Widget>[
         subWayWidget(),
         SizedBox(
@@ -927,12 +764,11 @@ class _MyScreenState extends State<MyScreen>
     );
   }
 
-  
   Widget chapter2Welcome() {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
         home: Stack(alignment: Alignment.center, children: <Widget>[
@@ -1005,53 +841,50 @@ class _MyScreenState extends State<MyScreen>
             ),
           ),
           Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Description strip (90% width)
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9 -
-                        40, // Adjusting width considering padding
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Description strip (90% width)
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9 -
+                    40, // Adjusting width considering padding
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+              ),
+              // Next button (10% width)
+              Visibility(
+                visible: !isSpeaking, // Show the button only when not speaking
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      print(currentIndex);
+                      setState(() {
+                        chapter2 = false;
+                        _speak(subWaytexts[currentIndex]);
+                      });
+                    },
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                      size: 70.0, // Adjust the size as needed
                     ),
-                  ),
-                  // Next button (10% width)
-                  Visibility(
-                    visible:
-                        !isSpeaking, // Show the button only when not speaking
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.1,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          print(currentIndex);
-                          setState(() {
-                            chapter2 = false;
-                            _speak(subWaytexts[currentIndex]);
-                          });
-                        },
-                        child: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          size: 70.0, // Adjust the size as needed
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 118, 224, 122)
-                              .withOpacity(0.4),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      primary:
+                          Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
+            ],
+          ),
         ]));
   }
-
-
 
   Widget secondWidget() {
     return Scaffold(
@@ -1122,7 +955,7 @@ class _MyScreenState extends State<MyScreen>
 
                           setState(() {
                             isSpeaking = false;
-                            if(currentIndex<imagePathsList.length-1) {
+                            if (currentIndex < imagePathsList.length - 1) {
                               currentIndex++;
                             }
                             _speak(texts[currentIndex]);
@@ -1208,7 +1041,6 @@ class _MyScreenState extends State<MyScreen>
                           ),
                         ),
                       ],
-                      
                     ),
                   ),
                   // Next button (10% width)
@@ -1375,19 +1207,19 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
   return pem;
 }
 
-class CongratulatoryPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Congratulations!'),
-      ),
-      body: Center(
-        child: Text('Hurray! You are done.'),
-      ),
-    );
-  }
-}
+// class CongratulatoryPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Congratulations!'),
+//       ),
+//       body: Center(
+//         child: Text('Hurray! You are done.'),
+//       ),
+//     );
+//   }
+// }
 
 class AvatarStack extends StatelessWidget {
   const AvatarStack({

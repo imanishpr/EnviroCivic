@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
+import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:garbage_sorting/data.dart';
 import 'package:garbage_sorting/model/theme.dart';
@@ -12,16 +15,16 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:confetti/confetti.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
-// void main() {
-//   runApp(
-//     const MaterialApp(
-//       home: ExampleDragAndDrop(),
-//       debugShowCheckedModeBanner: false,
-//     ),
-//   );
-// }
+void main() {
+  runApp(
+    const MaterialApp(
+      home: ExampleDragAndDrop(),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
+}
 
 enum GarbageType { dry, wet, sanitary, ewaste }
 
@@ -31,9 +34,54 @@ List<Item> _items = [
   const Item(
     name: 'Aluminium can',
     totalPriceCents: 1299,
+    uid: '5',
+    imageProvider: AssetImage('assets/alum_can.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  ),
+  const Item(
+    name: 'Aluminium can',
+    totalPriceCents: 1299,
+    uid: '6',
+    imageProvider: AssetImage('assets/alum_can.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  ),
+  const Item(
+    name: 'Aluminium can',
+    totalPriceCents: 1299,
+    uid: '7',
+    imageProvider: AssetImage('assets/alum_can.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  ),
+  const Item(
+    name: 'Aluminium can',
+    totalPriceCents: 1299,
+    uid: '8',
+    imageProvider: AssetImage('assets/alum_can.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  ),
+  const Item(
+    name: 'Aluminium can',
+    totalPriceCents: 1299,
     uid: '1',
     imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.dry,
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription:
+        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  ),
+  const Item(
+    name: 'Aluminium can',
+    totalPriceCents: 1299,
+    uid: '3',
+    imageProvider: AssetImage('assets/alum_can.png'),
+    garbageType: GarbageType.wet,
     incorrectMessageDescription:
         "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
   ),
@@ -46,159 +94,6 @@ List<Item> _items = [
     incorrectMessageDescription:
         "Uh-oh! Seems like this item is more suited for a specific bin. Consider its material and its journey after disposal.",
   ),
-  // const Item(
-  //   name: 'Burger',
-  //   totalPriceCents: 1499,
-  //   uid: '3',
-  //   imageProvider: AssetImage('assets/burger.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Oops, looks like this burger's journey has been cut short! Consider where its remaining 'half' belongs",
-  // ),
-  // const Item(
-  //   name: 'Cardboard Box',
-  //   totalPriceCents: 1499,
-  //   uid: '4',
-  //   imageProvider: AssetImage('assets/cardboard_box.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription:
-  //       "Hmm, this one might need a sturdier home. Think about where you'd put it for a new life.",
-  // ),
-  // const Item(
-  //   name: 'Charging Cable',
-  //   totalPriceCents: 1499,
-  //   uid: '5',
-  //   imageProvider: AssetImage('assets/charging_cable.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription:
-  //       "Whoopsie! This item needs a charge of its own, but in a different bin. Consider its technological nature.",
-  // ),
-  // const Item(
-  //   name: 'Disposable Cup',
-  //   totalPriceCents: 1499,
-  //   uid: '6',
-  //   imageProvider: AssetImage('assets/disposable_cup.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription:
-  //       "Oh dear, this cup's journey might be a bit different than you think. Reflect on its composition.",
-  // ),
-  // const Item(
-  //   name: 'Egg Shells',
-  //   totalPriceCents: 1499,
-  //   uid: '7',
-  //   imageProvider: AssetImage('assets/egg_shells.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Hm, this one's a bit 'shell'-shocked! Imagine where it belongs after its 'cracking' adventure.",
-  // ),
-  // const Item(
-  //   name: 'Food Leftover',
-  //   totalPriceCents: 1499,
-  //   uid: '8',
-  //   imageProvider: AssetImage('assets/food_leftover.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Ah, leftovers from a journey! But perhaps a different destination awaits them. Consider their origins.",
-  // ),
-  // const Item(
-  //   name: 'Fruit Scraps',
-  //   totalPriceCents: 1499,
-  //   uid: '9',
-  //   imageProvider: AssetImage('assets/fruit_scraps.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Hmm, these scraps may lead to a fruitful destination elsewhere. Ponder their potential.",
-  // ),
-  // const Item(
-  //   name: 'Game Console',
-  //   totalPriceCents: 1499,
-  //   uid: '10',
-  //   imageProvider: AssetImage('assets/game_console.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription:
-  //       "Whoa, a gaming device! But its journey might be to a different bin. Imagine where it 'resets'.",
-  // ),
-  // const Item(
-  //   name: 'Keyboard',
-  //   totalPriceCents: 1499,
-  //   uid: '11',
-  //   imageProvider: AssetImage('assets/keyboard.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription:
-  //       "Oops, seems like this keyboard needs a different key to its journey. Reflect on its functionality.",
-  // ),
-  // const Item(
-  //   name: 'Mask',
-  //   totalPriceCents: 1499,
-  //   uid: '12',
-  //   imageProvider: AssetImage('assets/mask.png'),
-  //   garbageType: GarbageType.sanitary,
-  //   incorrectMessageDescription:
-  //       "Ah, a mask! But perhaps a different bin awaits it for a new journey. Consider its protective purpose.",
-  // ),
-  // const Item(
-  //   name: 'Mouse',
-  //   totalPriceCents: 1499,
-  //   uid: '13',
-  //   imageProvider: AssetImage('assets/mouse.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription:
-  //       "Squeak! This mouse's journey might lead it to a different bin. Imagine where it 'clicks'.",
-  // ),
-  // const Item(
-  //   name: 'Newspapers',
-  //   totalPriceCents: 1499,
-  //   uid: '14',
-  //   imageProvider: AssetImage('assets/newspaper.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription:
-  //       "Hm, this news needs a new destination. Think about where it belongs after being 'read'.",
-  // ),
-  // const Item(
-  //   name: 'Plastic Bottle',
-  //   totalPriceCents: 1499,
-  //   uid: '15',
-  //   imageProvider: AssetImage('assets/pastic_bottle.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription:
-  //       "Oh, a bottle! But where does it go after quenching its thirst? Imagine its next adventure.",
-  // ),
-  // const Item(
-  //   name: 'Broken Phone',
-  //   totalPriceCents: 1499,
-  //   uid: '16',
-  //   imageProvider: AssetImage('assets/phone.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription:
-  //       "Uh-oh, this phone's journey might need a new 'connection'. Think about where its 'broken' parts should go for a new life",
-  // ),
-  // const Item(
-  //   name: 'Sanitary Napkins',
-  //   totalPriceCents: 1499,
-  //   uid: '17',
-  //   imageProvider: AssetImage('assets/sanitary_napkins.png'),
-  //   garbageType: GarbageType.sanitary,
-  //   incorrectMessageDescription:
-  //       "Whoops, this item might need a different destination. Reflect on its hygiene purpose.",
-  // ),
-  // const Item(
-  //   name: 'Tampons',
-  //   totalPriceCents: 1499,
-  //   uid: '18',
-  //   imageProvider: AssetImage('assets/tampons.png'),
-  //   garbageType: GarbageType.sanitary,
-  //   incorrectMessageDescription:
-  //       "Hmm, these might need a different bin for their next 'cycle'. Imagine where they belong.",
-  // ),
-  // const Item(
-  //   name: 'Tea Bags',
-  //   totalPriceCents: 1499,
-  //   uid: '19',
-  //   imageProvider: AssetImage('assets/tea_bags.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Oops, these bags might need a different brew of a bin. Ponder their compostable potential",
-  // )
 ];
 
 @immutable
@@ -212,6 +107,10 @@ class ExampleDragAndDrop extends StatefulWidget {
 class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     with TickerProviderStateMixin {
   late ConfettiController _topController;
+  late final AnimationController _greenController;
+  late final AnimationController _blueController;
+  late final AnimationController _redController;
+  late final AnimationController _grayController;
 
   @override
   void initState() {
@@ -219,12 +118,20 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
 
     // initialize confettiController
     _topController = ConfettiController(duration: const Duration(seconds: 2));
+    _greenController = AnimationController(vsync: this);
+    _blueController = AnimationController(vsync: this);
+    _redController = AnimationController(vsync: this);
+    _grayController = AnimationController(vsync: this);
   }
 
   @override
   void dispose() {
     // dispose the controller
     _topController.dispose();
+    _greenController.dispose();
+    _blueController.dispose();
+    _redController.dispose();
+    _grayController.dispose();
     super.dispose();
   }
 
@@ -235,7 +142,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       garbageType: GarbageType.wet,
       color: Colors.green,
       collectibleReward: CollectibleReward.kumo,
-      maxLength: 1, //TODO SAI change this lengths to actual counts
+      maxLength: 2, //TODO SAI change this lengths to actual counts
       mistakes: 0,
       collectibleType: 'Dog',
       heroImage:
@@ -322,10 +229,34 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
 
   final GlobalKey _draggableKey = GlobalKey();
 
-  void _itemDroppedOnDustbin({
+  Future<void> _itemDroppedOnDustbin({
     required Item item,
     required Dustbin dustbin,
-  }) {
+  }) async {
+    if (dustbin.garbageType == GarbageType.wet) {
+      _greenController.reset();
+      _greenController.forward();
+      await Future.delayed(Duration(milliseconds: 2500));
+    }
+
+    if (dustbin.garbageType == GarbageType.dry) {
+      _blueController.reset();
+      _blueController.forward();
+      await Future.delayed(Duration(milliseconds: 2500));
+    }
+
+    if (dustbin.garbageType == GarbageType.sanitary) {
+      _redController.reset();
+      _redController.forward();
+      await Future.delayed(Duration(milliseconds: 2500));
+    }
+
+    if (dustbin.garbageType == GarbageType.ewaste) {
+      _grayController.reset();
+      _grayController.forward();
+      await Future.delayed(Duration(milliseconds: 2500));
+    }
+
     setState(() {
       dustbin.items.add(item);
       _items.removeWhere((element) => element.uid == item.uid);
@@ -352,7 +283,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 198, 233, 192),
+      backgroundColor: const Color(0xFFF7F7F7),
       appBar: _buildAppBar(),
       body: _buildContent(),
     );
@@ -369,7 +300,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
               fontWeight: FontWeight.bold,
             ),
       ),
-      backgroundColor: Color.fromARGB(255, 198, 233, 192),
+      backgroundColor: const Color(0xFFF7F7F7),
       elevation: 0,
     );
   }
@@ -381,27 +312,30 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
           children: [
             Expanded(
               flex: 18,
-              child: _buildGarbageList(),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: _buildGarbageList(),
+              ),
             ),
             _buildDustbinRow(),
           ],
         ),
-        // Align(
-        //   alignment: Alignment.topCenter,
-        //   child: ConfettiWidget(
-        //     confettiController: _topController,
-        //     blastDirection: pi / 2,
-        //     maxBlastForce: 5,
-        //     minBlastForce: 1,
-        //     emissionFrequency: 0.03,
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            confettiController: _topController,
+            blastDirection: pi / 2,
+            maxBlastForce: 5,
+            minBlastForce: 1,
+            emissionFrequency: 0.03,
 
-        //     // 10 paticles will pop-up at a time
-        //     numberOfParticles: 10,
+            // 10 paticles will pop-up at a time
+            numberOfParticles: 5,
 
-        //     // particles will pop-up
-        //     gravity: 0,
-        //   ),
-        // ),
+            // particles will pop-up
+            gravity: 0,
+          ),
+        ),
       ],
     );
   }
@@ -417,15 +351,14 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       return _buildCongratulationsScreen(_dustbins[3]);
     }
     if (_items.isEmpty) {
-      Navigator.pop(context);
-      return const Text("hello");
+      return const Text("helo");
     } else {
       isCongratsShowing = false;
       return AnimationLimiter(
         child: GridView.count(
-          crossAxisCount: 5,
-          crossAxisSpacing: 25.0,
-          mainAxisSpacing: 25.0,
+          crossAxisCount: 6,
+          crossAxisSpacing: 50.0,
+          mainAxisSpacing: 50.0,
           children: List.generate(
             _items.length,
             (index) {
@@ -454,49 +387,51 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     isCongratsShowing = true;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(0.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Left side with local image and collectible cards
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                //const SizedBox(width: 20),
-                //const AnimatedMomSayingCongratsWidget(),
-                // const SizedBox(width: 200),
+                // const AnimatedMomSayingCongratsWidget(),
+                const SizedBox(width: 100),
                 ChatScreen(),
                 CollectibleCardWidget(
                     collectibleReward: dustbin.collectibleReward),
-                const SizedBox(height: 100),
+                const SizedBox(width: 100),
               ],
             ),
             // Congratulations message
-            const Text(
-              'Congratulations! You have won Zephyr the wonder card!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+            // const Text(
+            //   'Congratulations! You have won Zephyr the wonder card!',
+            //   style: TextStyle(
+            //     fontSize: 20,
+            //     fontWeight: FontWeight.bold,
+            //     color: Colors.black,
+            //   ),
+            // ),
             // Button to add collectibles to Google Wallet
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                print("Collectible collected");
-                setState(() {
-                  dustbin.items = [];
-                });
-                //Navigator.of(context).restorablePush(_dialogBuilder);
-                //_launchURL(dustbin);
-              },
-              child: SvgPicture.asset(
-                'assets/wallet-eng.svg', // Replace 'assets/your_sample.svg' with your SVG file path
-                width: 250, // Adjust the width as needed
-                height: 50, // Adjust the height as needed
-              ),
-            ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),
+                onPressed: () {
+                  print("Collectible collected");
+                  setState(() {
+                    dustbin.items = [];
+                  });
+                  //Navigator.of(context).restorablePush(_dialogBuilder);
+                  // _launchURL(dustbin);
+                },
+                child: SvgPicture.asset(
+                  'assets/wallet-eng.svg',
+                  height: 50,
+                  width: 250,
+                )),
           ],
         ),
       ),
@@ -710,13 +645,76 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 4,
+          vertical: 4,
         ),
         child: DragTarget<Item>(
           builder: (context, candidateItems, rejectedItems) {
-            return DustbinCart(
-              hasItems: dustbin.items.isNotEmpty,
-              highlighted: candidateItems.isNotEmpty,
-              dustbin: dustbin,
+            var hasItems = dustbin.items.isNotEmpty;
+            var highlighted = candidateItems.isNotEmpty;
+            final textColor = highlighted ? Colors.black : Colors.white;
+            return Transform.scale(
+              scale: highlighted ? 1.075 : 1.0,
+              child: Material(
+                elevation: highlighted ? 8 : 4,
+                borderRadius: BorderRadius.circular(22),
+                color: highlighted
+                    ? const Color.fromARGB(184, 223, 133, 233)
+                    : dustbin.color,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // ClipOval(
+                      CircleAvatar(
+                        // width: 150,
+                        // height: 150,
+                        // child: dustbin.icon,
+                        radius: 60.0,
+                        backgroundColor: Colors.white12,
+                        child: buildRecycleDustbinIcon(dustbin),
+                        // ),
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        dustbin.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                              color: textColor,
+                              fontWeight:
+                                  hasItems ? FontWeight.bold : FontWeight.bold,
+                            ),
+                      ),
+                      // Visibility(
+                      //   visible: hasItems,
+                      //   maintainState: true,
+                      //   maintainAnimation: true,
+                      //   maintainSize: true,
+                      //   child: Column(
+                      //     children: [
+                      //       const SizedBox(height: 4),
+                      //       Text(
+                      //         '${dustbin.items.length} item${dustbin.items.length != 1 ? 's' : ''}',
+                      //         style: Theme.of(context)
+                      //             .textTheme
+                      //             .titleMedium!
+                      //             .copyWith(
+                      //               color: textColor,
+                      //               fontSize: 12,
+                      //             ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // )
+                    ],
+                  ),
+                ),
+              ),
             );
           },
           onAccept: (item) {
@@ -730,56 +728,33 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
               showModalBottomSheet<Item>(
                 context: context,
                 builder: (BuildContext context) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(
-                          255, 132, 219, 146), // Set your desired green color
-                      borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(
-                              20.0)), // Set the top border radius
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey
-                              .withOpacity(0.5), // Set the shadow color
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // Set the shadow offset
-                        ),
-                      ],
-                    ),
-                    child: SizedBox(
+                  return SizedBox(
                       height: 200,
+                      // child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 50,
-                          vertical: 5,
+                          horizontal: 10,
+                          vertical: 20,
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             const Image(
                               image: AssetImage('assets/alum_can.png'),
                               fit: BoxFit.cover,
                             ),
-                            Flexible(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: Text(
-                                  item.incorrectMessageDescription,
-                                ),
-                              ),
+                            Text(
+                              item.incorrectMessageDescription,
                             ),
                             ElevatedButton(
-                              child: const Text('Try again'),
+                              child: const Text('Thanks'),
                               onPressed: () => Navigator.pop(context),
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                  );
+                        // ),
+                      ));
                 },
               );
             }
@@ -787,6 +762,62 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
         ),
       ),
     );
+  }
+
+  LottieBuilder buildRecycleDustbinIcon(Dustbin dustbin) {
+    return Lottie.asset(
+      getLottieAssetFromDustbin(dustbin),
+      controller: getAnimationController(dustbin),
+      animate: false,
+      onLoaded: (composition) {
+        // Configure the AnimationController with the duration of the
+        // Lottie file and start the animation.
+        _greenController
+          ..duration = composition.duration
+          ..forward();
+        _redController
+          ..duration = composition.duration
+          ..forward();
+
+        _blueController
+          ..duration = composition.duration
+          ..forward();
+
+        _grayController
+          ..duration = composition.duration
+          ..forward();
+      },
+    );
+  }
+
+  AnimationController getAnimationController(Dustbin dustbin) {
+    switch (dustbin.garbageType) {
+      case GarbageType.dry:
+        return _blueController;
+      case GarbageType.wet:
+        return _greenController;
+      case GarbageType.sanitary:
+        return _redController;
+      case GarbageType.ewaste:
+        return _grayController;
+      default:
+        return _greenController;
+    }
+  }
+
+  String getLottieAssetFromDustbin(Dustbin dustbin) {
+    switch (dustbin.garbageType) {
+      case GarbageType.dry:
+        return 'assets/blue_waste.json';
+      case GarbageType.wet:
+        return 'assets/green_waste.json';
+      case GarbageType.sanitary:
+        return 'assets/red_waste.json';
+      case GarbageType.ewaste:
+        return 'assets/gray_waste.json';
+      default:
+        return 'assets/green_waste.json';
+    }
   }
 }
 
@@ -806,7 +837,7 @@ class _ChatScreenState extends State<ChatScreen> {
     profilePhoto: Data.profileImage,
   );
   final _chatController = ChatController(
-    initialMessageList: Data.messageList,
+    initialMessageList: Data.messageListOriginal,
     scrollController: ScrollController(),
     chatUsers: [
       ChatUser(
@@ -832,195 +863,203 @@ class _ChatScreenState extends State<ChatScreen> {
     ],
   );
 
+  @override
+  void initState() {
+    super.initState();
+    var index = 0;
+    Timer.periodic(Duration(seconds: 2), (timer) {
+      // Check if there are still messages to send
+      if (Data.messageList.length != index) {
+        // Call _onSendTap with the first message in the list
+        _onSendTap(Data.messageList[index++]);
+      } else {
+        // If there are no more messages, cancel the timer
+        timer.cancel();
+      }
+    });
+    // Call your function here when the widget is loaded
+  }
+
   void _showHideTypingIndicator() {
     _chatController.setTypingIndicator = !_chatController.showTypingIndicator;
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 400,
-      height: 300,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ChatView(
-          currentUser: currentUser,
-          chatController: _chatController,
-          onSendTap: _onSendTap,
-          featureActiveConfig: const FeatureActiveConfig(
-            lastSeenAgoBuilderVisibility: true,
-            receiptsBuilderVisibility: true,
+    return Container(
+      // height: double.infinity,
+      // width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
           ),
-          chatViewState: ChatViewState.hasMessages,
-          chatViewStateConfig: ChatViewStateConfiguration(
-            loadingWidgetConfig: ChatViewStateWidgetConfiguration(
-              loadingIndicatorColor: theme.outgoingChatBubbleColor,
+        ],
+      ),
+      child: SizedBox(
+        width: 700,
+        height: 500,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: ChatView(
+            currentUser: currentUser,
+            chatController: _chatController,
+            onSendTap: null,
+            featureActiveConfig: const FeatureActiveConfig(
+              lastSeenAgoBuilderVisibility: true,
+              receiptsBuilderVisibility: true,
             ),
-            onReloadButtonTap: () {},
-          ),
-          typeIndicatorConfig: TypeIndicatorConfiguration(
-            flashingCircleBrightColor: theme.flashingCircleBrightColor,
-            flashingCircleDarkColor: theme.flashingCircleDarkColor,
-          ),
-          appBar: ChatViewAppBar(
-            elevation: theme.elevation,
-            backGroundColor: theme.appBarColor,
-            profilePicture: Data.profileImage,
-            backArrowColor: theme.backArrowColor,
-            chatTitle: "Mom",
-            chatTitleTextStyle: TextStyle(
-              color: theme.appBarTitleTextStyle,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              letterSpacing: 0.25,
-            ),
-            userStatus: "online",
-            userStatusTextStyle: const TextStyle(color: Colors.grey),
-            actions: [
-              // IconButton(
-              //   onPressed: _onThemeIconTap,
-              //   icon: Icon(
-              //     isDarkTheme
-              //         ? Icons.brightness_4_outlined
-              //         : Icons.dark_mode_outlined,
-              //     color: theme.themeIconColor,
-              //   ),
-              // ),
-              // IconButton(
-              //   tooltip: 'Toggle TypingIndicator',
-              //   onPressed: _showHideTypingIndicator,
-              //   icon: Icon(
-              //     Icons.keyboard,
-              //     color: theme.themeIconColor,
-              //   ),
-              // ),
-            ],
-          ),
-          chatBackgroundConfig: ChatBackgroundConfiguration(
-            messageTimeIconColor: theme.messageTimeIconColor,
-            messageTimeTextStyle: TextStyle(color: theme.messageTimeTextColor),
-            defaultGroupSeparatorConfig: DefaultGroupSeparatorConfiguration(
-              textStyle: TextStyle(
-                color: theme.chatHeaderColor,
-                fontSize: 17,
+            chatViewState: ChatViewState.hasMessages,
+            chatViewStateConfig: ChatViewStateConfiguration(
+              loadingWidgetConfig: ChatViewStateWidgetConfiguration(
+                loadingIndicatorColor: theme.outgoingChatBubbleColor,
               ),
+              onReloadButtonTap: () {},
             ),
-            backgroundColor: theme.backgroundColor,
-          ),
-          sendMessageConfig: SendMessageConfiguration(
-            replyMessageColor: theme.replyMessageColor,
-            defaultSendButtonColor: theme.sendButtonColor,
-            replyDialogColor: theme.replyDialogColor,
-            replyTitleColor: theme.replyTitleColor,
-            textFieldBackgroundColor: theme.textFieldBackgroundColor,
-            closeIconColor: theme.closeIconColor,
-            textFieldConfig: TextFieldConfiguration(
-              onMessageTyping: (status) {
-                /// Do with status
-                debugPrint(status.toString());
-              },
-              compositionThresholdTime: const Duration(seconds: 1),
-              textStyle: TextStyle(color: theme.textFieldTextColor),
+            typeIndicatorConfig: TypeIndicatorConfiguration(
+              flashingCircleBrightColor: theme.flashingCircleBrightColor,
+              flashingCircleDarkColor: theme.flashingCircleDarkColor,
             ),
-          ),
-          chatBubbleConfig: ChatBubbleConfiguration(
-            outgoingChatBubbleConfig: ChatBubble(
-              linkPreviewConfig: LinkPreviewConfiguration(
-                backgroundColor: theme.linkPreviewOutgoingChatColor,
-                bodyStyle: theme.outgoingChatLinkBodyStyle,
-                titleStyle: theme.outgoingChatLinkTitleStyle,
-              ),
-              receiptsWidgetConfig: const ReceiptsWidgetConfig(
-                  showReceiptsIn: ShowReceiptsIn.all),
-              color: theme.outgoingChatBubbleColor,
-            ),
-            inComingChatBubbleConfig: ChatBubble(
-              linkPreviewConfig: LinkPreviewConfiguration(
-                linkStyle: TextStyle(
-                  color: theme.inComingChatBubbleTextColor,
-                  decoration: TextDecoration.underline,
+            appBar: null,
+            chatBackgroundConfig: ChatBackgroundConfiguration(
+              messageTimeIconColor: theme.messageTimeIconColor,
+              messageTimeTextStyle:
+                  TextStyle(color: theme.messageTimeTextColor),
+              defaultGroupSeparatorConfig: DefaultGroupSeparatorConfiguration(
+                textStyle: TextStyle(
+                  color: theme.chatHeaderColor,
+                  fontSize: 17,
                 ),
-                backgroundColor: theme.linkPreviewIncomingChatColor,
-                bodyStyle: theme.incomingChatLinkBodyStyle,
-                titleStyle: theme.incomingChatLinkTitleStyle,
               ),
-              textStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
-              onMessageRead: (message) {
-                /// send your message reciepts to the other client
-                debugPrint('Message Read');
-              },
-              senderNameTextStyle:
-                  TextStyle(color: theme.inComingChatBubbleTextColor),
-              color: theme.inComingChatBubbleColor,
+              backgroundColor: Colors.white24,
+              // backgroundImage: 'assets/alum_can.png',
             ),
-          ),
-          replyPopupConfig: ReplyPopupConfiguration(
-            backgroundColor: theme.replyPopupColor,
-            buttonTextStyle: TextStyle(color: theme.replyPopupButtonColor),
-            topBorderColor: theme.replyPopupTopBorderColor,
-          ),
-          reactionPopupConfig: ReactionPopupConfiguration(
-            shadow: BoxShadow(
-              color: isDarkTheme ? Colors.black54 : Colors.grey.shade400,
-              blurRadius: 20,
+            sendMessageConfig: SendMessageConfiguration(
+              replyMessageColor: theme.replyMessageColor,
+              defaultSendButtonColor: theme.sendButtonColor,
+              replyDialogColor: theme.replyDialogColor,
+              replyTitleColor: theme.replyTitleColor,
+              textFieldBackgroundColor: theme.textFieldBackgroundColor,
+              closeIconColor: theme.closeIconColor,
+              textFieldConfig: TextFieldConfiguration(
+                onMessageTyping: (status) {
+                  /// Do with status
+                  debugPrint(status.toString());
+                },
+                compositionThresholdTime: const Duration(seconds: 1),
+                textStyle: TextStyle(color: theme.textFieldTextColor),
+              ),
             ),
-            backgroundColor: theme.reactionPopupColor,
-          ),
-          messageConfig: MessageConfiguration(
-            messageReactionConfig: MessageReactionConfiguration(
-              backgroundColor: theme.messageReactionBackGroundColor,
-              borderColor: theme.messageReactionBackGroundColor,
-              reactedUserCountTextStyle:
-                  TextStyle(color: theme.inComingChatBubbleTextColor),
-              reactionCountTextStyle:
-                  TextStyle(color: theme.inComingChatBubbleTextColor),
-              reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
-                backgroundColor: theme.backgroundColor,
-                reactedUserTextStyle: TextStyle(
-                  color: theme.inComingChatBubbleTextColor,
+            chatBubbleConfig: ChatBubbleConfiguration(
+              outgoingChatBubbleConfig: ChatBubble(
+                linkPreviewConfig: LinkPreviewConfiguration(
+                  backgroundColor: theme.linkPreviewOutgoingChatColor,
+                  bodyStyle: theme.outgoingChatLinkBodyStyle,
+                  titleStyle: theme.outgoingChatLinkTitleStyle,
                 ),
-                reactionWidgetDecoration: BoxDecoration(
-                  color: theme.inComingChatBubbleColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color:
-                          isDarkTheme ? Colors.black12 : Colors.grey.shade200,
-                      offset: const Offset(0, 20),
-                      blurRadius: 40,
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(10),
+                receiptsWidgetConfig: const ReceiptsWidgetConfig(
+                    showReceiptsIn: ShowReceiptsIn.all),
+                color: theme.outgoingChatBubbleColor,
+              ),
+              inComingChatBubbleConfig: ChatBubble(
+                linkPreviewConfig: LinkPreviewConfiguration(
+                  linkStyle: TextStyle(
+                    color: theme.inComingChatBubbleTextColor,
+                    decoration: TextDecoration.underline,
+                  ),
+                  backgroundColor: theme.linkPreviewIncomingChatColor,
+                  bodyStyle: theme.incomingChatLinkBodyStyle,
+                  titleStyle: theme.incomingChatLinkTitleStyle,
+                ),
+                textStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
+                onMessageRead: (message) {
+                  /// send your message reciepts to the other client
+                  debugPrint('Message Read');
+                },
+                senderNameTextStyle:
+                    TextStyle(color: theme.inComingChatBubbleTextColor),
+                color: theme.inComingChatBubbleColor,
+              ),
+            ),
+            replyPopupConfig: ReplyPopupConfiguration(
+              backgroundColor: theme.replyPopupColor,
+              buttonTextStyle: TextStyle(color: theme.replyPopupButtonColor),
+              topBorderColor: theme.replyPopupTopBorderColor,
+            ),
+            reactionPopupConfig: ReactionPopupConfiguration(
+              shadow: BoxShadow(
+                color: isDarkTheme ? Colors.black54 : Colors.grey.shade400,
+                blurRadius: 20,
+              ),
+              backgroundColor: theme.reactionPopupColor,
+            ),
+            messageConfig: MessageConfiguration(
+              messageReactionConfig: MessageReactionConfiguration(
+                backgroundColor: theme.messageReactionBackGroundColor,
+                borderColor: theme.messageReactionBackGroundColor,
+                reactedUserCountTextStyle:
+                    TextStyle(color: theme.inComingChatBubbleTextColor),
+                reactionCountTextStyle:
+                    TextStyle(color: theme.inComingChatBubbleTextColor),
+                reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
+                  backgroundColor: theme.backgroundColor,
+                  reactedUserTextStyle: TextStyle(
+                    color: theme.inComingChatBubbleTextColor,
+                  ),
+                  reactionWidgetDecoration: BoxDecoration(
+                    color: theme.inComingChatBubbleColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            isDarkTheme ? Colors.black12 : Colors.grey.shade200,
+                        offset: const Offset(0, 20),
+                        blurRadius: 40,
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              imageMessageConfig: ImageMessageConfiguration(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+                shareIconConfig: ShareIconConfiguration(
+                  defaultIconBackgroundColor: theme.shareIconBackgroundColor,
+                  defaultIconColor: theme.shareIconColor,
                 ),
               ),
             ),
-            imageMessageConfig: ImageMessageConfiguration(
-              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-              shareIconConfig: ShareIconConfiguration(
-                defaultIconBackgroundColor: theme.shareIconBackgroundColor,
-                defaultIconColor: theme.shareIconColor,
+            profileCircleConfig: const ProfileCircleConfiguration(
+              profileImageUrl: Data.profileImage,
+            ),
+            repliedMessageConfig: RepliedMessageConfiguration(
+              backgroundColor: theme.repliedMessageColor,
+              verticalBarColor: theme.verticalBarColor,
+              repliedMsgAutoScrollConfig: RepliedMsgAutoScrollConfig(
+                enableHighlightRepliedMsg: true,
+                highlightColor: Colors.pinkAccent.shade100,
+                highlightScale: 1.1,
               ),
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.25,
+              ),
+              replyTitleTextStyle:
+                  TextStyle(color: theme.repliedTitleTextColor),
             ),
-          ),
-          profileCircleConfig: const ProfileCircleConfiguration(
-            profileImageUrl: Data.profileImage,
-          ),
-          repliedMessageConfig: RepliedMessageConfiguration(
-            backgroundColor: theme.repliedMessageColor,
-            verticalBarColor: theme.verticalBarColor,
-            repliedMsgAutoScrollConfig: RepliedMsgAutoScrollConfig(
-              enableHighlightRepliedMsg: true,
-              highlightColor: Colors.pinkAccent.shade100,
-              highlightScale: 1.1,
+            swipeToReplyConfig: SwipeToReplyConfiguration(
+              replyIconColor: theme.swipeToReplyIconColor,
             ),
-            textStyle: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.25,
-            ),
-            replyTitleTextStyle: TextStyle(color: theme.repliedTitleTextColor),
-          ),
-          swipeToReplyConfig: SwipeToReplyConfiguration(
-            replyIconColor: theme.swipeToReplyIconColor,
           ),
         ),
       ),
@@ -1028,21 +1067,12 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _onSendTap(
-    String message,
-    ReplyMessage replyMessage,
-    MessageType messageType,
+    Message message,
+    // ReplyMessage replyMessage,
+    // MessageType messageType,
   ) {
-    final id = int.parse(Data.messageList.last.id) + 1;
-    _chatController.addMessage(
-      Message(
-        id: id.toString(),
-        createdAt: DateTime.now(),
-        message: message,
-        sendBy: currentUser.id,
-        replyMessage: replyMessage,
-        messageType: messageType,
-      ),
-    );
+    final id = int.parse(Data.messageListOriginal.last.id) + 1;
+    _chatController.addMessage(message);
     Future.delayed(const Duration(milliseconds: 300), () {
       _chatController.initialMessageList.last.setStatus =
           MessageStatus.undelivered;
@@ -1072,23 +1102,54 @@ class AnimatedMomSayingCongratsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetCircularAnimator(
-      size: 350,
-      innerIconsSize: 10,
-      outerIconsSize: 10,
-      innerAnimation: Curves.easeInOutBack,
-      outerAnimation: Curves.easeInOutBack,
-      innerColor: Colors.deepPurple,
-      outerColor: Colors.orangeAccent,
-      innerAnimationSeconds: 5,
-      outerAnimationSeconds: 5,
-      child: Container(
-        decoration:
-            BoxDecoration(shape: BoxShape.circle, color: Colors.grey[200]),
-        child: Image.asset(
-          'assets/mom_congrats.png',
+    return Column(
+      children: [
+        SizedBox(
+          width: 250.0,
+          height: 200,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 35,
+              color: Color.fromARGB(255, 0, 0, 0),
+              shadows: [
+                Shadow(
+                  blurRadius: 7.0,
+                  color: Color.fromARGB(255, 224, 36, 36),
+                  offset: Offset(0, 0),
+                ),
+              ],
+            ),
+            child: AnimatedTextKit(
+              repeatForever: true,
+              animatedTexts: [
+                FlickerAnimatedText('You Scored'),
+                FlickerAnimatedText('70 points'),
+              ],
+              onTap: () {
+                print("Tap Event");
+              },
+            ),
+          ),
         ),
-      ),
+        WidgetCircularAnimator(
+          size: 350,
+          innerIconsSize: 10,
+          outerIconsSize: 10,
+          innerAnimation: Curves.easeInOutBack,
+          outerAnimation: Curves.easeInOutBack,
+          innerColor: Colors.deepPurple,
+          outerColor: Colors.orangeAccent,
+          innerAnimationSeconds: 5,
+          outerAnimationSeconds: 5,
+          child: Container(
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Colors.grey[200]),
+            child: Image.asset(
+              'assets/mom_congrats.png',
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -1398,79 +1459,79 @@ class _CollectibleCardWidgetState extends State<CollectibleCardWidget>
       AssetImage('assets/$collectibleReward.png');
 }
 
-class DustbinCart extends StatelessWidget {
-  const DustbinCart({
-    super.key,
-    required this.dustbin,
-    this.highlighted = false,
-    this.hasItems = false,
-  });
+// class DustbinCart extends StatelessWidget {
+//   const DustbinCart({
+//     super.key,
+//     required this.dustbin,
+//     this.highlighted = false,
+//     this.hasItems = false,
+//   });
 
-  final Dustbin dustbin;
-  final bool highlighted;
-  final bool hasItems;
+//   final Dustbin dustbin;
+//   final bool highlighted;
+//   final bool hasItems;
 
-  @override
-  Widget build(BuildContext context) {
-    final textColor = highlighted ? Colors.black : Colors.white;
+//   @override
+//   Widget build(BuildContext context) {
+//     final textColor = highlighted ? Colors.black : Colors.white;
 
-    return Transform.scale(
-      scale: highlighted ? 1.075 : 1.0,
-      child: Material(
-        elevation: highlighted ? 8 : 4,
-        borderRadius: BorderRadius.circular(22),
-        color: highlighted
-            ? const Color.fromARGB(184, 223, 133, 233)
-            : dustbin.color,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 24,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ClipOval(
-                child: SizedBox(
-                  width: 75,
-                  height: 75,
-                  child: dustbin.icon,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                dustbin.name,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: textColor,
-                      fontWeight:
-                          hasItems ? FontWeight.normal : FontWeight.bold,
-                    ),
-              ),
-              Visibility(
-                visible: hasItems,
-                maintainState: true,
-                maintainAnimation: true,
-                maintainSize: true,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 4),
-                    Text(
-                      '${dustbin.items.length} item${dustbin.items.length != 1 ? 's' : ''}',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: textColor,
-                            fontSize: 12,
-                          ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//     return Transform.scale(
+//       scale: highlighted ? 1.075 : 1.0,
+//       child: Material(
+//         elevation: highlighted ? 8 : 4,
+//         borderRadius: BorderRadius.circular(22),
+//         color: highlighted
+//             ? const Color.fromARGB(184, 223, 133, 233)
+//             : dustbin.color,
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(
+//             horizontal: 12,
+//             vertical: 24,
+//           ),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               ClipOval(
+//                 child: SizedBox(
+//                     width: 75,
+//                     height: 75,
+//                     // child: dustbin.icon,
+//                     child: dustbin.lottieWidgetAnimation),
+//               ),
+//               const SizedBox(height: 8),
+//               Text(
+//                 dustbin.name,
+//                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
+//                       color: textColor,
+//                       fontWeight:
+//                           hasItems ? FontWeight.normal : FontWeight.bold,
+//                     ),
+//               ),
+//               Visibility(
+//                 visible: hasItems,
+//                 maintainState: true,
+//                 maintainAnimation: true,
+//                 maintainSize: true,
+//                 child: Column(
+//                   children: [
+//                     const SizedBox(height: 4),
+//                     Text(
+//                       '${dustbin.items.length} item${dustbin.items.length != 1 ? 's' : ''}',
+//                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
+//                             color: textColor,
+//                             fontSize: 12,
+//                           ),
+//                     ),
+//                   ],
+//                 ),
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class MenuListItem extends StatelessWidget {
   const MenuListItem({
@@ -1499,8 +1560,8 @@ class MenuListItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
-                width: 120,
-                height: 120,
+                width: 80,
+                height: 80,
                 child: Center(
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 100),
@@ -1523,19 +1584,19 @@ class MenuListItem extends StatelessWidget {
                   Text(
                     "",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                   ),
                   const SizedBox(
                     height: 10,
-                    width: 175,
+                    width: 10,
                   ),
                   Center(
                     child: Text(
                       name,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                     ),
                   ),
