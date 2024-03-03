@@ -400,7 +400,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
               children: [
                 // const AnimatedMomSayingCongratsWidget(),
                 const SizedBox(width: 100),
-                ChatScreen(dustbin),
+                ChatScreen(dustbin: dustbin),
                 CollectibleCardWidget(
                     collectibleReward: dustbin.collectibleReward),
                 const SizedBox(width: 100),
@@ -848,7 +848,8 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
 }
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen(Dustbin dustbin, {Key? key}) : super(key: key);
+  final Dustbin dustbin;
+  const ChatScreen({Key? key, required this.dustbin}) : super(key: key);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -880,12 +881,45 @@ class _ChatScreenState extends State<ChatScreen> {
     var index = 0;
     Timer.periodic(Duration(seconds: 2), (timer) {
       // Check if there are still messages to send
-      if (Data.messageList.length != index) {
-        // Call _onSendTap with the first message in the list
-        _onSendTap(Data.messageList[index++]);
-      } else {
-        // If there are no more messages, cancel the timer
-        timer.cancel();
+      if (widget.dustbin.garbageType == GarbageType.wet) {
+        if (Data.messageListGreen.length != index) {
+          // Call _onSendTap with the first message in the list
+          _onSendTap(Data.messageListGreen[index++]);
+        } else {
+          // If there are no more messages, cancel the timer
+          timer.cancel();
+          // _chatController.dispose();
+        }
+      }
+      if (widget.dustbin.garbageType == GarbageType.dry) {
+        if (Data.messageListBlue.length != index) {
+          // Call _onSendTap with the first message in the list
+          _onSendTap(Data.messageListBlue[index++]);
+        } else {
+          // If there are no more messages, cancel the timer
+          timer.cancel();
+          // _chatController.dispose();
+        }
+      }
+      if (widget.dustbin.garbageType == GarbageType.sanitary) {
+        if (Data.messageListRed.length != index) {
+          // Call _onSendTap with the first message in the list
+          _onSendTap(Data.messageListRed[index++]);
+        } else {
+          // If there are no more messages, cancel the timer
+          timer.cancel();
+          // _chatController.dispose();
+        }
+      }
+      if (widget.dustbin.garbageType == GarbageType.ewaste) {
+        if (Data.messageListGray.length != index) {
+          // Call _onSendTap with the first message in the list
+          _onSendTap(Data.messageListGray[index++]);
+        } else {
+          // If there are no more messages, cancel the timer
+          timer.cancel();
+          // _chatController.dispose();
+        }
       }
     });
     // Call your function here when the widget is loaded
@@ -1084,6 +1118,7 @@ class _ChatScreenState extends State<ChatScreen> {
   ) {
     final id = int.parse(Data.messageListOriginal.last.id) + 1;
     _chatController.addMessage(message);
+
     Future.delayed(const Duration(milliseconds: 300), () {
       _chatController.initialMessageList.last.setStatus =
           MessageStatus.undelivered;
