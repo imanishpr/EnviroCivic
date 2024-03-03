@@ -84,14 +84,14 @@ class _MyScreenState extends State<MyScreen>
     "Shall we start by gathering the garbage?",
   ];
   List<String> jTexts = [
-    "エミーに会いましょう。27歳のエミーは、賑やかな東京でIT企業で働いています。彼女は母親とアットホームな家を共有し、現代の都市生活と日本の伝統的な温かさを融合させています。エミーはキャリアの挑戦に立ち向かいながら、自分自身を持続可能性への旅に導き、東京の活気ある街を通して物語を紡いでいます。",
-    "東京の中心部で、街の絶え間ないリズムの中、エミーはオフィスでの別の一日の後、家路につきます。",
-    "おかえりなさい、エミー。今日はどうだった？",
-    "長かったけれども生産的でした。あなたはどうだったの、お母さん？",
-    "相変わらず忙しいけれど、私には対処できることばかりよ。ところで、あなたの部屋はちょっと散らかっているわね。夕食前に片付けてくれるかしら？",
-    "もちろん、お母さん。すぐに片付けます。",
-    "エミーが散らかった部屋に足を踏み入れると、彼女を襲うフラストレーションの波が押し寄せます。机に散らばる紙、床に不規則に積まれた服 – まるで混沌です。",
-    "次のボタンをクリックしてプレイを開始してください。",
+    "エミーに会ってください。彼女は賑やかな東京のIT企業で働く27歳です。彼女は母親と一緒に居心地の良い家を共有し、現代の都市生活と伝統的な日本の温かさを取り入れています。エミーがキャリアの挑戦に立ち向かう中で、彼女は持続可能性への旅に自分自身を見つけ、その物語を東京の活気ある街並みを通して織り交ぜています。",
+    "東京の中心にある都市の絶え間ないリズムの中で、エミーはオフィスでの別の一日の後、家に向かっています。",
+    "お帰りなさい、エミー。今日はどうだったですか？",
+    "長かったけれども生産的でした。お母さんはどうでしたか？",
+    "相変わらず忙しいけれど、私には対処できないことはありません。ところで、あなたの部屋が少し散らかっていますよ。夕食前に片付けてもらえるかしら？",
+    "もちろん、お母さん。すぐに片付けますね。",
+    "エミーが散らかった部屋に足を踏み入れると、失望の波が彼女を押し寄せます。机に散らばった紙、床に雑然と積まれた服 - まるで混沌とした状態です。",
+    "ゴミをまとめるところから始めましょうか？"
   ];
   List<List<String>> imagePathsList = [
     [
@@ -162,6 +162,23 @@ class _MyScreenState extends State<MyScreen>
     "I didn't have to stand in line to buy tickets. Saved a lot of time. Scan was also quick. Thank you.",
     "Emi patiently waited on the platform as the train approached, taking only three minutes to arrive. Boarding swiftly, she knew her entire commute would last just 30 minutes. With a sense of satisfaction, she settled into her seat, reflecting on the positive impact of her eco-friendly decision"
   ];
+
+  List<String> jsubWaytexts = [
+  "エミが東京の賑やかな通りを車で走行している間に、ようやく彼女はオフィスに到着しました。交通渋滞を乗り越え、信号で止まりながら、彼女は目的地に到達することに焦点を合わせて、都市の活気ある道路を進みました。",
+  "少し疲れて見えるね。大変な通勤だったの？",
+  "そうだね、交通がひどかった。ここに到着するのに1時間かかったよ。",
+  "なんで地下鉄を試してみないの？環境にも良くて、時間とストレスも節約できるよ。しかも、移動中にはリラックスしたり、読書を楽しんだりできるよ。",
+  "うーん、それはいいアイディアかもしれないね。明日試してみるよ。",
+  "それにひとつプロのアドバイス：オンラインでパスを購入して、行列をスキップしよう。Google Walletにも簡単に追加できるよ。",
+  "あ、それは知らなかった！教えてくれてありがとう。今すぐ調べてみるね。",
+  "地下鉄のウェブサイトを見て回った後、エミはチケットを購入することを決定しました。数回のクリックで取引を完了し、ボタンが表示され、彼女は便利にチケットをGoogle Walletに追加できます。",
+  "入口に到達すると、通勤者の喧騒が空気に充満し、彼女の持続可能なライフスタイルへの旅の始まりを告げていました。",
+  "失礼いたします、お嬢さん。チケットを見せていただけますか？Google Walletにパスが追加されていれば、簡単にスキャンできますよ。",
+  "スキャンしました。これで地下鉄に乗る準備が整いました。",
+  "切符を買うために並ぶ必要はありませんでした。たくさんの時間を節約しました。スキャンも速かった。ありがとう。",
+  "エミはホームで電車が近づくのを待ちながら、わずか3分で到着することを知りました。迅速に乗車し、彼女は通勤全体がわずか30分で終わることを知っていました。満足感を感じながら、彼女は座席に落ち着き、エコフレンドリーな決断のポジティブな影響を考えました。",
+];
+
   late AnimationController animationController;
   late Timer timer;
 
@@ -853,6 +870,7 @@ class _MyScreenState extends State<MyScreen>
                       selectedLanguage = isEnglish ? "en-US" : "ja-JP";
                       isSpeaking = true;
                       texts = isEnglish ? texts : jTexts;
+                      subWaytexts = isEnglish ? subWaytexts : jsubWaytexts;
                       _speak(texts[currentIndex]);
                       _startImageRotation();
                       // print("Adding qr to wallet");
