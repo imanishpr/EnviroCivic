@@ -726,35 +726,48 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
             } else {
               _itemDroppedOnIncorrectDustbin(dustbin: dustbin);
               showModalBottomSheet<Item>(
+                constraints: BoxConstraints(
+                  maxWidth: 900,
+                  maxHeight: 300,
+                ),
                 context: context,
                 builder: (BuildContext context) {
-                  return SizedBox(
-                      height: 200,
-                      // child: Center(
+                  return Center(
+                    child: Container(
+                      height: 100,
+                      color: Colors.transparent,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 20,
-                        ),
-                        child: Row(
+                            horizontal: 5, vertical: 5),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Image(
-                              image: AssetImage('assets/alum_can.png'),
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              item.incorrectMessageDescription,
-                            ),
-                            ElevatedButton(
-                              child: const Text('Thanks'),
-                              onPressed: () => Navigator.pop(context),
+                          children: [
+                            // const AnimatedMomSayingCongratsWidget(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    child: Text(
+                                      item.incorrectMessageDescription,
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  child: const Text('Try again'),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        // ),
-                      ));
+                      ),
+                    ),
+                  );
                 },
               );
             }
@@ -1104,37 +1117,10 @@ class AnimatedMomSayingCongratsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: 250.0,
-          height: 200,
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 35,
-              color: Color.fromARGB(255, 0, 0, 0),
-              shadows: [
-                Shadow(
-                  blurRadius: 7.0,
-                  color: Color.fromARGB(255, 224, 36, 36),
-                  offset: Offset(0, 0),
-                ),
-              ],
-            ),
-            child: AnimatedTextKit(
-              repeatForever: true,
-              animatedTexts: [
-                FlickerAnimatedText('You Scored'),
-                FlickerAnimatedText('70 points'),
-              ],
-              onTap: () {
-                print("Tap Event");
-              },
-            ),
-          ),
-        ),
         WidgetCircularAnimator(
-          size: 350,
-          innerIconsSize: 10,
-          outerIconsSize: 10,
+          size: 125,
+          innerIconsSize: 4,
+          outerIconsSize: 4,
           innerAnimation: Curves.easeInOutBack,
           outerAnimation: Curves.easeInOutBack,
           innerColor: Colors.deepPurple,
