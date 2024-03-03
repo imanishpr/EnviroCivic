@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:garbage_sorting/data.dart';
 import 'package:garbage_sorting/model/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
@@ -17,88 +18,186 @@ import 'package:confetti/confetti.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:lottie/lottie.dart';
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: ExampleDragAndDrop(),
-      debugShowCheckedModeBanner: false,
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     const MaterialApp(
+//       home: ExampleDragAndDrop(),
+//       debugShowCheckedModeBanner: false,
+//     ),
+//   );
+// }
+
+bool isStaticLangEng = true;
 
 enum GarbageType { dry, wet, sanitary, ewaste }
 
 enum CollectibleReward { zephyr, kumo, fenrir, ursula }
 
-List<Item> _items = [
-  // const Item(
-  //   name: 'Aluminium can',
-  //   totalPriceCents: 1299,
-  //   uid: '5',
-  //   imageProvider: AssetImage('assets/alum_can.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription:
-  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  // ),
-  const Item(
-    name: 'Aluminium can',
+String oopsText = isStaticLangEng
+    ? ' Oops!  you have made a mistake. Please try again !'
+    : 'おっと！間違いがありましたね。もう一度試してみてください！';
+
+final List<Item> _items = [
+  Item(
+    name: isStaticLangEng ? 'Aluminium can' : 'アルミニウム缶',
     totalPriceCents: 1299,
-    uid: '6',
+    uid: '1',
     imageProvider: AssetImage('assets/alum_can.png'),
     garbageType: GarbageType.dry,
-    incorrectMessageDescription:
-        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+    incorrectMessageDescription: oopsText,
   ),
-  // const Item(
-  //   name: 'Aluminium can',
-  //   totalPriceCents: 1299,
-  //   uid: '7',
-  //   imageProvider: AssetImage('assets/alum_can.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  // Item(
+  //   name: isStaticLangEng ? 'Band-Aids' : 'バンドエイド',
+  //   totalPriceCents: 799,
+  //   uid: '2',
+  //   imageProvider: AssetImage('assets/band_aids.png'),
+  //   garbageType: GarbageType.sanitary,
+  //   incorrectMessageDescription: oopsText,
   // ),
-  // const Item(
-  //   name: 'Aluminium can',
-  //   totalPriceCents: 1299,
-  //   uid: '8',
-  //   imageProvider: AssetImage('assets/alum_can.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  // ),
-  // const Item(
-  //   name: 'Aluminium can',
-  //   totalPriceCents: 1299,
-  //   uid: '1',
-  //   imageProvider: AssetImage('assets/alum_can.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  // ),
-  // const Item(
-  //   name: 'Aluminium can',
-  //   totalPriceCents: 1299,
+  // Item(
+  //   name: isStaticLangEng ? 'Burger' : 'ハンバーガー',
+  //   totalPriceCents: 1499,
   //   uid: '3',
-  //   imageProvider: AssetImage('assets/alum_can.png'),
+  //   imageProvider: AssetImage('assets/burger.png'),
   //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription:
-  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  //   incorrectMessageDescription: oopsText,
   // ),
-  const Item(
-    name: 'Band-Aids',
-    totalPriceCents: 799,
-    uid: '2',
-    imageProvider: AssetImage('assets/band_aids.png'),
-    garbageType: GarbageType.sanitary,
-    incorrectMessageDescription:
-        "Uh-oh! Seems like this item is more suited for a specific bin. Consider its material and its journey after disposal.",
-  ),
+  // Item(
+  //   name: isStaticLangEng ? 'Cardboard Box' : 'ダンボール箱',
+  //   totalPriceCents: 1499,
+  //   uid: '4',
+  //   imageProvider: AssetImage('assets/cardboard_box.png'),
+  //   garbageType: GarbageType.dry,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Charging Cable' : '充電ケーブル',
+  //   totalPriceCents: 1499,
+  //   uid: '5',
+  //   imageProvider: AssetImage('assets/charging_cable.png'),
+  //   garbageType: GarbageType.ewaste,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Disposable Cup' : '使い捨てカップ ',
+  //   totalPriceCents: 1499,
+  //   uid: '6',
+  //   imageProvider: AssetImage('assets/disposable_cup.png'),
+  //   garbageType: GarbageType.dry,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Egg Shells' : ' 卵の殻',
+  //   totalPriceCents: 1499,
+  //   uid: '7',
+  //   imageProvider: AssetImage('assets/egg_shells.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Food Leftover' : '食べ残し',
+  //   totalPriceCents: 1499,
+  //   uid: '8',
+  //   imageProvider: AssetImage('assets/food_leftover.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Fruit Scraps' : ' 果物くず',
+  //   totalPriceCents: 1499,
+  //   uid: '9',
+  //   imageProvider: AssetImage('assets/fruit_scraps.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Game Console' : 'ゲームコンソール ',
+  //   totalPriceCents: 1499,
+  //   uid: '10',
+  //   imageProvider: AssetImage('assets/game_console.png'),
+  //   garbageType: GarbageType.ewaste,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Keyboard' : 'キーボード',
+  //   totalPriceCents: 1499,
+  //   uid: '11',
+  //   imageProvider: AssetImage('assets/keyboard.png'),
+  //   garbageType: GarbageType.ewaste,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Mask' : 'マスク',
+  //   totalPriceCents: 1499,
+  //   uid: '12',
+  //   imageProvider: AssetImage('assets/mask.png'),
+  //   garbageType: GarbageType.sanitary,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Mouse' : 'マウス',
+  //   totalPriceCents: 1499,
+  //   uid: '13',
+  //   imageProvider: AssetImage('assets/mouse.png'),
+  //   garbageType: GarbageType.ewaste,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Newspapers' : '新聞',
+  //   totalPriceCents: 1499,
+  //   uid: '14',
+  //   imageProvider: AssetImage('assets/newspaper.png'),
+  //   garbageType: GarbageType.dry,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Plastic Bottle' : 'ボトル',
+  //   totalPriceCents: 1499,
+  //   uid: '15',
+  //   imageProvider: AssetImage('assets/pastic_bottle.png'),
+  //   garbageType: GarbageType.dry,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Broken Phone' : '壊れた携帯電話',
+  //   totalPriceCents: 1499,
+  //   uid: '16',
+  //   imageProvider: AssetImage('assets/phone.png'),
+  //   garbageType: GarbageType.ewaste,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Sanitary Napkins' : '生理用ナプキン',
+  //   totalPriceCents: 1499,
+  //   uid: '17',
+  //   imageProvider: AssetImage('assets/sanitary_napkins.png'),
+  //   garbageType: GarbageType.sanitary,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Tampons' : 'タンポン',
+  //   totalPriceCents: 1499,
+  //   uid: '18',
+  //   imageProvider: AssetImage('assets/tampons.png'),
+  //   garbageType: GarbageType.sanitary,
+  //   incorrectMessageDescription: oopsText,
+  // ),
+  // Item(
+  //   name: isStaticLangEng ? 'Tea Bags' : 'ティーバッグ ',
+  //   totalPriceCents: 1499,
+  //   uid: '19',
+  //   imageProvider: AssetImage('assets/tea_bags.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription: oopsText,
+  // )
 ];
 
 @immutable
 class ExampleDragAndDrop extends StatefulWidget {
-  const ExampleDragAndDrop({super.key});
+  final bool isLangEng;
+  // const ExampleDragAndDrop({super.key});
+  const ExampleDragAndDrop({Key? key, required this.isLangEng})
+      : super(key: key);
 
   @override
   State<ExampleDragAndDrop> createState() => _ExampleDragAndDropState();
@@ -112,10 +211,12 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
   late final AnimationController _redController;
   late final AnimationController _grayController;
   Timer? timer;
+
   @override
   void initState() {
     super.initState();
-
+    isStaticLangEng = widget.isLangEng;
+    print('value of isStaticLangEng is' + isStaticLangEng.toString());
     // initialize confettiController
     _topController = ConfettiController(duration: const Duration(seconds: 2));
     _greenController = AnimationController(vsync: this);
@@ -129,6 +230,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
   @override
   void dispose() {
     // dispose the controller
+    timer?.cancel();
     _topController.dispose();
     _greenController.dispose();
     _blueController.dispose();
@@ -138,13 +240,13 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
   }
 
   bool isCongratsShowing = false;
-  final List<Dustbin> _dustbins = [
+  late List<Dustbin> _dustbins = [
     Dustbin(
-      name: '    Wet waste    ',
+      name: isStaticLangEng ? '    Wet waste    ' : '    生ごみ    ',
       garbageType: GarbageType.wet,
       color: Colors.green,
       collectibleReward: CollectibleReward.kumo,
-      maxLength: 5, //TODO SAI change this lengths to actual counts
+      maxLength: 1, //TODO SAI change this lengths to actual counts
       mistakes: 0,
       collectibleType: 'Dog',
       heroImage:
@@ -162,10 +264,10 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       ),
     ),
     Dustbin(
-      name: '   Dry waste     ',
+      name: isStaticLangEng ? '   Dry waste     ' : '    生ごみ    ',
       garbageType: GarbageType.dry,
       color: Colors.blue,
-      maxLength: 5,
+      maxLength: 1,
       mistakes: 0,
       collectibleReward: CollectibleReward.zephyr,
       collectibleType: 'Cheetah',
@@ -184,7 +286,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       ),
     ),
     Dustbin(
-      name: 'Sanitary waste',
+      name: isStaticLangEng ? '   sanitary waste     ' : '    衛生ゴミ    ',
       garbageType: GarbageType.sanitary,
       color: Colors.red,
       maxLength: 1,
@@ -206,7 +308,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       ),
     ),
     Dustbin(
-      name: '     E waste       ',
+      name: isStaticLangEng ? '     E-waste     ' : '    電子廃棄物    ',
       garbageType: GarbageType.ewaste,
       color: Colors.grey,
       maxLength: 1,
@@ -296,6 +398,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
               fontSize: 36,
               color: Color.fromARGB(255, 0, 0, 0),
               fontWeight: FontWeight.bold,
+              fontFamily: GoogleFonts.rubik().fontFamily,
             ),
       ),
       backgroundColor: const Color(0xFFF7F7F7),
@@ -444,7 +547,14 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('AlertDialog Title'),
+          title: Text(
+            'Scan your subway pass',
+            style: TextStyle(
+              fontSize: 16.0,
+              fontFamily: GoogleFonts.rubik().fontFamily,
+              // color: Color.fromARGB(255, 132, 219, 146),
+            ),
+          ),
           content: SingleChildScrollView(
             child: SizedBox(
               height: 200,
@@ -460,7 +570,12 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Approve'),
+              child: Text('Approve',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontFamily: GoogleFonts.rubik().fontFamily,
+                    // color: Color.fromARGB(255, 132, 219, 146),
+                  )),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -682,14 +797,12 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
                       const SizedBox(height: 15),
                       Text(
                         dustbin.name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                              color: textColor,
-                              fontWeight:
-                                  hasItems ? FontWeight.bold : FontWeight.bold,
-                            ),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: GoogleFonts.rubik().fontFamily,
+                          color: textColor,
+                          // color: Color.fromARGB(255, 132, 219, 146),
+                        ),
                       ),
                       // Visibility(
                       //   visible: hasItems,
@@ -755,13 +868,24 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8),
-                                child: Text(
-                                  item.incorrectMessageDescription,
-                                ),
+                                child: Text(item.incorrectMessageDescription,
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontFamily:
+                                          GoogleFonts.rubik().fontFamily,
+                                      color: Colors.black54,
+                                      // color: Color.fromARGB(255, 132, 219, 146),
+                                    )),
                               ),
                             ),
                             ElevatedButton(
-                              child: const Text('Try again'),
+                              child: Text('Try again',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontFamily: GoogleFonts.rubik().fontFamily,
+                                    color: Colors.white,
+                                    // color: Color.fromARGB(255, 132, 219, 146),
+                                  )),
                               onPressed: () => Navigator.pop(context),
                             ),
                           ],
@@ -1601,9 +1725,12 @@ class MenuListItem extends StatelessWidget {
                 children: [
                   Text(
                     "",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontSize: 16,
-                        ),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: GoogleFonts.rubik().fontFamily,
+                      // color: Colors.white,
+                      // color: Color.fromARGB(255, 132, 219, 146),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -1612,10 +1739,12 @@ class MenuListItem extends StatelessWidget {
                   Center(
                     child: Text(
                       name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontFamily: GoogleFonts.rubik().fontFamily,
+                        // color: Colors.white,
+                        // color: Color.fromARGB(255, 132, 219, 146),
+                      ),
                     ),
                   ),
                 ],

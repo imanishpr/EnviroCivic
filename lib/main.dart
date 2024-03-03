@@ -78,6 +78,11 @@ class _MyScreenState extends State<MyScreen>
     fontFamily: 'Rubik',
   );
 
+  static const typewriterBigTextStyle = TextStyle(
+    fontSize: 120.0,
+    fontFamily: 'Rubik',
+  );
+
   static const typewriterSmallTextStyle = TextStyle(
     fontSize: 40.0,
     fontFamily: 'Rubik',
@@ -158,8 +163,8 @@ class _MyScreenState extends State<MyScreen>
     ],
     ["/subway/police/policeman.jpeg"],
     ["/subway/police/policeman.jpeg"],
-    ["/subway/friend/wait3.jpeg"],
-    ["/subway/friend/wait5.jpeg"]
+    ["/subway/friend/wait5.jpeg"],
+    ["/subway/friend/wait2.jpeg"]
     // Add more lists if needed
   ];
   List<String> subWaytexts = [
@@ -318,7 +323,7 @@ class _MyScreenState extends State<MyScreen>
       // Navigate to ExampleDragAndDrop and wait for it to return
       await Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => ExampleDragAndDrop(),
+          builder: (context) => ExampleDragAndDrop(isLangEng: isEnglish),
         ),
       );
       //Navigator.pushReplacementNamed(context, "/garbageBattle");
@@ -388,7 +393,7 @@ class _MyScreenState extends State<MyScreen>
           height: 60,
           child: TextButton(
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              primary: Colors.black.withOpacity(0.4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100),
               ),
@@ -422,7 +427,7 @@ class _MyScreenState extends State<MyScreen>
           height: 60,
           child: TextButton(
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              primary: Colors.black.withOpacity(0.4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100),
               ),
@@ -456,7 +461,7 @@ class _MyScreenState extends State<MyScreen>
           height: 60,
           child: TextButton(
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              primary: Colors.black.withOpacity(0.4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100),
               ),
@@ -490,7 +495,7 @@ class _MyScreenState extends State<MyScreen>
           height: 60,
           child: TextButton(
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+              primary: Colors.black.withOpacity(0.4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100),
               ),
@@ -753,7 +758,7 @@ class _MyScreenState extends State<MyScreen>
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.green.withOpacity(0.5),
+                        color: Colors.black.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 4,
                         offset: Offset(0, 3),
@@ -768,8 +773,7 @@ class _MyScreenState extends State<MyScreen>
                   child: ElevatedButton(
                     // style: Stylel
                     style: ElevatedButton.styleFrom(
-                      primary:
-                          Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+                      primary: Colors.black.withOpacity(0.4),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -877,7 +881,7 @@ class _MyScreenState extends State<MyScreen>
                         isEnglish
                             ? 'Congratulations, Urban Eco-Adventurer!'
                             : 'おめでとう',
-                        speed: const Duration(milliseconds: 100),
+                        speed: const Duration(milliseconds: 300),
                         textStyle: typewriterTextStyle,
                       ),
                       TypewriterAnimatedText(
@@ -928,7 +932,7 @@ class _MyScreenState extends State<MyScreen>
                       size: 70.0, // Adjust the size as needed
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 16, 42, 17).withOpacity(0.4),
+                      primary: Colors.black.withOpacity(0.4),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -960,7 +964,7 @@ class _MyScreenState extends State<MyScreen>
               height: 110,
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 118, 224, 122).withOpacity(0.5),
+                color: Colors.black.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -1023,8 +1027,7 @@ class _MyScreenState extends State<MyScreen>
                           size: 70.0, // Adjust the size as needed
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 118, 224, 122)
-                              .withOpacity(0.4),
+                          primary: Colors.black.withOpacity(0.4),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
@@ -1060,7 +1063,7 @@ class _MyScreenState extends State<MyScreen>
               height: 110,
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 118, 224, 122).withOpacity(0.5),
+                color: Colors.black.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -1125,8 +1128,7 @@ class _MyScreenState extends State<MyScreen>
                           size: 70.0, // Adjust the size as needed
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 118, 224, 122)
-                              .withOpacity(0.4),
+                          primary: Colors.black.withOpacity(0.4),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
@@ -1208,6 +1210,10 @@ class _MyScreenState extends State<MyScreen>
                             : "探索を続け、学びを深め、そして周りの世界にポジティブな影響を与え続けましょう。",
                         textStyle: typewriterTextStyle,
                       ),
+                      TypewriterAnimatedText(
+                        isEnglish ? "Game Over" : "ゲームオーバー",
+                        textStyle: typewriterBigTextStyle,
+                      ),
                     ],
                     isRepeatingAnimation: false,
                     onTap: () {
@@ -1217,48 +1223,6 @@ class _MyScreenState extends State<MyScreen>
                 ),
               ),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Description strip (90% width)
-              Container(
-                width: MediaQuery.of(context).size.width * 0.9 -
-                    40, // Adjusting width considering padding
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ),
-              ),
-              // Next button (10% width)
-              Visibility(
-                visible: !isSpeaking, // Show the button only when not speaking
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      print(currentIndex);
-                      setState(() {
-                        chapter2 = false;
-                        _speak(subWaytexts[currentIndex]);
-                      });
-                    },
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                      size: 70.0, // Adjust the size as needed
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 16, 42, 17).withOpacity(0.4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
         ]));
   }
@@ -2019,7 +1983,7 @@ abstract class MenuItems {
 //                     // style: Stylel
 //                     style: ElevatedButton.styleFrom(
 //                       primary:
-//                           Color.fromARGB(255, 118, 224, 122).withOpacity(0.4),
+//                           Colors.black.withOpacity(0.4),
 //                       shape: RoundedRectangleBorder(
 //                         borderRadius: BorderRadius.circular(100),
 //                       ),

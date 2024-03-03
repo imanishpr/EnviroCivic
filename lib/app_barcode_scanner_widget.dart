@@ -247,9 +247,14 @@ class _AppBarcodeScannerWidgetState extends State<_BarcodeScannerWidget>
         _scannerController.stopCamera();
         break;
       case AppLifecycleState.detached:
+        _scannerController.stopCameraPreview();
+        _scannerController.stopCamera();
         break;
       case AppLifecycleState.hidden:
+        _scannerController.stopCameraPreview();
+        _scannerController.stopCamera();
         print(":reafsdfs hre");
+        break;
     }
   }
 
@@ -257,7 +262,7 @@ class _AppBarcodeScannerWidgetState extends State<_BarcodeScannerWidget>
   void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-
+    print("disposing the camera");
     _scannerController.stopCameraPreview();
     _scannerController.stopCamera();
   }
