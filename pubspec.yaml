@@ -83,6 +83,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Rubik-Bold.ttf
   assets:
+    - assets/tutorial.gif
     - assets/green_waste.json
     - assets/blue_waste.json
     - assets/red_waste.json

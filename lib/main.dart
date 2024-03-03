@@ -102,6 +102,8 @@ class _MyScreenState extends State<MyScreen>
     "Of course, Mom. I'll take care of it right away.",
     "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
     "Shall we start by gathering the garbage?",
+    "Here's a tutorial on how to sort the garbage",
+    "Here's a tutorial on how to sort the garbage",
   ];
   List<String> jTexts = [
     "エミーに会ってください。彼女は賑やかな東京のIT企業で働く27歳です。彼女は母親と一緒に居心地の良い家を共有し、現代の都市生活と伝統的な日本の温かさを取り入れています。エミーがキャリアの挑戦に立ち向かう中で、彼女は持続可能性への旅に自分自身を見つけ、その物語を東京の活気ある街並みを通して織り交ぜています。",
@@ -111,7 +113,9 @@ class _MyScreenState extends State<MyScreen>
     "相変わらず忙しいけれど、私には対処できないことはありません。ところで、あなたの部屋が少し散らかっていますよ。夕食前に片付けてもらえるかしら？",
     "もちろん、お母さん。すぐに片付けますね。",
     "エミーが散らかった部屋に足を踏み入れると、失望の波が彼女を押し寄せます。机に散らばった紙、床に雑然と積まれた服 - まるで混沌とした状態です。",
-    "ゴミをまとめるところから始めましょうか？"
+    "ゴミをまとめるところから始めましょうか？",
+    "ゴミの分別方法に関するチュートリアルです。",
+    "ゴミの分別方法に関するチュートリアルです。",
   ];
   List<List<String>> imagePathsList = [
     [
@@ -127,6 +131,8 @@ class _MyScreenState extends State<MyScreen>
     ["/mom/tmom33.jpg"],
     ["/angry/28badroom.jpg"],
     ["/angry/angry30.jpg"],
+    ["/tutorial.gif"],
+    ["/tutorial.gif"],
     // Add more lists if needed
   ];
   List<List<String>> imagePathsListSubWay = [

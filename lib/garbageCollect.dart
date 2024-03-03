@@ -31,21 +31,21 @@ enum GarbageType { dry, wet, sanitary, ewaste }
 enum CollectibleReward { zephyr, kumo, fenrir, ursula }
 
 List<Item> _items = [
-  const Item(
-    name: 'Aluminium can',
-    totalPriceCents: 1299,
-    uid: '5',
-    imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  ),
+  // const Item(
+  //   name: 'Aluminium can',
+  //   totalPriceCents: 1299,
+  //   uid: '5',
+  //   imageProvider: AssetImage('assets/alum_can.png'),
+  //   garbageType: GarbageType.dry,
+  //   incorrectMessageDescription:
+  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  // ),
   const Item(
     name: 'Aluminium can',
     totalPriceCents: 1299,
     uid: '6',
     imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.wet,
+    garbageType: GarbageType.dry,
     incorrectMessageDescription:
         "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
   ),
@@ -144,7 +144,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       garbageType: GarbageType.wet,
       color: Colors.green,
       collectibleReward: CollectibleReward.kumo,
-      maxLength: 2, //TODO SAI change this lengths to actual counts
+      maxLength: 5, //TODO SAI change this lengths to actual counts
       mistakes: 0,
       collectibleType: 'Dog',
       heroImage:
@@ -165,7 +165,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       name: '   Dry waste     ',
       garbageType: GarbageType.dry,
       color: Colors.blue,
-      maxLength: 1,
+      maxLength: 5,
       mistakes: 0,
       collectibleReward: CollectibleReward.zephyr,
       collectibleType: 'Cheetah',
