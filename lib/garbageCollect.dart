@@ -353,6 +353,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       return _buildCongratulationsScreen(_dustbins[3]);
     }
     if (_items.isEmpty) {
+      Navigator.pop(context);
       return const Text("helo");
     } else {
       isCongratsShowing = false;
