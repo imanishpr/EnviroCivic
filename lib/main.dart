@@ -89,13 +89,13 @@ class _MyScreenState extends State<MyScreen>
   );
 
   List<String> imagePaths = [
-    "drive/d4.jpg",
-    "subway/coffee/coffee1.jpeg",
-    "subway/friend/wait4.jpeg",
-    "mom/tmom33.jpg",
-    "sliders/talking32.jpeg",
-    "mom/talking34.jpeg",
-    "sliders/reachedoffice43.jpeg"
+    "assets/drive/d4.jpg",
+    "assets/subway/coffee/coffee1.jpeg",
+    "assets/subway/friend/wait4.jpeg",
+    "assets/mom/tmom33.jpg",
+    "assets/sliders/talking32.jpeg",
+    "assets/mom/talking34.jpeg",
+    "assets/sliders/reachedoffice43.jpeg"
   ];
 
   List<String> texts = [
@@ -124,47 +124,47 @@ class _MyScreenState extends State<MyScreen>
   ];
   List<List<String>> imagePathsList = [
     [
-      "intro/intro39.jpeg",
-      "intro/intro38.jpg",
-      "intro/intro40.jpg",
-      "intro/intro44.jpg"
+      "assets/intro/intro39.jpeg",
+      "assets/intro/intro38.jpg",
+      "assets/intro/intro40.jpg",
+      "assets/intro/intro44.jpg"
     ],
-    ["drive/d15.jpg", "drive/drivin14.jpeg"],
-    ["mom/mom25.jpeg"],
-    ["mom/talking34.jpeg"],
-    ["mom/mom22.jpg"],
-    ["mom/tmom33.jpg"],
-    ["angry/28badroom.jpg"],
-    ["angry/angry30.jpg"],
-    ["tutorial.gif"],
-    ["tutorial.gif"],
+    ["assets/drive/d15.jpg", "assets/drive/drivin14.jpeg"],
+    ["assets/mom/mom25.jpeg"],
+    ["assets/mom/talking34.jpeg"],
+    ["assets/mom/mom22.jpg"],
+    ["assets/mom/tmom33.jpg"],
+    ["assets/angry/28badroom.jpg"],
+    ["assets/angry/angry30.jpg"],
+    ["assets/tutorial.gif"],
+    ["assets/tutorial.gif"],
     // Add more lists if needed
   ];
   List<List<String>> imagePathsListSubWay = [
-    ["drive/d13.jpg", "drive/drivin14.jpeg"],
+    ["assets/drive/d13.jpg", "assets/drive/drivin14.jpeg"],
     [
-      "subway/friend/friend.jpeg",
+      "assets/subway/friend/friend.jpeg",
     ],
 
-    ["subway/coffee/coffee10.jpeg"],
-    ["subway/friend/friend2.jpeg"],
-    ["subway/coffee/coffee11.jpeg"],
+    ["assets/subway/coffee/coffee10.jpeg"],
+    ["assets/subway/friend/friend2.jpeg"],
+    ["assets/subway/coffee/coffee11.jpeg"],
     [
-      "subway/friend/friend3.jpeg",
+      "assets/subway/friend/friend3.jpeg",
     ],
     [
-      "subway/coffee/coffee12.jpeg",
+      "assets/subway/coffee/coffee12.jpeg",
     ],
     [
-      "subway/police/ticketbuy.png",
+      "assets/subway/police/ticketbuy.png",
     ],
     [
-      "subway/friend/wait4.jpeg",
+      "assets/subway/friend/wait4.jpeg",
     ],
-    ["subway/police/policeman.jpeg"],
-    ["subway/police/policeman.jpeg"],
-    ["subway/friend/wait5.jpeg"],
-    ["subway/friend/wait2.jpeg"]
+    ["assets/subway/police/policeman.jpeg"],
+    ["assets/subway/police/policeman.jpeg"],
+    ["assets/subway/friend/wait5.jpeg"],
+    ["assets/subway/friend/wait2.jpeg"]
     // Add more lists if needed
   ];
   List<String> subWaytexts = [
