@@ -104,7 +104,7 @@ class _AppBarcodeState extends State<AppBarcodeScannerWidget> {
                         _useCameraScan = false;
                       });
                     },
-                    child: Text("Manual entry$_label"),
+                    child: Text(""),
                   )
                 : Row(
                     children: [

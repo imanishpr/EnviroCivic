@@ -502,7 +502,9 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
               children: [
                 // const AnimatedMomSayingCongratsWidget(),
                 const SizedBox(width: 100),
-                ChatScreen(dustbin: dustbin),
+                // ChatScreen(dustbin: dustbin),
+                CollectibleHeroWidget(
+                    collectibleReward: dustbin.collectibleReward),
                 CollectibleCardWidget(
                     collectibleReward: dustbin.collectibleReward),
                 const SizedBox(width: 100),
@@ -518,10 +520,12 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
             //   ),
             // ),
             // Button to add collectibles to Google Wallet
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
+                  elevation: 0,
+                  shadowColor: Colors.transparent,
                 ),
                 onPressed: () {
                   print("Collectible collected");
@@ -532,7 +536,9 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
                   // _launchURL(dustbin);
                 },
                 child: SvgPicture.asset(
-                  'assets/wallet-eng.svg',
+                  isStaticLangEng
+                      ? 'assets/wallet-eng.svg'
+                      : 'assets/wallet-jp.svg',
                   height: 50,
                   width: 250,
                 )),
@@ -879,7 +885,8 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
                               ),
                             ),
                             ElevatedButton(
-                              child: Text('Try again',
+                              child: Text(
+                                  isStaticLangEng ? 'Try again' : 'リトライ',
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontFamily: GoogleFonts.rubik().fontFamily,
@@ -970,299 +977,299 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
   }
 }
 
-class ChatScreen extends StatefulWidget {
-  final Dustbin dustbin;
-  const ChatScreen({Key? key, required this.dustbin}) : super(key: key);
+// class ChatScreen extends StatefulWidget {
+//   final Dustbin dustbin;
+//   const ChatScreen({Key? key, required this.dustbin}) : super(key: key);
 
-  @override
-  State<ChatScreen> createState() => _ChatScreenState();
-}
+//   @override
+//   State<ChatScreen> createState() => _ChatScreenState();
+// }
 
-class _ChatScreenState extends State<ChatScreen> {
-  AppTheme theme = LightTheme();
-  bool isDarkTheme = false;
-  final currentUser = ChatUser(
-    id: '1',
-    name: 'Emi',
-    profilePhoto: Data.profileImage,
-  );
-  final _chatController = ChatController(
-    initialMessageList: Data.messageListOriginal,
-    scrollController: ScrollController(),
-    chatUsers: [
-      ChatUser(
-        id: '2',
-        name: 'Mom',
-        profilePhoto: Data.profileImage,
-      ),
-    ],
-  );
+// class _ChatScreenState extends State<ChatScreen> {
+//   AppTheme theme = LightTheme();
+//   bool isDarkTheme = false;
+//   final currentUser = ChatUser(
+//     id: '1',
+//     name: 'Emi',
+//     profilePhoto: Data.profileImage,
+//   );
+//   final _chatController = ChatController(
+//     initialMessageList: Data.messageListOriginal,
+//     scrollController: ScrollController(),
+//     chatUsers: [
+//       ChatUser(
+//         id: '2',
+//         name: 'Mom',
+//         profilePhoto: Data.profileImage,
+//       ),
+//     ],
+//   );
 
-  @override
-  void initState() {
-    super.initState();
-    var index = 0;
-    Timer.periodic(Duration(seconds: 2), (timer) {
-      // Check if there are still messages to send
-      if (widget.dustbin.garbageType == GarbageType.wet) {
-        if (Data.messageListGreen.length != index) {
-          // Call _onSendTap with the first message in the list
-          _onSendTap(Data.messageListGreen[index++]);
-        } else {
-          // If there are no more messages, cancel the timer
-          timer.cancel();
-          // _chatController.dispose();
-        }
-      }
-      if (widget.dustbin.garbageType == GarbageType.dry) {
-        if (Data.messageListBlue.length != index) {
-          // Call _onSendTap with the first message in the list
-          _onSendTap(Data.messageListBlue[index++]);
-        } else {
-          // If there are no more messages, cancel the timer
-          timer.cancel();
-          // _chatController.dispose();
-        }
-      }
-      if (widget.dustbin.garbageType == GarbageType.sanitary) {
-        if (Data.messageListRed.length != index) {
-          // Call _onSendTap with the first message in the list
-          _onSendTap(Data.messageListRed[index++]);
-        } else {
-          // If there are no more messages, cancel the timer
-          timer.cancel();
-          // _chatController.dispose();
-        }
-      }
-      if (widget.dustbin.garbageType == GarbageType.ewaste) {
-        if (Data.messageListGray.length != index) {
-          // Call _onSendTap with the first message in the list
-          _onSendTap(Data.messageListGray[index++]);
-        } else {
-          // If there are no more messages, cancel the timer
-          timer.cancel();
-          // _chatController.dispose();
-        }
-      }
-    });
-    // Call your function here when the widget is loaded
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     var index = 0;
+//     Timer.periodic(Duration(seconds: 2), (timer) {
+//       // Check if there are still messages to send
+//       if (widget.dustbin.garbageType == GarbageType.wet) {
+//         if (Data.messageListGreen.length != index) {
+//           // Call _onSendTap with the first message in the list
+//           _onSendTap(Data.messageListGreen[index++]);
+//         } else {
+//           // If there are no more messages, cancel the timer
+//           timer.cancel();
+//           // _chatController.dispose();
+//         }
+//       }
+//       if (widget.dustbin.garbageType == GarbageType.dry) {
+//         if (Data.messageListBlue.length != index) {
+//           // Call _onSendTap with the first message in the list
+//           _onSendTap(Data.messageListBlue[index++]);
+//         } else {
+//           // If there are no more messages, cancel the timer
+//           timer.cancel();
+//           // _chatController.dispose();
+//         }
+//       }
+//       if (widget.dustbin.garbageType == GarbageType.sanitary) {
+//         if (Data.messageListRed.length != index) {
+//           // Call _onSendTap with the first message in the list
+//           _onSendTap(Data.messageListRed[index++]);
+//         } else {
+//           // If there are no more messages, cancel the timer
+//           timer.cancel();
+//           // _chatController.dispose();
+//         }
+//       }
+//       if (widget.dustbin.garbageType == GarbageType.ewaste) {
+//         if (Data.messageListGray.length != index) {
+//           // Call _onSendTap with the first message in the list
+//           _onSendTap(Data.messageListGray[index++]);
+//         } else {
+//           // If there are no more messages, cancel the timer
+//           timer.cancel();
+//           // _chatController.dispose();
+//         }
+//       }
+//     });
+//     // Call your function here when the widget is loaded
+//   }
 
-  void _showHideTypingIndicator() {
-    _chatController.setTypingIndicator = !_chatController.showTypingIndicator;
-  }
+//   void _showHideTypingIndicator() {
+//     _chatController.setTypingIndicator = !_chatController.showTypingIndicator;
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // height: double.infinity,
-      // width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: SizedBox(
-        width: 700,
-        height: 500,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ChatView(
-            currentUser: currentUser,
-            chatController: _chatController,
-            onSendTap: null,
-            featureActiveConfig: const FeatureActiveConfig(
-              lastSeenAgoBuilderVisibility: false,
-              receiptsBuilderVisibility: false,
-            ),
-            chatViewState: ChatViewState.hasMessages,
-            chatViewStateConfig: ChatViewStateConfiguration(
-              loadingWidgetConfig: ChatViewStateWidgetConfiguration(
-                loadingIndicatorColor: theme.outgoingChatBubbleColor,
-              ),
-              onReloadButtonTap: () {},
-            ),
-            typeIndicatorConfig: TypeIndicatorConfiguration(
-              flashingCircleBrightColor: theme.flashingCircleBrightColor,
-              flashingCircleDarkColor: theme.flashingCircleDarkColor,
-            ),
-            appBar: null,
-            chatBackgroundConfig: ChatBackgroundConfiguration(
-              messageTimeIconColor: theme.messageTimeIconColor,
-              messageTimeTextStyle:
-                  TextStyle(color: theme.messageTimeTextColor),
-              defaultGroupSeparatorConfig: DefaultGroupSeparatorConfiguration(
-                textStyle: TextStyle(
-                  color: theme.chatHeaderColor,
-                  fontSize: 17,
-                ),
-              ),
-              backgroundColor: Colors.white24,
-              // backgroundImage: 'assets/alum_can.png',
-            ),
-            sendMessageConfig: SendMessageConfiguration(
-              replyMessageColor: theme.replyMessageColor,
-              defaultSendButtonColor: theme.sendButtonColor,
-              replyDialogColor: theme.replyDialogColor,
-              replyTitleColor: theme.replyTitleColor,
-              textFieldBackgroundColor: theme.textFieldBackgroundColor,
-              closeIconColor: theme.closeIconColor,
-              textFieldConfig: TextFieldConfiguration(
-                onMessageTyping: (status) {
-                  /// Do with status
-                  debugPrint(status.toString());
-                },
-                compositionThresholdTime: const Duration(seconds: 1),
-                textStyle: TextStyle(color: theme.textFieldTextColor),
-              ),
-            ),
-            chatBubbleConfig: ChatBubbleConfiguration(
-              outgoingChatBubbleConfig: ChatBubble(
-                linkPreviewConfig: LinkPreviewConfiguration(
-                  backgroundColor: theme.linkPreviewOutgoingChatColor,
-                  bodyStyle: theme.outgoingChatLinkBodyStyle,
-                  titleStyle: theme.outgoingChatLinkTitleStyle,
-                ),
-                receiptsWidgetConfig: const ReceiptsWidgetConfig(
-                    showReceiptsIn: ShowReceiptsIn.all),
-                color: theme.outgoingChatBubbleColor,
-              ),
-              inComingChatBubbleConfig: ChatBubble(
-                linkPreviewConfig: LinkPreviewConfiguration(
-                  linkStyle: TextStyle(
-                    color: theme.inComingChatBubbleTextColor,
-                    decoration: TextDecoration.underline,
-                  ),
-                  backgroundColor: theme.linkPreviewIncomingChatColor,
-                  bodyStyle: theme.incomingChatLinkBodyStyle,
-                  titleStyle: theme.incomingChatLinkTitleStyle,
-                ),
-                textStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
-                onMessageRead: (message) {
-                  /// send your message reciepts to the other client
-                  debugPrint('Message Read');
-                },
-                senderNameTextStyle:
-                    TextStyle(color: theme.inComingChatBubbleTextColor),
-                color: theme.inComingChatBubbleColor,
-              ),
-            ),
-            replyPopupConfig: ReplyPopupConfiguration(
-              backgroundColor: theme.replyPopupColor,
-              buttonTextStyle: TextStyle(color: theme.replyPopupButtonColor),
-              topBorderColor: theme.replyPopupTopBorderColor,
-            ),
-            reactionPopupConfig: ReactionPopupConfiguration(
-              shadow: BoxShadow(
-                color: isDarkTheme ? Colors.black54 : Colors.grey.shade400,
-                blurRadius: 20,
-              ),
-              backgroundColor: theme.reactionPopupColor,
-            ),
-            messageConfig: MessageConfiguration(
-              messageReactionConfig: MessageReactionConfiguration(
-                backgroundColor: theme.messageReactionBackGroundColor,
-                borderColor: theme.messageReactionBackGroundColor,
-                reactedUserCountTextStyle:
-                    TextStyle(color: theme.inComingChatBubbleTextColor),
-                reactionCountTextStyle:
-                    TextStyle(color: theme.inComingChatBubbleTextColor),
-                reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
-                  backgroundColor: theme.backgroundColor,
-                  reactedUserTextStyle: TextStyle(
-                    color: theme.inComingChatBubbleTextColor,
-                  ),
-                  reactionWidgetDecoration: BoxDecoration(
-                    color: theme.inComingChatBubbleColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color:
-                            isDarkTheme ? Colors.black12 : Colors.grey.shade200,
-                        offset: const Offset(0, 20),
-                        blurRadius: 40,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              imageMessageConfig: ImageMessageConfiguration(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                shareIconConfig: ShareIconConfiguration(
-                  defaultIconBackgroundColor: theme.shareIconBackgroundColor,
-                  defaultIconColor: theme.shareIconColor,
-                ),
-              ),
-            ),
-            profileCircleConfig: const ProfileCircleConfiguration(
-              profileImageUrl: Data.profileImage,
-            ),
-            repliedMessageConfig: RepliedMessageConfiguration(
-              backgroundColor: theme.repliedMessageColor,
-              verticalBarColor: theme.verticalBarColor,
-              repliedMsgAutoScrollConfig: RepliedMsgAutoScrollConfig(
-                enableHighlightRepliedMsg: true,
-                highlightColor: Colors.pinkAccent.shade100,
-                highlightScale: 1.1,
-              ),
-              textStyle: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.25,
-              ),
-              replyTitleTextStyle:
-                  TextStyle(color: theme.repliedTitleTextColor),
-            ),
-            swipeToReplyConfig: SwipeToReplyConfiguration(
-              replyIconColor: theme.swipeToReplyIconColor,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       // height: double.infinity,
+//       // width: double.infinity,
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.only(
+//             topLeft: Radius.circular(10),
+//             topRight: Radius.circular(10),
+//             bottomLeft: Radius.circular(10),
+//             bottomRight: Radius.circular(10)),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.grey.withOpacity(0.5),
+//             spreadRadius: 5,
+//             blurRadius: 7,
+//             offset: Offset(0, 3), // changes position of shadow
+//           ),
+//         ],
+//       ),
+//       child: SizedBox(
+//         width: 700,
+//         height: 500,
+//         child: Padding(
+//           padding: const EdgeInsets.all(20.0),
+//           child: ChatView(
+//             currentUser: currentUser,
+//             chatController: _chatController,
+//             onSendTap: null,
+//             featureActiveConfig: const FeatureActiveConfig(
+//               lastSeenAgoBuilderVisibility: false,
+//               receiptsBuilderVisibility: false,
+//             ),
+//             chatViewState: ChatViewState.hasMessages,
+//             chatViewStateConfig: ChatViewStateConfiguration(
+//               loadingWidgetConfig: ChatViewStateWidgetConfiguration(
+//                 loadingIndicatorColor: theme.outgoingChatBubbleColor,
+//               ),
+//               onReloadButtonTap: () {},
+//             ),
+//             typeIndicatorConfig: TypeIndicatorConfiguration(
+//               flashingCircleBrightColor: theme.flashingCircleBrightColor,
+//               flashingCircleDarkColor: theme.flashingCircleDarkColor,
+//             ),
+//             appBar: null,
+//             chatBackgroundConfig: ChatBackgroundConfiguration(
+//               messageTimeIconColor: theme.messageTimeIconColor,
+//               messageTimeTextStyle:
+//                   TextStyle(color: theme.messageTimeTextColor),
+//               defaultGroupSeparatorConfig: DefaultGroupSeparatorConfiguration(
+//                 textStyle: TextStyle(
+//                   color: theme.chatHeaderColor,
+//                   fontSize: 17,
+//                 ),
+//               ),
+//               backgroundColor: Colors.white24,
+//               // backgroundImage: 'assets/alum_can.png',
+//             ),
+//             sendMessageConfig: SendMessageConfiguration(
+//               replyMessageColor: theme.replyMessageColor,
+//               defaultSendButtonColor: theme.sendButtonColor,
+//               replyDialogColor: theme.replyDialogColor,
+//               replyTitleColor: theme.replyTitleColor,
+//               textFieldBackgroundColor: theme.textFieldBackgroundColor,
+//               closeIconColor: theme.closeIconColor,
+//               textFieldConfig: TextFieldConfiguration(
+//                 onMessageTyping: (status) {
+//                   /// Do with status
+//                   debugPrint(status.toString());
+//                 },
+//                 compositionThresholdTime: const Duration(seconds: 1),
+//                 textStyle: TextStyle(color: theme.textFieldTextColor),
+//               ),
+//             ),
+//             chatBubbleConfig: ChatBubbleConfiguration(
+//               outgoingChatBubbleConfig: ChatBubble(
+//                 linkPreviewConfig: LinkPreviewConfiguration(
+//                   backgroundColor: theme.linkPreviewOutgoingChatColor,
+//                   bodyStyle: theme.outgoingChatLinkBodyStyle,
+//                   titleStyle: theme.outgoingChatLinkTitleStyle,
+//                 ),
+//                 receiptsWidgetConfig: const ReceiptsWidgetConfig(
+//                     showReceiptsIn: ShowReceiptsIn.all),
+//                 color: theme.outgoingChatBubbleColor,
+//               ),
+//               inComingChatBubbleConfig: ChatBubble(
+//                 linkPreviewConfig: LinkPreviewConfiguration(
+//                   linkStyle: TextStyle(
+//                     color: theme.inComingChatBubbleTextColor,
+//                     decoration: TextDecoration.underline,
+//                   ),
+//                   backgroundColor: theme.linkPreviewIncomingChatColor,
+//                   bodyStyle: theme.incomingChatLinkBodyStyle,
+//                   titleStyle: theme.incomingChatLinkTitleStyle,
+//                 ),
+//                 textStyle: TextStyle(color: theme.inComingChatBubbleTextColor),
+//                 onMessageRead: (message) {
+//                   /// send your message reciepts to the other client
+//                   debugPrint('Message Read');
+//                 },
+//                 senderNameTextStyle:
+//                     TextStyle(color: theme.inComingChatBubbleTextColor),
+//                 color: theme.inComingChatBubbleColor,
+//               ),
+//             ),
+//             replyPopupConfig: ReplyPopupConfiguration(
+//               backgroundColor: theme.replyPopupColor,
+//               buttonTextStyle: TextStyle(color: theme.replyPopupButtonColor),
+//               topBorderColor: theme.replyPopupTopBorderColor,
+//             ),
+//             reactionPopupConfig: ReactionPopupConfiguration(
+//               shadow: BoxShadow(
+//                 color: isDarkTheme ? Colors.black54 : Colors.grey.shade400,
+//                 blurRadius: 20,
+//               ),
+//               backgroundColor: theme.reactionPopupColor,
+//             ),
+//             messageConfig: MessageConfiguration(
+//               messageReactionConfig: MessageReactionConfiguration(
+//                 backgroundColor: theme.messageReactionBackGroundColor,
+//                 borderColor: theme.messageReactionBackGroundColor,
+//                 reactedUserCountTextStyle:
+//                     TextStyle(color: theme.inComingChatBubbleTextColor),
+//                 reactionCountTextStyle:
+//                     TextStyle(color: theme.inComingChatBubbleTextColor),
+//                 reactionsBottomSheetConfig: ReactionsBottomSheetConfiguration(
+//                   backgroundColor: theme.backgroundColor,
+//                   reactedUserTextStyle: TextStyle(
+//                     color: theme.inComingChatBubbleTextColor,
+//                   ),
+//                   reactionWidgetDecoration: BoxDecoration(
+//                     color: theme.inComingChatBubbleColor,
+//                     boxShadow: [
+//                       BoxShadow(
+//                         color:
+//                             isDarkTheme ? Colors.black12 : Colors.grey.shade200,
+//                         offset: const Offset(0, 20),
+//                         blurRadius: 40,
+//                       )
+//                     ],
+//                     borderRadius: BorderRadius.circular(10),
+//                   ),
+//                 ),
+//               ),
+//               imageMessageConfig: ImageMessageConfiguration(
+//                 margin:
+//                     const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+//                 shareIconConfig: ShareIconConfiguration(
+//                   defaultIconBackgroundColor: theme.shareIconBackgroundColor,
+//                   defaultIconColor: theme.shareIconColor,
+//                 ),
+//               ),
+//             ),
+//             profileCircleConfig: const ProfileCircleConfiguration(
+//               profileImageUrl: Data.profileImage,
+//             ),
+//             repliedMessageConfig: RepliedMessageConfiguration(
+//               backgroundColor: theme.repliedMessageColor,
+//               verticalBarColor: theme.verticalBarColor,
+//               repliedMsgAutoScrollConfig: RepliedMsgAutoScrollConfig(
+//                 enableHighlightRepliedMsg: true,
+//                 highlightColor: Colors.pinkAccent.shade100,
+//                 highlightScale: 1.1,
+//               ),
+//               textStyle: const TextStyle(
+//                 color: Colors.white,
+//                 fontWeight: FontWeight.bold,
+//                 letterSpacing: 0.25,
+//               ),
+//               replyTitleTextStyle:
+//                   TextStyle(color: theme.repliedTitleTextColor),
+//             ),
+//             swipeToReplyConfig: SwipeToReplyConfiguration(
+//               replyIconColor: theme.swipeToReplyIconColor,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
 
-  void _onSendTap(
-    Message message,
-    // ReplyMessage replyMessage,
-    // MessageType messageType,
-  ) {
-    final id = int.parse(Data.messageListOriginal.last.id) + 1;
-    _chatController.addMessage(message);
+//   void _onSendTap(
+//     Message message,
+//     // ReplyMessage replyMessage,
+//     // MessageType messageType,
+//   ) {
+//     final id = int.parse(Data.messageListOriginal.last.id) + 1;
+//     _chatController.addMessage(message);
 
-    Future.delayed(const Duration(milliseconds: 300), () {
-      _chatController.initialMessageList.last.setStatus =
-          MessageStatus.undelivered;
-    });
-    Future.delayed(const Duration(seconds: 1), () {
-      _chatController.initialMessageList.last.setStatus = MessageStatus.read;
-    });
-  }
+//     Future.delayed(const Duration(milliseconds: 300), () {
+//       _chatController.initialMessageList.last.setStatus =
+//           MessageStatus.undelivered;
+//     });
+//     Future.delayed(const Duration(seconds: 1), () {
+//       _chatController.initialMessageList.last.setStatus = MessageStatus.read;
+//     });
+//   }
 
-  void _onThemeIconTap() {
-    setState(() {
-      if (isDarkTheme) {
-        theme = LightTheme();
-        isDarkTheme = false;
-      } else {
-        theme = DarkTheme();
-        isDarkTheme = true;
-      }
-    });
-  }
-}
+//   void _onThemeIconTap() {
+//     setState(() {
+//       if (isDarkTheme) {
+//         theme = LightTheme();
+//         isDarkTheme = false;
+//       } else {
+//         theme = DarkTheme();
+//         isDarkTheme = true;
+//       }
+//     });
+//   }
+// }
 
 class AnimatedMomSayingCongratsWidget extends StatelessWidget {
   const AnimatedMomSayingCongratsWidget({
@@ -1520,6 +1527,88 @@ enum AnimationDirection {
   counterclockwise,
 }
 
+class CollectibleHeroWidget extends StatefulWidget {
+  final CollectibleReward collectibleReward;
+
+  CollectibleHeroWidget({Key? key, required this.collectibleReward})
+      : super(key: key);
+
+  @override
+  State<CollectibleHeroWidget> createState() => _CollectibleHeroWidgetState();
+}
+
+class _CollectibleHeroWidgetState extends State<CollectibleHeroWidget>
+    with TickerProviderStateMixin {
+  late AnimationController _controller1;
+  @override
+  void initState() {
+    super.initState();
+    _controller1 = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 2000,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller1.dispose();
+    super.dispose();
+  }
+
+  void _startAnimation1() {
+    _controller1.reset();
+    _controller1.animateTo(1.0, curve: Curves.easeInOut);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      foregroundPainter: AnimatedBorderPainter(
+        animation: _controller1,
+        strokeColor: Colors.white,
+        pathType: PathType.rRect,
+        animationDirection: AnimationDirection.clockwise,
+        startingPercentage: 40,
+        radius: const Radius.circular(12),
+      ),
+      child: SizedBox(
+        width: 700,
+        height: 500,
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Center(
+            child: GestureDetector(
+              onTap: _startAnimation1,
+              child: Container(
+                  width: 700,
+                  height: 500,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image:
+                            getCardImageFromCardType(widget.collectibleReward),
+                        fit: BoxFit.fill,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          spreadRadius: 5,
+                          color: Color.fromARGB(170, 4, 11, 104),
+                          blurRadius: 28,
+                        )
+                      ])),
+            ),
+          ),
+          // ),
+        ),
+      ),
+    );
+  }
+
+  AssetImage getCardImageFromCardType(collectibleReward) =>
+      AssetImage('assets/hero/$collectibleReward.png');
+}
+
 class CollectibleCardWidget extends StatefulWidget {
   final CollectibleReward collectibleReward;
 
@@ -1560,7 +1649,7 @@ class _CollectibleCardWidgetState extends State<CollectibleCardWidget>
     return CustomPaint(
       foregroundPainter: AnimatedBorderPainter(
         animation: _controller1,
-        strokeColor: Colors.black54,
+        strokeColor: Colors.white,
         pathType: PathType.rRect,
         animationDirection: AnimationDirection.clockwise,
         startingPercentage: 40,

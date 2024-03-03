@@ -230,7 +230,12 @@ class _MyScreenState extends State<MyScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('AlertDialog Title'),
+          title: Text(isEnglish ? 'Show subway pass' : '地下鉄パスを見せてください',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontFamily: GoogleFonts.rubik().fontFamily,
+                color: Colors.black,
+              )),
           content: SingleChildScrollView(
             child: SizedBox(
               height: 200,
@@ -263,16 +268,28 @@ class _MyScreenState extends State<MyScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('AlertDialog Title'),
+          title: Text(isEnglish ? 'Subway pass' : '地下鉄パス',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontFamily: GoogleFonts.rubik().fontFamily,
+                color: Colors.black,
+              )),
           content: SingleChildScrollView(
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                shadowColor: Colors.transparent,
+              ),
               onPressed: () {
                 print("Adding qr to wallet");
                 //Navigator.of(context).restorablePush(_dialogBuilder);
                 _launchURL();
               },
               child: SvgPicture.asset(
-                'assets/wallet-eng.svg', // Replace 'assets/your_sample.svg' with your SVG file path
+                isEnglish
+                    ? 'assets/wallet-eng.svg'
+                    : 'assets/wallet-jp.svg', // Replace 'assets/your_sample.svg' with your SVG file path
                 width: 250, // Adjust the width as needed
                 height: 50, // Adjust the height as needed
               ),
@@ -600,43 +617,46 @@ class _MyScreenState extends State<MyScreen>
                       layout: SwiperLayout.STACK,
                     )),
                 SizedBox(height: 30.0),
-                Column(
-                  children: [
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          embark,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: GoogleFonts.rubik().fontFamily,
-                            color: Colors.white,
+                SizedBox(
+                  height: 65,
+                  child: Column(
+                    children: [
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            embark,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: GoogleFonts.rubik().fontFamily,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          explore,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontFamily: GoogleFonts.rubik().fontFamily,
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            explore,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontFamily: GoogleFonts.rubik().fontFamily,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 SizedBox(height: 30.0),
                 const AvatarStack(
