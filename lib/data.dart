@@ -6,7 +6,8 @@ class Data {
   static final messageListOriginal = [
     Message(
       id: '0',
-      message: "Hi!",
+      message:
+          " Wow, Mom! Look what I got for sorting all the wet waste correctly!",
       createdAt: DateTime.now(),
       sendBy: '1', // userId of who sends the message
       status: MessageStatus.read,
@@ -15,16 +16,17 @@ class Data {
   static final messageList = [
     Message(
       id: '1',
-      message: "Hi!",
+      message:
+          "Congratulations, Emi! Kumo is such a special companion. He's known as the Roaming Companion in the city. People adore him for his loyalty and friendly nature.",
       createdAt: DateTime.now(),
-      sendBy: '1', // userId of who sends the message
+      sendBy: '2', // userId of who sends the message
       status: MessageStatus.read,
     ),
     Message(
       id: '2',
-      message: "Hi!",
+      message: "That's so cool! What does Kumo do in the city?",
       createdAt: DateTime.now(),
-      sendBy: '2',
+      sendBy: '1',
       status: MessageStatus.read,
     ),
     Message(
@@ -36,88 +38,24 @@ class Data {
     ),
     Message(
       id: '4',
-      message: "Can you write the time and place of the meeting?",
+      message:
+          "Well, Kumo is always on the move, trotting through the streets and alleys, spreading joy wherever he goes. His wagging tail is like a symbol of happiness, bringing warmth to everyone he meets.",
       createdAt: DateTime.now(),
-      sendBy: '1',
+      sendBy: '2',
       status: MessageStatus.read,
     ),
     Message(
       id: '5',
-      message: "That's fine",
+      message:
+          "Aw, he sounds amazing! I can't wait to learn more about him. Do you think we'll get to see him around our neighborhood?",
       createdAt: DateTime.now(),
-      sendBy: '2',
-      reaction: Reaction(reactions: ['\u{2764}'], reactedUserIds: ['1']),
+      sendBy: '1',
       status: MessageStatus.read,
     ),
     Message(
       id: '6',
-      message: "When to go ?",
-      createdAt: DateTime.now(),
-      sendBy: '3',
-      status: MessageStatus.read,
-    ),
-    Message(
-      id: '7',
-      message: "I guess Simform will reply",
-      createdAt: DateTime.now(),
-      sendBy: '4',
-      status: MessageStatus.read,
-    ),
-    Message(
-      id: '8',
-      message: "https://bit.ly/3JHS2Wl",
-      createdAt: DateTime.now(),
-      sendBy: '2',
-      reaction: Reaction(
-        reactions: ['\u{2764}', '\u{1F44D}', '\u{1F44D}'],
-        reactedUserIds: ['2', '3', '4'],
-      ),
-      status: MessageStatus.read,
-      replyMessage: const ReplyMessage(
-        message: "Can you write the time and place of the meeting?",
-        replyTo: '1',
-        replyBy: '2',
-        messageId: '4',
-      ),
-    ),
-    Message(
-      id: '9',
-      message: "Done",
-      createdAt: DateTime.now(),
-      sendBy: '1',
-      status: MessageStatus.read,
-      reaction: Reaction(
-        reactions: [
-          '\u{2764}',
-          '\u{2764}',
-          '\u{2764}',
-        ],
-        reactedUserIds: ['2', '3', '4'],
-      ),
-    ),
-    Message(
-      id: '10',
-      message: "Thank you!!",
-      status: MessageStatus.read,
-      createdAt: DateTime.now(),
-      sendBy: '1',
-      reaction: Reaction(
-        reactions: ['\u{2764}', '\u{2764}', '\u{2764}', '\u{2764}'],
-        reactedUserIds: ['2', '4', '3', '1'],
-      ),
-    ),
-    Message(
-      id: '11',
-      message: "https://miro.medium.com/max/1000/0*s7of7kWnf9fDg4XM.jpeg",
-      createdAt: DateTime.now(),
-      messageType: MessageType.image,
-      sendBy: '1',
-      reaction: Reaction(reactions: ['\u{2764}'], reactedUserIds: ['2']),
-      status: MessageStatus.read,
-    ),
-    Message(
-      id: '12',
-      message: "🤩🤩",
+      message:
+          "Who knows, Emi? Maybe one day you'll spot him on one of our walks. But for now, cherish this card as a reminder of the importance of companionship and spreading positivity, just like Kumo does.",
       createdAt: DateTime.now(),
       sendBy: '2',
       status: MessageStatus.read,

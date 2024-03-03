@@ -400,7 +400,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
               children: [
                 // const AnimatedMomSayingCongratsWidget(),
                 const SizedBox(width: 100),
-                ChatScreen(),
+                ChatScreen(dustbin),
                 CollectibleCardWidget(
                     collectibleReward: dustbin.collectibleReward),
                 const SizedBox(width: 100),
@@ -848,7 +848,7 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
 }
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen(Dustbin dustbin, {Key? key}) : super(key: key);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -868,22 +868,7 @@ class _ChatScreenState extends State<ChatScreen> {
     chatUsers: [
       ChatUser(
         id: '2',
-        name: 'Simform',
-        profilePhoto: Data.profileImage,
-      ),
-      ChatUser(
-        id: '3',
-        name: 'Jhon',
-        profilePhoto: Data.profileImage,
-      ),
-      ChatUser(
-        id: '4',
-        name: 'Mike',
-        profilePhoto: Data.profileImage,
-      ),
-      ChatUser(
-        id: '5',
-        name: 'Rich',
+        name: 'Mom',
         profilePhoto: Data.profileImage,
       ),
     ],
@@ -941,8 +926,8 @@ class _ChatScreenState extends State<ChatScreen> {
             chatController: _chatController,
             onSendTap: null,
             featureActiveConfig: const FeatureActiveConfig(
-              lastSeenAgoBuilderVisibility: true,
-              receiptsBuilderVisibility: true,
+              lastSeenAgoBuilderVisibility: false,
+              receiptsBuilderVisibility: false,
             ),
             chatViewState: ChatViewState.hasMessages,
             chatViewStateConfig: ChatViewStateConfiguration(
