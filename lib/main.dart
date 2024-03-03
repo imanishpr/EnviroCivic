@@ -245,13 +245,13 @@ class _MyScreenState extends State<MyScreen>
                   print("Scanned text is " + code);
                   setState(() {});
                 },
-                openManual: true,
+                openManual: false,
               ),
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Approve'),
+              child: Text(isEnglish ? 'Approve' : '承認する'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -665,8 +665,6 @@ class _MyScreenState extends State<MyScreen>
                     'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363529/2_ote1pj.png',
                     'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709482117/beer_ytmrbn.png',
                     'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363543/1_cfv4b6.png'
-
-
                   ],
                 ),
                 SizedBox(height: 60.0),

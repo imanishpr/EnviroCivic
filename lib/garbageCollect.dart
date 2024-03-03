@@ -548,49 +548,49 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     );
   }
 
-  Route<Object?> _dialogBuilder(BuildContext context, Object? arguments) {
-    return DialogRoute<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Scan your subway pass',
-            style: TextStyle(
-              fontSize: 16.0,
-              fontFamily: GoogleFonts.rubik().fontFamily,
-              // color: Color.fromARGB(255, 132, 219, 146),
-            ),
-          ),
-          content: SingleChildScrollView(
-            child: SizedBox(
-              height: 200,
-              width: 200,
-              child: AppBarcodeScannerWidget.defaultStyle(
-                resultCallback: (String code) {
-                  print("Scanned text is " + code);
-                  setState(() {});
-                },
-                openManual: true,
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Approve',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontFamily: GoogleFonts.rubik().fontFamily,
-                    // color: Color.fromARGB(255, 132, 219, 146),
-                  )),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // Route<Object?> _dialogBuilder(BuildContext context, Object? arguments) {
+  //   return DialogRoute<void>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text(
+  //           'Scan your subway pass',
+  //           style: TextStyle(
+  //             fontSize: 16.0,
+  //             fontFamily: GoogleFonts.rubik().fontFamily,
+  //             // color: Color.fromARGB(255, 132, 219, 146),
+  //           ),
+  //         ),
+  //         content: SingleChildScrollView(
+  //           child: SizedBox(
+  //             height: 200,
+  //             width: 200,
+  //             child: AppBarcodeScannerWidget.defaultStyle(
+  //               resultCallback: (String code) {
+  //                 print("Scanned text is " + code);
+  //                 setState(() {});
+  //               },
+  //               openManual: true,
+  //             ),
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: Text('Approve',
+  //                 style: TextStyle(
+  //                   fontSize: 16.0,
+  //                   fontFamily: GoogleFonts.rubik().fontFamily,
+  //                   // color: Color.fromARGB(255, 132, 219, 146),
+  //                 )),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   _launchURL(Dustbin dustbin) async {
     final jwt = JWT(
