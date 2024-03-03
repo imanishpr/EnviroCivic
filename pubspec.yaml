@@ -83,6 +83,8 @@ flutter:
     - assets/blue_waste.json
     - assets/red_waste.json
     - assets/gray_waste.json
+    - assets/error_logo.json
+    - assets/panda_no.json
     - assets/alum_can.png
     - assets/band_aids.png
     - assets/burger.png

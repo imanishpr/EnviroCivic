@@ -111,7 +111,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
   late final AnimationController _blueController;
   late final AnimationController _redController;
   late final AnimationController _grayController;
-
+  Timer? timer;
   @override
   void initState() {
     super.initState();
@@ -122,6 +122,8 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     _blueController = AnimationController(vsync: this);
     _redController = AnimationController(vsync: this);
     _grayController = AnimationController(vsync: this);
+
+    timer = Timer.periodic(Duration(seconds: 15), (Timer t) => callANiamtion());
   }
 
   @override
@@ -728,40 +730,40 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
               showModalBottomSheet<Item>(
                 constraints: BoxConstraints(
                   maxWidth: 900,
-                  maxHeight: 300,
+                  maxHeight: 250,
                 ),
                 context: context,
                 builder: (BuildContext context) {
                   return Center(
                     child: Container(
-                      height: 100,
+                      height: 250,
                       color: Colors.transparent,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // const AnimatedMomSayingCongratsWidget(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: Text(
-                                      item.incorrectMessageDescription,
-                                    ),
-                                  ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Lottie.asset(
+                              'assets/panda_no.json',
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.fill,
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Text(
+                                  item.incorrectMessageDescription,
                                 ),
-                                ElevatedButton(
-                                  child: const Text('Try again'),
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                              ],
+                              ),
+                            ),
+                            ElevatedButton(
+                              child: const Text('Try again'),
+                              onPressed: () => Navigator.pop(context),
                             ),
                           ],
                         ),
@@ -831,6 +833,17 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
       default:
         return 'assets/green_waste.json';
     }
+  }
+
+  callANiamtion() {
+    _greenController.reset();
+    _greenController.forward();
+    _blueController.reset();
+    _blueController.forward();
+    _redController.reset();
+    _redController.forward();
+    _grayController.reset();
+    _grayController.forward();
   }
 }
 
