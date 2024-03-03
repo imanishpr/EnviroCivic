@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:garbage_sorting/animate.dart';
