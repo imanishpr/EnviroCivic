@@ -641,10 +641,12 @@ class _MyScreenState extends State<MyScreen>
                 SizedBox(height: 30.0),
                 const AvatarStack(
                   avatars: [
-                    '/assets/newspaper.png',
-                    '/assets/pastic_bottle.png',
-                    '/assets/phone.png',
-                    '/assets/tea_bags.png'
+                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363535/4_iqqfkt.png',
+                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363529/2_ote1pj.png',
+                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709482117/beer_ytmrbn.png',
+                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363543/1_cfv4b6.png'
+
+
                   ],
                 ),
                 SizedBox(height: 60.0),
