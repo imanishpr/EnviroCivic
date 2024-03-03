@@ -69,8 +69,8 @@ class _MyScreenState extends State<MyScreen>
   ];
 
   static const colorizeTextStyle = TextStyle(
-    fontSize: 50.0,
-    fontFamily: 'Horizon',
+    fontSize: 70.0,
+    fontFamily: 'Rubik',
   );
 
   List<String> imagePaths = [
@@ -536,14 +536,14 @@ class _MyScreenState extends State<MyScreen>
               mainAxisSize: MainAxisSize.max,
               children: [
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 SizedBox(
-                  width: 500,
+                  width: 900,
                   child: AnimatedTextKit(
                     animatedTexts: [
                       ColorizeAnimatedText(
-                        'Urban Eco Adventures',
+                        '    Urban Eco Adventures',
                         textStyle: colorizeTextStyle,
                         colors: colorizeColors,
                       ),
@@ -577,21 +577,40 @@ class _MyScreenState extends State<MyScreen>
                       layout: SwiperLayout.STACK,
                     )),
                 SizedBox(height: 30.0),
-                Text(
-                  embark,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.rubik().fontFamily,
-                  ),
-                ),
-                Text(
-                  explore,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.rubik().fontFamily,
-                  ),
+                Column(
+                  children: [
+                  DecoratedBox(
+                      decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child:   
+                    Text(
+                      embark,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: GoogleFonts.rubik().fontFamily,
+                        color: Colors.white,
+                      ),
+                    ),),),
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child:  Text(
+                      explore,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontFamily: GoogleFonts.rubik().fontFamily,
+                      ),),),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 30.0),
                 const AvatarStack(
@@ -603,13 +622,20 @@ class _MyScreenState extends State<MyScreen>
                   ],
                 ),
                 SizedBox(height: 60.0),
-                Text(
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
                   'Language Settings / 言語の設定',
                   style: TextStyle(
                     fontSize: 16.0,
+                    color : Colors.white,
                     fontFamily: GoogleFonts.rubik().fontFamily,
                   ),
-                ),
+                ),),),
                 SizedBox(height: 8.0),
                 DropdownButtonHideUnderline(
                   child: DropdownButton2(
@@ -655,19 +681,22 @@ class _MyScreenState extends State<MyScreen>
                       ),
                     ],
                     onChanged: (value) {
-                      if (value == MenuItems.english) {
+                      MenuItem mymenuite = value as MenuItem;
+                      print(mymenuite.text);
+                      if (mymenuite.text == 'English') {
                         setState(() {
                           isEnglish = true;
-                          start = isEnglish ? start : jstart;
-                          embark = isEnglish ? embark : jembark;
-                          explore = isEnglish ? explore : jexplore;
+                          start = isEnglish ? 'START' : 'ゲームスタート';
+                          embark = isEnglish ? 'Embark on a Sustainable Journey!' : '持続可能な旅に出発しましょう！';
+                          explore = isEnglish ? 'Explore, Learn, Collect Rewards for your Google Wallet' : '探索し、学び、Googleウォレットの報酬を集める';
                         });
                       } else {
                         setState(() {
                           isEnglish = false;
-                          start = isEnglish ? start : jstart;
-                          embark = isEnglish ? embark : jembark;
-                          explore = isEnglish ? explore : jexplore;
+                          start = isEnglish ? 'START' : 'ゲームスタート';
+                          embark = isEnglish ? 'Embark on a Sustainable Journey!' : '持続可能な旅に出発しましょう！';
+                          explore = isEnglish ? 'Explore, Learn, Collect Rewards for your Google Wallet' : '探索し、学び、Googleウォレットの報酬を集める';
+                      
                         });
                       }
                     },
