@@ -377,8 +377,8 @@ List<ChatMessage> jchatMessages = [
 
   @override
   Widget build(BuildContext context) {
-    print('lol');
-    print(selectedLanguage);
+    // print('lol');
+    // print(selectedLanguage);
     if(selectedLanguage == 'ja-JP') {
       chatMessages = jchatMessages;
     }
@@ -535,7 +535,7 @@ Widget _buildCongratulationsScreen(Customer customer) {
                               ],
                               isRepeatingAnimation: true,
                               onTap: () {
-                                print("Tap Event");
+                                // print("Tap Event");
                               },
                             ),
                           )
@@ -587,7 +587,7 @@ Widget _buildCongratulationsScreen(Customer customer) {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    print("Collectible collected");
+                    // print("Collectible collected");
                   },
                   child: Image.asset(
                     'assets/adde.png',

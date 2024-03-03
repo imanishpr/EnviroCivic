@@ -49,42 +49,42 @@ List<Item> _items = [
     incorrectMessageDescription:
         "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
   ),
-  const Item(
-    name: 'Aluminium can',
-    totalPriceCents: 1299,
-    uid: '7',
-    imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  ),
-  const Item(
-    name: 'Aluminium can',
-    totalPriceCents: 1299,
-    uid: '8',
-    imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  ),
-  const Item(
-    name: 'Aluminium can',
-    totalPriceCents: 1299,
-    uid: '1',
-    imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  ),
-  const Item(
-    name: 'Aluminium can',
-    totalPriceCents: 1299,
-    uid: '3',
-    imageProvider: AssetImage('assets/alum_can.png'),
-    garbageType: GarbageType.wet,
-    incorrectMessageDescription:
-        "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
-  ),
+  // const Item(
+  //   name: 'Aluminium can',
+  //   totalPriceCents: 1299,
+  //   uid: '7',
+  //   imageProvider: AssetImage('assets/alum_can.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription:
+  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  // ),
+  // const Item(
+  //   name: 'Aluminium can',
+  //   totalPriceCents: 1299,
+  //   uid: '8',
+  //   imageProvider: AssetImage('assets/alum_can.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription:
+  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  // ),
+  // const Item(
+  //   name: 'Aluminium can',
+  //   totalPriceCents: 1299,
+  //   uid: '1',
+  //   imageProvider: AssetImage('assets/alum_can.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription:
+  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  // ),
+  // const Item(
+  //   name: 'Aluminium can',
+  //   totalPriceCents: 1299,
+  //   uid: '3',
+  //   imageProvider: AssetImage('assets/alum_can.png'),
+  //   garbageType: GarbageType.wet,
+  //   incorrectMessageDescription:
+  //       "Oops! Looks like this can needs a different destination. Think about where you'd recycle it.",
+  // ),
   const Item(
     name: 'Band-Aids',
     totalPriceCents: 799,
@@ -238,27 +238,23 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
     if (dustbin.garbageType == GarbageType.wet) {
       _greenController.reset();
       _greenController.forward();
-      await Future.delayed(Duration(milliseconds: 2500));
     }
 
     if (dustbin.garbageType == GarbageType.dry) {
       _blueController.reset();
       _blueController.forward();
-      await Future.delayed(Duration(milliseconds: 2500));
     }
 
     if (dustbin.garbageType == GarbageType.sanitary) {
       _redController.reset();
       _redController.forward();
-      await Future.delayed(Duration(milliseconds: 2500));
     }
 
     if (dustbin.garbageType == GarbageType.ewaste) {
       _grayController.reset();
       _grayController.forward();
-      await Future.delayed(Duration(milliseconds: 2500));
     }
-
+    await Future.delayed(Duration(milliseconds: 2500));
     setState(() {
       dustbin.items.add(item);
       _items.removeWhere((element) => element.uid == item.uid);
@@ -286,7 +282,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F7),
-      appBar: _buildAppBar(),
+      // appBar: _buildAppBar(),
       body: _buildContent(),
     );
   }
@@ -343,6 +339,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
   }
 
   Widget _buildGarbageList() {
+    print("building garbage list again");
     if (_dustbins[0].items.length == _dustbins[0].maxLength) {
       return _buildCongratulationsScreen(_dustbins[0]);
     } else if (_dustbins[1].items.length == _dustbins[1].maxLength) {
@@ -365,6 +362,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
           children: List.generate(
             _items.length,
             (index) {
+              // print("Returning a new list cause someone called me");
               return AnimationConfiguration.staggeredGrid(
                 position: index,
                 duration: const Duration(milliseconds: 375),
