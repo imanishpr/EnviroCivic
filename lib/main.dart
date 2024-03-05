@@ -663,10 +663,10 @@ class _MyScreenState extends State<MyScreen>
                 SizedBox(height: 30.0),
                 const AvatarStack(
                   avatars: [
-                    'assets/card1_blurred.png',
-                    'assets/card2_blurred.png',
-                    'assets/card3_blurred.png',
-                    'assets/card4_blurred.png',
+                    'assets/assets/card1_blurred.png',
+                    'assets/assets/card2_blurred.png',
+                    'assets/assets/card3_blurred.png',
+                    'assets/assets/card1_blurred.png',
                   ],
                 ),
                 SizedBox(height: 60.0),
