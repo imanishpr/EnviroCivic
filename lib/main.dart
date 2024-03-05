@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Urban eco adventures",
       home: MyScreen(),
       // routes: {
       //   "/garbageBattle": (_) => ExampleDragAndDrop(),
