@@ -198,6 +198,10 @@ flutter:
     - assets/subway/friend/wait3.jpeg
     - assets/subway/friend/wait5.jpeg
     - assets/wallet-jp.svg
+    - assets/card1_blurred.png
+    - assets/card2_blurred.png
+    - assets/card3_blurred.png
+    - assets/card4_blurred.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
