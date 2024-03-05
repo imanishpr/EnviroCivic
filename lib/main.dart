@@ -327,8 +327,8 @@ class _MyScreenState extends State<MyScreen>
     });
     if (!isMuted) {
       await flutterTts.setLanguage(selectedLanguage);
-      await flutterTts.setPitch(0.95);
-      await flutterTts.setSpeechRate(2);
+      await flutterTts.setPitch(1);
+      await flutterTts.setSpeechRate(1);
       await flutterTts.speak(text);
       await Future.delayed(Duration(seconds: 3));
     }
