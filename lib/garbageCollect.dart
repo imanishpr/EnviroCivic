@@ -846,8 +846,9 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
             } else {
               _itemDroppedOnIncorrectDustbin(dustbin: dustbin);
               showModalBottomSheet<Item>(
+                backgroundColor: Colors.white70,
                 constraints: BoxConstraints(
-                  maxWidth: 900,
+                  maxWidth: 710,
                   maxHeight: 250,
                 ),
                 context: context,
@@ -855,7 +856,7 @@ EZW1R276C15ZWzTgdiIgd+4YRlAWJbhp7dROf8hlFkUN+R0JDQFL7fk+lGLn2ZoL
                   return Center(
                     child: Container(
                       height: 250,
-                      color: Colors.transparent,
+                      color: Colors.white70,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 5),
@@ -1825,14 +1826,19 @@ class MenuListItem extends StatelessWidget {
                     height: 10,
                     width: 10,
                   ),
-                  Center(
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: GoogleFonts.rubik().fontFamily,
-                        // color: Colors.white,
-                        // color: Color.fromARGB(255, 132, 219, 146),
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: GoogleFonts.rubik().fontFamily,
+                          color: Colors.white,
+                          // color: Color.fromARGB(255, 132, 219, 146),
+                        ),
                       ),
                     ),
                   ),
