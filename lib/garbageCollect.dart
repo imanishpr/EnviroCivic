@@ -7,6 +7,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:uuid/uuid.dart';
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:garbage_sorting/data.dart';
 import 'package:garbage_sorting/model/theme.dart';
@@ -17,6 +18,8 @@ import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:confetti/confetti.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:lottie/lottie.dart';
+
+var uuid = Uuid();
 
 // void main() {
 //   runApp(
@@ -602,7 +605,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
         'payload': {
           'genericObjects': [
             {
-              'id': '3388000000022321421.123123123123123229',
+              'id': '3388000000022321421.${uuid.v1()}',
               'classId': '3388000000022321421.Starsefdsfs75',
               'genericType': 'GENERIC_TYPE_UNSPECIFIED',
               'hexBackgroundColor': '#4285f4',

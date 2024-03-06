@@ -53,6 +53,7 @@ dependencies:
   country_flags: ^2.2.0
   dropdown_button2: ^2.3.9
   lottie: ^2.7.0
+  uuid: ^4.2.2
   
 
 
