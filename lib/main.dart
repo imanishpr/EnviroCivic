@@ -868,53 +868,86 @@ Widget chapter2Welcome() {
     theme: ThemeData(
       useMaterial3: true,
     ),
-    home: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: ExactAssetImage("assets/background_one.png"),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: Container(
-        color: Colors.white.withOpacity(0.0),
-        child: SizedBox(
-          width: double.maxFinite,
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 35.0,
-              fontFamily: 'Rubik',
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
+    home: Stack(
+      alignment: Alignment.bottomCenter,
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: ExactAssetImage("assets/background_one.png"),
+              fit: BoxFit.fill,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: AnimatedTextKit(
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                      isEnglish
-                          ? 'Congratulations, Urban Eco-Adventurer!'
-                          : 'おめでとう',
-                      speed: const Duration(milliseconds: 300),
-                      textStyle: typewriterTextStyle,
+          ),
+          child: Container(
+            color: Colors.white.withOpacity(0.0),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: DefaultTextStyle(
+                style: const TextStyle(
+                  fontSize: 35.0,
+                  fontFamily: 'Rubik',
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          isEnglish
+                              ? 'Congratulations, Urban Eco-Adventurer!'
+                              : 'おめでとう',
+                          speed: const Duration(milliseconds: 300),
+                          textStyle: TextStyle(
+                            fontSize: 35.0,
+                            fontFamily: 'Rubik',
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        TypewriterAnimatedText(
+                          isEnglish
+                              ? "As Nami finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Nami embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
+                              : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
+                          speed: const Duration(milliseconds: 50),
+                        ),
+                      ],
+                      isRepeatingAnimation: false,
+                      onTap: () {
+                        print("Tap Event");
+                      },
                     ),
-                    TypewriterAnimatedText(
-                      isEnglish
-                          ? "As Nami finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Nami embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
-                          : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
-                      speed: const Duration(milliseconds: 50),
-                    ),
-                  ],
-                  isRepeatingAnimation: false,
-                  onTap: () {
-                    print("Tap Event");
-                  },
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
+        Positioned(
+          bottom: 20.0, // Adjust the bottom position as needed
+          child: ElevatedButton(
+            onPressed: () async {
+              print(currentIndex);
+              setState(() {
+                chapter2 = false;
+                _speak(subWaytexts[currentIndex]);
+              });
+            },
+            child: Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+              size: 70.0,
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.black.withOpacity(0.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+          ),
+        ),
+      ],
     ),
   );
 }
