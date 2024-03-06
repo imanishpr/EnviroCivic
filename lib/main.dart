@@ -12,12 +12,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:garbage_sorting/animate.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 import 'dart:async';
 import 'garbageCollect.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+
+var uuid = Uuid();
 
 void main() {
   runApp(MyApp());
@@ -787,7 +790,7 @@ class _MyScreenState extends State<MyScreen>
                     ),
                   ),
                 ),
-                SizedBox(height: 90.0),
+                SizedBox(height: 20.0),
                 Container(
                   width: 350.0,
                   decoration: BoxDecoration(
@@ -876,95 +879,95 @@ class _MyScreenState extends State<MyScreen>
     );
   }
 
-Widget chapter2Welcome() {
-  return MaterialApp(
-    title: 'Flutter Demo',
-    theme: ThemeData(
-      useMaterial3: true,
-    ),
-    home: Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: ExactAssetImage("assets/background_one.png"),
-              fit: BoxFit.fill,
+  Widget chapter2Welcome() {
+    return MaterialApp(
+      title: 'Urban Eco Adventures',
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      home: Stack(
+        alignment: Alignment.bottomCenter,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage("assets/background_one.png"),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          child: Container(
-            color: Colors.white.withOpacity(0.0),
-            child: SizedBox(
-              width: double.maxFinite,
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 35.0,
-                  fontFamily: 'Rubik',
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: AnimatedTextKit(
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          isEnglish
-                              ? 'Congratulations, Urban Eco-Adventurer!'
-                              : 'おめでとう',
-                          speed: const Duration(milliseconds: 300),
-                          textStyle: TextStyle(
-                            fontSize: 35.0,
-                            fontFamily: 'Rubik',
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
+            child: Container(
+              color: Colors.white.withOpacity(0.0),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: 35.0,
+                    fontFamily: 'Rubik',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: AnimatedTextKit(
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            isEnglish
+                                ? 'Congratulations, Urban Eco-Adventurer!'
+                                : 'おめでとう',
+                            speed: const Duration(milliseconds: 300),
+                            textStyle: TextStyle(
+                              fontSize: 35.0,
+                              fontFamily: 'Rubik',
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
-                        ),
-                        TypewriterAnimatedText(
-                          isEnglish
-                              ? "As Nami finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Nami embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
-                              : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
-                          speed: const Duration(milliseconds: 50),
-                        ),
-                      ],
-                      isRepeatingAnimation: false,
-                      onTap: () {
-                        print("Tap Event");
-                      },
+                          TypewriterAnimatedText(
+                            isEnglish
+                                ? "As Nami finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Nami embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
+                                : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
+                            speed: const Duration(milliseconds: 50),
+                          ),
+                        ],
+                        isRepeatingAnimation: false,
+                        onTap: () {
+                          print("Tap Event");
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          bottom: 20.0, // Adjust the bottom position as needed
-          child: ElevatedButton(
-            onPressed: () async {
-              print(currentIndex);
-              setState(() {
-                chapter2 = false;
-                _speak(subWaytexts[currentIndex]);
-              });
-            },
-            child: Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-              size: 70.0,
-            ),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.black.withOpacity(0.4),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100),
+          Positioned(
+            bottom: 20.0, // Adjust the bottom position as needed
+            child: ElevatedButton(
+              onPressed: () async {
+                print(currentIndex);
+                setState(() {
+                  chapter2 = false;
+                  _speak(subWaytexts[currentIndex]);
+                });
+              },
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+                size: 70.0,
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.black.withOpacity(0.4),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 
   Widget secondWidget() {
     return Scaffold(
@@ -1168,7 +1171,7 @@ Widget chapter2Welcome() {
 
   Widget byeWidget() {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Urban Eco Adventures',
         theme: ThemeData(
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
@@ -1305,25 +1308,36 @@ Future<void> _launchURL() async {
       'payload': {
         'genericObjects': [
           {
-            'id': '3388000000022321421.123123123123121',
+            'id': '3388000000022321421.${uuid.v1()}',
             'classId': '3388000000022321421.Starsefdsfs77',
             'genericType': 'GENERIC_TYPE_UNSPECIFIED',
             'hexBackgroundColor': '#4285f4',
             'logo': {
               'sourceUri': {
                 'uri':
-                    'https://res.cloudinary.com/parc-india/image/upload/v1642349740/Screen_Shot_2022-01-16_at_9.44.45_PM_hgazpj.png'
+                    'https://res.cloudinary.com/parc-india/image/upload/v1709749839/phd1pcnsre1usrslj4cc.png'
               }
             },
             'cardTitle': {
-              'defaultValue': {'language': 'en', 'value': 'Straw hat labs'}
+              'defaultValue': {'language': 'en', 'value': 'Strawhats labs'}
             },
             'subheader': {
               'defaultValue': {'language': 'en', 'value': 'Entire day'}
             },
             'header': {
               'defaultValue': {'language': 'en', 'value': 'Subway pass'}
-            }
+            },
+            'heroImage': {
+              'sourceUri': {
+                'uri':
+                    'https://res.cloudinary.com/parc-india/image/upload/v1709749846/hbkjy00o9ypjdzt1vjyu.png',
+              }
+            },
+            'barcode': {
+              "type": "QR_CODE",
+              "value": "Nami Subway Pass",
+              "alternateText": "Nami Subway Pass",
+            },
           }
         ]
       }

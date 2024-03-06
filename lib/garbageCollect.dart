@@ -7,6 +7,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:uuid/uuid.dart';
 import 'package:garbage_sorting/app_barcode_scanner_widget.dart';
 import 'package:garbage_sorting/data.dart';
 import 'package:garbage_sorting/model/theme.dart';
@@ -17,6 +18,8 @@ import 'package:widget_circular_animator/widget_circular_animator.dart';
 import 'package:confetti/confetti.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:lottie/lottie.dart';
+
+var uuid = Uuid();
 
 // void main() {
 //   runApp(
@@ -46,150 +49,150 @@ final List<Item> _items = [
     garbageType: GarbageType.dry,
     incorrectMessageDescription: oopsText,
   ),
-  // Item(
-  //   name: isStaticLangEng ? 'Band-Aids' : 'バンドエイド',
-  //   totalPriceCents: 799,
-  //   uid: '2',
-  //   imageProvider: AssetImage('assets/band_aids.png'),
-  //   garbageType: GarbageType.sanitary,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Burger' : 'ハンバーガー',
-  //   totalPriceCents: 1499,
-  //   uid: '3',
-  //   imageProvider: AssetImage('assets/burger.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Cardboard Box' : 'ダンボール箱',
-  //   totalPriceCents: 1499,
-  //   uid: '4',
-  //   imageProvider: AssetImage('assets/cardboard_box.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Charging Cable' : '充電ケーブル',
-  //   totalPriceCents: 1499,
-  //   uid: '5',
-  //   imageProvider: AssetImage('assets/charging_cable.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Disposable Cup' : '使い捨てカップ ',
-  //   totalPriceCents: 1499,
-  //   uid: '6',
-  //   imageProvider: AssetImage('assets/disposable_cup.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Egg Shells' : ' 卵の殻',
-  //   totalPriceCents: 1499,
-  //   uid: '7',
-  //   imageProvider: AssetImage('assets/egg_shells.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Food Leftover' : '食べ残し',
-  //   totalPriceCents: 1499,
-  //   uid: '8',
-  //   imageProvider: AssetImage('assets/food_leftover.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Fruit Scraps' : ' 果物くず',
-  //   totalPriceCents: 1499,
-  //   uid: '9',
-  //   imageProvider: AssetImage('assets/fruit_scraps.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Game Console' : 'ゲームコンソール ',
-  //   totalPriceCents: 1499,
-  //   uid: '10',
-  //   imageProvider: AssetImage('assets/game_console.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Keyboard' : 'キーボード',
-  //   totalPriceCents: 1499,
-  //   uid: '11',
-  //   imageProvider: AssetImage('assets/keyboard.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Mask' : 'マスク',
-  //   totalPriceCents: 1499,
-  //   uid: '12',
-  //   imageProvider: AssetImage('assets/mask.png'),
-  //   garbageType: GarbageType.sanitary,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Mouse' : 'マウス',
-  //   totalPriceCents: 1499,
-  //   uid: '13',
-  //   imageProvider: AssetImage('assets/mouse.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Newspapers' : '新聞',
-  //   totalPriceCents: 1499,
-  //   uid: '14',
-  //   imageProvider: AssetImage('assets/newspaper.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Plastic Bottle' : 'ボトル',
-  //   totalPriceCents: 1499,
-  //   uid: '15',
-  //   imageProvider: AssetImage('assets/pastic_bottle.png'),
-  //   garbageType: GarbageType.dry,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Broken Phone' : '壊れた携帯電話',
-  //   totalPriceCents: 1499,
-  //   uid: '16',
-  //   imageProvider: AssetImage('assets/phone.png'),
-  //   garbageType: GarbageType.ewaste,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Sanitary Napkins' : '生理用ナプキン',
-  //   totalPriceCents: 1499,
-  //   uid: '17',
-  //   imageProvider: AssetImage('assets/sanitary_napkins.png'),
-  //   garbageType: GarbageType.sanitary,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Tampons' : 'タンポン',
-  //   totalPriceCents: 1499,
-  //   uid: '18',
-  //   imageProvider: AssetImage('assets/tampons.png'),
-  //   garbageType: GarbageType.sanitary,
-  //   incorrectMessageDescription: oopsText,
-  // ),
-  // Item(
-  //   name: isStaticLangEng ? 'Tea Bags' : 'ティーバッグ ',
-  //   totalPriceCents: 1499,
-  //   uid: '19',
-  //   imageProvider: AssetImage('assets/tea_bags.png'),
-  //   garbageType: GarbageType.wet,
-  //   incorrectMessageDescription: oopsText,
-  // )
+  Item(
+    name: isStaticLangEng ? 'Band-Aids' : 'バンドエイド',
+    totalPriceCents: 799,
+    uid: '2',
+    imageProvider: AssetImage('assets/band_aids.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Burger' : 'ハンバーガー',
+    totalPriceCents: 1499,
+    uid: '3',
+    imageProvider: AssetImage('assets/burger.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Cardboard Box' : 'ダンボール箱',
+    totalPriceCents: 1499,
+    uid: '4',
+    imageProvider: AssetImage('assets/cardboard_box.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Charging Cable' : '充電ケーブル',
+    totalPriceCents: 1499,
+    uid: '5',
+    imageProvider: AssetImage('assets/charging_cable.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Disposable Cup' : '使い捨てカップ ',
+    totalPriceCents: 1499,
+    uid: '6',
+    imageProvider: AssetImage('assets/disposable_cup.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Egg Shells' : ' 卵の殻',
+    totalPriceCents: 1499,
+    uid: '7',
+    imageProvider: AssetImage('assets/egg_shells.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Food Leftover' : '食べ残し',
+    totalPriceCents: 1499,
+    uid: '8',
+    imageProvider: AssetImage('assets/food_leftover.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Fruit Scraps' : ' 果物くず',
+    totalPriceCents: 1499,
+    uid: '9',
+    imageProvider: AssetImage('assets/fruit_scraps.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Game Console' : 'ゲームコンソール ',
+    totalPriceCents: 1499,
+    uid: '10',
+    imageProvider: AssetImage('assets/game_console.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Keyboard' : 'キーボード',
+    totalPriceCents: 1499,
+    uid: '11',
+    imageProvider: AssetImage('assets/keyboard.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Mask' : 'マスク',
+    totalPriceCents: 1499,
+    uid: '12',
+    imageProvider: AssetImage('assets/mask.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Mouse' : 'マウス',
+    totalPriceCents: 1499,
+    uid: '13',
+    imageProvider: AssetImage('assets/mouse.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Newspapers' : '新聞',
+    totalPriceCents: 1499,
+    uid: '14',
+    imageProvider: AssetImage('assets/newspaper.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Plastic Bottle' : 'ボトル',
+    totalPriceCents: 1499,
+    uid: '15',
+    imageProvider: AssetImage('assets/pastic_bottle.png'),
+    garbageType: GarbageType.dry,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Broken Phone' : '壊れた携帯電話',
+    totalPriceCents: 1499,
+    uid: '16',
+    imageProvider: AssetImage('assets/phone.png'),
+    garbageType: GarbageType.ewaste,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Sanitary Napkins' : '生理用ナプキン',
+    totalPriceCents: 1499,
+    uid: '17',
+    imageProvider: AssetImage('assets/sanitary_napkins.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Tampons' : 'タンポン',
+    totalPriceCents: 1499,
+    uid: '18',
+    imageProvider: AssetImage('assets/tampons.png'),
+    garbageType: GarbageType.sanitary,
+    incorrectMessageDescription: oopsText,
+  ),
+  Item(
+    name: isStaticLangEng ? 'Tea Bags' : 'ティーバッグ ',
+    totalPriceCents: 1499,
+    uid: '19',
+    imageProvider: AssetImage('assets/tea_bags.png'),
+    garbageType: GarbageType.wet,
+    incorrectMessageDescription: oopsText,
+  )
 ];
 
 @immutable
@@ -246,13 +249,13 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       garbageType: GarbageType.wet,
       color: Colors.green,
       collectibleReward: CollectibleReward.kumo,
-      maxLength: 1, //TODO SAI change this lengths to actual counts
+      maxLength: 5, //TODO SAI change this lengths to actual counts
       mistakes: 0,
       collectibleType: 'Dog',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_1104/v1709482322/kumo_congrats_wxm16n.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709363529/2_ote1pj.png',
       cardHeader: 'Kumo',
       cardSubHeader: 'The Roaming Companion',
       cardBody:
@@ -267,14 +270,14 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       name: isStaticLangEng ? '   Dry waste     ' : '    生ごみ    ',
       garbageType: GarbageType.dry,
       color: Colors.blue,
-      maxLength: 1,
+      maxLength: 5,
       mistakes: 0,
       collectibleReward: CollectibleReward.zephyr,
       collectibleType: 'Cheetah',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_852/v1709482334/zephyr_congrats_y9wjmt.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709363543/1_cfv4b6.png',
       cardHeader: 'Zephyr',
       cardSubHeader: 'The Wanderer',
       cardBody:
@@ -289,14 +292,14 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       name: isStaticLangEng ? '   sanitary waste     ' : '    衛生ゴミ    ',
       garbageType: GarbageType.sanitary,
       color: Colors.red,
-      maxLength: 1,
+      maxLength: 4,
       mistakes: 0,
       collectibleReward: CollectibleReward.fenrir,
       collectibleType: 'Wolf',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_669/v1709482320/Fenrir_congrats_cplrdg.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709363535/4_iqqfkt.png',
       cardHeader: 'Fenrir',
       cardSubHeader: 'The Silent Stalker',
       cardBody:
@@ -311,14 +314,14 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       name: isStaticLangEng ? '     E-waste     ' : '    電子廃棄物    ',
       garbageType: GarbageType.ewaste,
       color: Colors.grey,
-      maxLength: 1,
+      maxLength: 5,
       mistakes: 0,
       collectibleReward: CollectibleReward.ursula,
       collectibleType: 'Bear',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_2000/v1709482327/ursula_congrats_skygso.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709482117/beer_ytmrbn.png',
       cardHeader: 'Ursula',
       cardSubHeader: 'The Solitary Sentinel',
       cardBody:
@@ -533,7 +536,7 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
                     dustbin.items = [];
                   });
                   //Navigator.of(context).restorablePush(_dialogBuilder);
-                  // _launchURL(dustbin);
+                  _launchURL(dustbin);
                 },
                 child: SvgPicture.asset(
                   isStaticLangEng
@@ -602,18 +605,18 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
         'payload': {
           'genericObjects': [
             {
-              'id': '3388000000022321421.123123123123123229',
+              'id': '3388000000022321421.${uuid.v1()}',
               'classId': '3388000000022321421.Starsefdsfs75',
               'genericType': 'GENERIC_TYPE_UNSPECIFIED',
               'hexBackgroundColor': '#4285f4',
               'logo': {
                 'sourceUri': {
                   'uri':
-                      'https://res.cloudinary.com/parc-india/image/upload/v1642349740/Screen_Shot_2022-01-16_at_9.44.45_PM_hgazpj.png'
+                      'https://res.cloudinary.com/parc-india/image/upload/v1709749839/phd1pcnsre1usrslj4cc.png'
                 }
               },
               'cardTitle': {
-                'defaultValue': {'language': 'en', 'value': 'Strawhat labs'}
+                'defaultValue': {'language': 'en', 'value': 'Strawhats labs'}
               },
               'subheader': {
                 'defaultValue': {
