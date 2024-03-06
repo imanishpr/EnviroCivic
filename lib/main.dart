@@ -160,6 +160,13 @@ class _MyScreenState extends State<MyScreen>
     [
       "assets/subway/police/ticketbuy.png",
     ],
+
+    ["assets/drive/d5.jpeg"],
+
+
+    ["assets/mom/mom21.jpeg"],
+    ["assets/mom/tmom33.jpg"],
+    [ "assets/sliders/reachedoffice43.jpeg"],
     [
       "assets/subway/friend/wait4.jpeg",
     ],
@@ -178,6 +185,10 @@ class _MyScreenState extends State<MyScreen>
     "And here's a pro tip: skip the lines by purchasing your pass online. It's super easy to add it to your Google Wallet, too.",
     "Oh, I didn't know that! Thanks for the heads up. I'll definitely look into it right away.",
     "After browsing the subway website, Nami decides to purchase a ticket. With a few clicks, she completes the transaction and a button appears, allowing her to conveniently add the ticket to her Google Wallet.",
+    "Nami drives back home",
+    "How was your day at work?",
+    "It was fantastic! I discovered the convenience of commuting to the office by subway and even bought my ticket online.",
+    "Next day goes Nami goes to subway station",
     "As she reached the entrance, the hustle and bustle of commuters filled the air, signaling the start of her journey towards a more sustainable lifestyle.",
     "Excuse me, miss. Could I see your ticket, If you have a pass added to your google wallet I can quickly scan it!",
     "I've scanned it. You're all set to board the subway now.",
@@ -194,6 +205,14 @@ class _MyScreenState extends State<MyScreen>
     "それにひとつプロのアドバイス：オンラインでパスを購入して、行列をスキップしよう。Google Walletにも簡単に追加できるよ。",
     "あ、それは知らなかった！教えてくれてありがとう。今すぐ調べてみるね。",
     "地下鉄のウェブサイトを見て回った後、エミはチケットを購入することを決定しました。数回のクリックで取引を完了し、ボタンが表示され、彼女は便利にチケットをGoogle Walletに追加できます。",
+    "ナミは車で家に帰ります",
+    "仕事での一日はどうでしたか？"
+    "それは素晴らしかったです！地下鉄でオフィスに通勤するのが便利だと気づき、チケットもオンラインで購入しました。",
+    "次の日、ナミは地下鉄の駅に行きます",
+    
+    
+    
+    
     "入口に到達すると、通勤者の喧騒が空気に充満し、彼女の持続可能なライフスタイルへの旅の始まりを告げていました。",
     "失礼いたします、お嬢さん。チケットを見せていただけますか？Google Walletにパスが追加されていれば、簡単にスキャンできますよ。",
     "スキャンしました。これで地下鉄に乗る準備が整いました。",
@@ -321,7 +340,6 @@ class _MyScreenState extends State<MyScreen>
   }
 
   Future<void> _speak(String text) async {
-    print("WIll speak this " + text);
     setState(() {
       isSpeaking = true; // Set isSpeaking to true when text-to-speech starts
     });
