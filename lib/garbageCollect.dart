@@ -249,13 +249,13 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       garbageType: GarbageType.wet,
       color: Colors.green,
       collectibleReward: CollectibleReward.kumo,
-      maxLength: 1, //TODO SAI change this lengths to actual counts
+      maxLength: 5, //TODO SAI change this lengths to actual counts
       mistakes: 0,
       collectibleType: 'Dog',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_1104/v1709482322/kumo_congrats_wxm16n.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709363529/2_ote1pj.png',
       cardHeader: 'Kumo',
       cardSubHeader: 'The Roaming Companion',
       cardBody:
@@ -275,9 +275,9 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       collectibleReward: CollectibleReward.zephyr,
       collectibleType: 'Cheetah',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_852/v1709482334/zephyr_congrats_y9wjmt.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709363543/1_cfv4b6.png',
       cardHeader: 'Zephyr',
       cardSubHeader: 'The Wanderer',
       cardBody:
@@ -297,9 +297,9 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       collectibleReward: CollectibleReward.fenrir,
       collectibleType: 'Wolf',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_669/v1709482320/Fenrir_congrats_cplrdg.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709363535/4_iqqfkt.png',
       cardHeader: 'Fenrir',
       cardSubHeader: 'The Silent Stalker',
       cardBody:
@@ -319,9 +319,9 @@ class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
       collectibleReward: CollectibleReward.ursula,
       collectibleType: 'Bear',
       heroImage:
-          'https://res.cloudinary.com/parc-india/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1708706668/84823BA6-0E4A-4BFC-B591-2281FB6AF9FA_hb33up.jpg',
+          'https://res.cloudinary.com/parc-india/image/upload/c_scale,w_2000/v1709482327/ursula_congrats_skygso.png',
       cardImage:
-          'https://res.cloudinary.com/parc-india/image/upload/f_auto,q_auto/x0ghmv4ym4ucg3lklsya',
+          'https://res.cloudinary.com/parc-india/image/upload/v1709482117/beer_ytmrbn.png',
       cardHeader: 'Ursula',
       cardSubHeader: 'The Solitary Sentinel',
       cardBody:
