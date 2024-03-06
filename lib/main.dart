@@ -862,109 +862,107 @@ class _MyScreenState extends State<MyScreen>
     );
   }
 
-  Widget chapter2Welcome() {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+Widget chapter2Welcome() {
+  return MaterialApp(
+    title: 'Flutter Demo',
+    theme: ThemeData(
+      useMaterial3: true,
+    ),
+    home: Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: ExactAssetImage("assets/background.png"),
+          fit: BoxFit.fill,
         ),
-        home: Stack(alignment: Alignment.center, children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: ExactAssetImage("assets/background.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: double.maxFinite,
-            child: DefaultTextStyle(
-              style: const TextStyle(
-                  fontSize: 35.0,
-                  fontFamily: 'Rubik',
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: AnimatedTextKit(
-                    // displayFullTextOnTap: true,
-                    animatedTexts: [
-                      TypewriterAnimatedText(
-                        isEnglish
-                            ? 'Congratulations, Urban Eco-Adventurer!'
-                            : 'おめでとう',
-                        speed: const Duration(milliseconds: 300),
-                        textStyle: typewriterTextStyle,
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 35.0,
+                      fontFamily: 'Rubik',
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: AnimatedTextKit(
+                          animatedTexts: [
+                            TypewriterAnimatedText(
+                              isEnglish
+                                  ? 'Congratulations, Urban Eco-Adventurer!'
+                                  : 'おめでとう',
+                              speed: const Duration(milliseconds: 300),
+                              textStyle: typewriterTextStyle,
+                            ),
+                            TypewriterAnimatedText(
+                              isEnglish
+                                  ? "As Nami finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Nami embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
+                                  : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
+                              speed: const Duration(milliseconds: 50),
+                            ),
+                          ],
+                          isRepeatingAnimation: false,
+                          onTap: () {
+                            print("Tap Event");
+                          },
+                        ),
                       ),
-                      TypewriterAnimatedText(
-                        isEnglish
-                            ? "As Nami finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Nami embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
-                            : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
-                        speed: const Duration(milliseconds: 50),
-                      ),
-                    ],
-                    isRepeatingAnimation: false,
-                    onTap: () {
-                      print("Tap Event");
-                    },
+                    ),
                   ),
                 ),
               ),
-            ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9 - 40,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+              ),
+              Visibility(
+                visible: !isSpeaking,
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      print(currentIndex);
+                      setState(() {
+                        chapter2 = false;
+                        _speak(subWaytexts[currentIndex]);
+                      });
+                    },
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                      size: 70.0,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black.withOpacity(0.4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          // Column(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     // Description strip (90% width)
-          //     Container(
-          //       width: MediaQuery.of(context).size.width * 0.9 -
-          //           40, // Adjusting width considering padding
-          //       padding: EdgeInsets.symmetric(horizontal: 10),
-          //       child: Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //       ),
-          //     ),
-          //     // Next button (10% width)
-          //     Visibility(
-          //       visible: !isSpeaking, // Show the button only when not speaking
-          //       child: Container(
-          //         width: MediaQuery.of(context).size.width * 0.1,
-          //         child: ElevatedButton(
-          //           onPressed: () async {
-          //             print(currentIndex);
-          //             setState(() {
-          //               chapter2 = false;
-          //               _speak(subWaytexts[currentIndex]);
-          //             });
-          //           },
-          //           child: Icon(
-          //             Icons.arrow_forward,
-          //             color: Colors.white,
-          //             size: 70.0, // Adjust the size as needed
-          //           ),
-          //           style: ElevatedButton.styleFrom(
-          //             primary: Colors.black.withOpacity(0.4),
-          //             shape: RoundedRectangleBorder(
-          //               borderRadius: BorderRadius.circular(100),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-        ]));
-  }
+        ),
+      ),
+    ),
+  );
+}
+
 
   Widget secondWidget() {
     return Scaffold(
