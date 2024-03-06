@@ -101,13 +101,13 @@ class _MyScreenState extends State<MyScreen>
   ];
 
   List<String> texts = [
-    "Meet Emie, a 27-year-old working at an IT firm in bustling Tokyo. She shares a cozy home with her mother, embracing the blend of modern city life and traditional Japanese warmth. As Emie navigates the challenges of her career, she finds herself on a journey toward sustainability, weaving her story through the vibrant streets of Tokyo",
-    "In the heart of Tokyo, amidst the ceaseless rhythm of the city, Emie makes her way home after another day at the office.",
-    "Welcome back, Emie. How was your day?",
+    "Meet Nami, a 27-year-old working at an IT firm in bustling Tokyo. She shares a cozy home with her mother, embracing the blend of modern city life and traditional Japanese warmth. As Nami navigates the challenges of her career, she finds herself on a journey toward sustainability, weaving her story through the vibrant streets of Tokyo",
+    "In the heart of Tokyo, amidst the ceaseless rhythm of the city, Nami makes her way home after another day at the office.",
+    "Welcome back, Nami. How was your day?",
     "Long, but productive. How about you, Mom?",
     "Busy as always, but nothing I can't handle. Oh, by the way, your room is a bit of a mess. Mind tidying up before dinner?",
     "Of course, Mom. I'll take care of it right away.",
-    "As Emie steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
+    "As Nami steps into her cluttered room, a wave of frustration washes over her. Papers strewn across the desk, clothes piled haphazardly on the floor – it's chaos.",
     "Shall we start by gathering the garbage?",
     "Here's a tutorial on how to sort the garbage",
     "Here's a tutorial on how to sort the garbage",
@@ -170,19 +170,19 @@ class _MyScreenState extends State<MyScreen>
     // Add more lists if needed
   ];
   List<String> subWaytexts = [
-    "As Emi drove through the bustling streets of Tokyo, an hour passed before she finally arrived at her office. Maneuvering through the busy traffic and stopping at intersections, she navigated the city's vibrant roads, focused on reaching her destination",
+    "As Nami drove through the bustling streets of Tokyo, an hour passed before she finally arrived at her office. Maneuvering through the busy traffic and stopping at intersections, she navigated the city's vibrant roads, focused on reaching her destination",
     "You look a bit worn out. Rough commute?",
     "Yeah, the traffic was brutal. Took me a whole hour just to get here.",
     "Why not give the subway a shot? It's not only better for the environment but also saves you time and stress. Plus, you can relax or catch up on reading during the ride.",
     "Hmm, you might be onto something there. I'll give it a try tomorrow.",
     "And here's a pro tip: skip the lines by purchasing your pass online. It's super easy to add it to your Google Wallet, too.",
     "Oh, I didn't know that! Thanks for the heads up. I'll definitely look into it right away.",
-    "After browsing the subway website, Emi decides to purchase a ticket. With a few clicks, she completes the transaction and a button appears, allowing her to conveniently add the ticket to her Google Wallet.",
+    "After browsing the subway website, Nami decides to purchase a ticket. With a few clicks, she completes the transaction and a button appears, allowing her to conveniently add the ticket to her Google Wallet.",
     "As she reached the entrance, the hustle and bustle of commuters filled the air, signaling the start of her journey towards a more sustainable lifestyle.",
     "Excuse me, miss. Could I see your ticket, If you have a pass added to your google wallet I can quickly scan it!",
     "I've scanned it. You're all set to board the subway now.",
     "I didn't have to stand in line to buy tickets. Saved a lot of time. Scan was also quick. Thank you.",
-    "Emi patiently waited on the platform as the train approached, taking only three minutes to arrive. Boarding swiftly, she knew her entire commute would last just 30 minutes. With a sense of satisfaction, she settled into her seat, reflecting on the positive impact of her eco-friendly decision"
+    "Nami patiently waited on the platform as the train approached, taking only three minutes to arrive. Boarding swiftly, she knew her entire commute would last just 30 minutes. With a sense of satisfaction, she settled into her seat, reflecting on the positive impact of her eco-friendly decision"
   ];
 
   List<String> jsubWaytexts = [
@@ -327,8 +327,8 @@ class _MyScreenState extends State<MyScreen>
     });
     if (!isMuted) {
       await flutterTts.setLanguage(selectedLanguage);
-      await flutterTts.setPitch(0.95);
-      await flutterTts.setSpeechRate(2);
+      await flutterTts.setPitch(1);
+      await flutterTts.setSpeechRate(1);
       await flutterTts.speak(text);
       await Future.delayed(Duration(seconds: 3));
     }
@@ -491,7 +491,6 @@ class _MyScreenState extends State<MyScreen>
                 isMuted = !isMuted;
               });
               if (isMuted) {
-                print("muting snowekfbsknfslfnds");
                 flutterTts.stop();
               }
             },
@@ -663,10 +662,10 @@ class _MyScreenState extends State<MyScreen>
                 SizedBox(height: 30.0),
                 const AvatarStack(
                   avatars: [
-                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363535/4_iqqfkt.png',
-                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363529/2_ote1pj.png',
-                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709482117/beer_ytmrbn.png',
-                    'https://res.cloudinary.com/parc-india/image/upload/c_scale,e_blur:1500,w_500/v1709363543/1_cfv4b6.png'
+                    'assets/assets/card1_blurred.png',
+                    'assets/assets/card2_blurred.png',
+                    'assets/assets/card3_blurred.png',
+                    'assets/assets/card1_blurred.png',
                   ],
                 ),
                 SizedBox(height: 60.0),
@@ -863,109 +862,95 @@ class _MyScreenState extends State<MyScreen>
     );
   }
 
-  Widget chapter2Welcome() {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: Stack(alignment: Alignment.center, children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: ExactAssetImage("assets/background.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
-              ),
+Widget chapter2Welcome() {
+  return MaterialApp(
+    title: 'Flutter Demo',
+    theme: ThemeData(
+      useMaterial3: true,
+    ),
+    home: Stack(
+      alignment: Alignment.bottomCenter,
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: ExactAssetImage("assets/background_one.png"),
+              fit: BoxFit.fill,
             ),
           ),
-          SizedBox(
-            width: double.maxFinite,
-            child: DefaultTextStyle(
-              style: const TextStyle(
+          child: Container(
+            color: Colors.white.withOpacity(0.0),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: DefaultTextStyle(
+                style: const TextStyle(
                   fontSize: 35.0,
                   fontFamily: 'Rubik',
                   color: Colors.white,
-                  fontWeight: FontWeight.w800),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: AnimatedTextKit(
-                    // displayFullTextOnTap: true,
-                    animatedTexts: [
-                      TypewriterAnimatedText(
-                        isEnglish
-                            ? 'Congratulations, Urban Eco-Adventurer!'
-                            : 'おめでとう',
-                        speed: const Duration(milliseconds: 300),
-                        textStyle: typewriterTextStyle,
-                      ),
-                      TypewriterAnimatedText(
-                        isEnglish
-                            ? "As Emi finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Emi embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
-                            : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
-                        speed: const Duration(milliseconds: 50),
-                      ),
-                    ],
-                    isRepeatingAnimation: false,
-                    onTap: () {
-                      print("Tap Event");
-                    },
+                  fontWeight: FontWeight.w800,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          isEnglish
+                              ? 'Congratulations, Urban Eco-Adventurer!'
+                              : 'おめでとう',
+                          speed: const Duration(milliseconds: 300),
+                          textStyle: TextStyle(
+                            fontSize: 35.0,
+                            fontFamily: 'Rubik',
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        TypewriterAnimatedText(
+                          isEnglish
+                              ? "As Nami finishes sorting the garbage, her mother's warm smile reflects pride. The task completed, a sense of accomplishment fills the air. Beyond the cozy confines of their home, a new adventure awaits. With determination in her heart and purpose in her step, Nami embarks on the next leg of her journey, guided by the bustling rhythm of Tokyo's streets."
+                              : "「エミがゴミの分別を終えると、母の温かい微笑みが誇りに満ちた空気を映し出します。タスクが完了し、達成感が満ちています。居心地の良い家の外で、新しい冒険が待っています。心に決意を抱き、歩みを進めるエミは、東京の街の賑やかなリズムに導かれて、次の旅の足跡を刻みます。」",
+                          speed: const Duration(milliseconds: 50),
+                        ),
+                      ],
+                      isRepeatingAnimation: false,
+                      onTap: () {
+                        print("Tap Event");
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Description strip (90% width)
-              Container(
-                width: MediaQuery.of(context).size.width * 0.9 -
-                    40, // Adjusting width considering padding
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ),
+        ),
+        Positioned(
+          bottom: 20.0, // Adjust the bottom position as needed
+          child: ElevatedButton(
+            onPressed: () async {
+              print(currentIndex);
+              setState(() {
+                chapter2 = false;
+                _speak(subWaytexts[currentIndex]);
+              });
+            },
+            child: Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+              size: 70.0,
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.black.withOpacity(0.4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
               ),
-              // Next button (10% width)
-              Visibility(
-                visible: !isSpeaking, // Show the button only when not speaking
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      print(currentIndex);
-                      setState(() {
-                        chapter2 = false;
-                        _speak(subWaytexts[currentIndex]);
-                      });
-                    },
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                      size: 70.0, // Adjust the size as needed
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black.withOpacity(0.4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ]));
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   Widget secondWidget() {
     return Scaffold(
@@ -1210,13 +1195,13 @@ class _MyScreenState extends State<MyScreen>
                       ),
                       TypewriterAnimatedText(
                         isEnglish
-                            ? "You've successfully completed all the levels of 'Urban Eco-Adventures' and helped Emi embark on her journey toward sustainability in bustling Tokyo. Your dedication to sorting garbage, embracing public transportation, and exploring eco-friendly practices has made a significant impact on the environment within the game world."
+                            ? "You've successfully completed all the levels of 'Urban Eco-Adventures' and helped Nami embark on her journey toward sustainability in bustling Tokyo. Your dedication to sorting garbage, embracing public transportation, and exploring eco-friendly practices has made a significant impact on the environment within the game world."
                             : "『アーバンエコアドベンチャー』のすべてのレベルを成功裏にクリアし、エミが賑やかな東京で持続可能性への旅に出る手助けをしました。ゴミの分別、公共交通機関の利用、エコフレンドリーな実践の探求へのあなたの献身が、ゲームの世界において環境への重要な影響をもたらしました。",
                         textStyle: typewriterSmallTextStyle,
                       ),
                       TypewriterAnimatedText(
                         isEnglish
-                            ? "But remember, the journey toward sustainability doesn't end here. Just as Emi continues to learn and grow, so too can you make a difference in the real world by implementing the lessons you've learned in the game."
+                            ? "But remember, the journey toward sustainability doesn't end here. Just as Nami continues to learn and grow, so too can you make a difference in the real world by implementing the lessons you've learned in the game."
                             : "しかし、持続可能性への旅はここで終わりではありません。エミが学び成長し続けるように、あなたもゲームで学んだ教訓を実践することで現実世界で変化を起こすことができます。",
                         textStyle: typewriterSmallTextStyle,
                       ),
@@ -1266,10 +1251,10 @@ class _MyScreenState extends State<MyScreen>
 //                 TypewriterAnimatedText(
 //                     isEnglish ?  'Congratulations, Urban Eco-Adventurer!' : 'おめでとうございます、アーバンエコアドベンチャラー！'),
 //                 TypewriterAnimatedText(
-//                    isEnglish ?  "You've successfully completed all the levels of 'Urban Eco-Adventures' and helped Emi embark on her journey toward sustainability in bustling Tokyo. Your dedication to sorting garbage, embracing public transportation, and exploring eco-friendly practices has made a significant impact on the environment within the game world." :
+//                    isEnglish ?  "You've successfully completed all the levels of 'Urban Eco-Adventures' and helped Nami embark on her journey toward sustainability in bustling Tokyo. Your dedication to sorting garbage, embracing public transportation, and exploring eco-friendly practices has made a significant impact on the environment within the game world." :
 //                    "『アーバンエコアドベンチャー』のすべてのレベルを成功裏にクリアし、エミが賑やかな東京で持続可能性への旅に出る手助けをしました。ゴミの分別、公共交通機関の利用、エコフレンドリーな実践の探求へのあなたの献身が、ゲームの世界において環境への重要な影響をもたらしました。"),
 //                 TypewriterAnimatedText(
-//                    isEnglish ?  "But remember, the journey toward sustainability doesn't end here. Just as Emi continues to learn and grow, so too can you make a difference in the real world by implementing the lessons you've learned in the game."
+//                    isEnglish ?  "But remember, the journey toward sustainability doesn't end here. Just as Nami continues to learn and grow, so too can you make a difference in the real world by implementing the lessons you've learned in the game."
 //                    : "しかし、持続可能性への旅はここで終わりではありません。エミが学び成長し続けるように、あなたもゲームで学んだ教訓を実践することで現実世界で変化を起こすことができます。" ),
 //                 TypewriterAnimatedText(
 //                     isEnglish ?  "Thank you for playing 'Urban Eco-Adventures' and joining us on this important journey. Together, we can make a difference, one small action at a time."
