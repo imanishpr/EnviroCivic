@@ -774,7 +774,7 @@ class _MyScreenState extends State<MyScreen>
                     ),
                   ),
                 ),
-                SizedBox(height: 90.0),
+                SizedBox(height: 20.0),
                 Container(
                   width: 350.0,
                   decoration: BoxDecoration(
@@ -1313,7 +1313,7 @@ Future<void> _launchURL() async {
             'logo': {
               'sourceUri': {
                 'uri':
-                    'https://res.cloudinary.com/parc-india/image/upload/v1642349740/Screen_Shot_2022-01-16_at_9.44.45_PM_hgazpj.png'
+                    'https://res.cloudinary.com/parc-india/image/upload/v1709749839/phd1pcnsre1usrslj4cc.png'
               }
             },
             'cardTitle': {
@@ -1324,6 +1324,12 @@ Future<void> _launchURL() async {
             },
             'header': {
               'defaultValue': {'language': 'en', 'value': 'Subway pass'}
+            },
+            'heroImage': {
+              'sourceUri': {
+                'uri':
+                    'https://res.cloudinary.com/parc-india/image/upload/v1709749846/hbkjy00o9ypjdzt1vjyu.png',
+              }
             }
           }
         ]
