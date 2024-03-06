@@ -1305,7 +1305,7 @@ Future<void> _launchURL() async {
               }
             },
             'cardTitle': {
-              'defaultValue': {'language': 'en', 'value': 'Straw hat labs'}
+              'defaultValue': {'language': 'en', 'value': 'Strawhats labs'}
             },
             'subheader': {
               'defaultValue': {'language': 'en', 'value': 'Entire day'}
