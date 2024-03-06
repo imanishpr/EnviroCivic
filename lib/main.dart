@@ -491,7 +491,6 @@ class _MyScreenState extends State<MyScreen>
                 isMuted = !isMuted;
               });
               if (isMuted) {
-                print("muting snowekfbsknfslfnds");
                 flutterTts.stop();
               }
             },
@@ -922,48 +921,48 @@ class _MyScreenState extends State<MyScreen>
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Description strip (90% width)
-              Container(
-                width: MediaQuery.of(context).size.width * 0.9 -
-                    40, // Adjusting width considering padding
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ),
-              ),
-              // Next button (10% width)
-              Visibility(
-                visible: !isSpeaking, // Show the button only when not speaking
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      print(currentIndex);
-                      setState(() {
-                        chapter2 = false;
-                        _speak(subWaytexts[currentIndex]);
-                      });
-                    },
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                      size: 70.0, // Adjust the size as needed
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black.withOpacity(0.4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // Column(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     // Description strip (90% width)
+          //     Container(
+          //       width: MediaQuery.of(context).size.width * 0.9 -
+          //           40, // Adjusting width considering padding
+          //       padding: EdgeInsets.symmetric(horizontal: 10),
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //       ),
+          //     ),
+          //     // Next button (10% width)
+          //     Visibility(
+          //       visible: !isSpeaking, // Show the button only when not speaking
+          //       child: Container(
+          //         width: MediaQuery.of(context).size.width * 0.1,
+          //         child: ElevatedButton(
+          //           onPressed: () async {
+          //             print(currentIndex);
+          //             setState(() {
+          //               chapter2 = false;
+          //               _speak(subWaytexts[currentIndex]);
+          //             });
+          //           },
+          //           child: Icon(
+          //             Icons.arrow_forward,
+          //             color: Colors.white,
+          //             size: 70.0, // Adjust the size as needed
+          //           ),
+          //           style: ElevatedButton.styleFrom(
+          //             primary: Colors.black.withOpacity(0.4),
+          //             shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.circular(100),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ]));
   }
 
