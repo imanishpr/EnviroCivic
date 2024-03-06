@@ -147,7 +147,6 @@ class _MyScreenState extends State<MyScreen>
     [
       "assets/subway/friend/friend.jpeg",
     ],
-
     ["assets/subway/coffee/coffee10.jpeg"],
     ["assets/subway/friend/friend2.jpeg"],
     ["assets/subway/coffee/coffee11.jpeg"],
@@ -160,13 +159,10 @@ class _MyScreenState extends State<MyScreen>
     [
       "assets/subway/police/ticketbuy.png",
     ],
-
-    ["assets/drive/d5.jpeg"],
-
-
+    ["assets/drive/d5.jpg"],
     ["assets/mom/mom21.jpeg"],
     ["assets/mom/tmom33.jpg"],
-    [ "assets/sliders/reachedoffice43.jpeg"],
+    ["assets/sliders/reachedoffice43.jpeg"],
     [
       "assets/subway/friend/wait4.jpeg",
     ],
@@ -188,7 +184,7 @@ class _MyScreenState extends State<MyScreen>
     "Nami drives back home",
     "How was your day at work?",
     "It was fantastic! I discovered the convenience of commuting to the office by subway and even bought my ticket online.",
-    "Next day goes Nami goes to subway station",
+    "Next day Nami goes to subway station",
     "As she reached the entrance, the hustle and bustle of commuters filled the air, signaling the start of her journey towards a more sustainable lifestyle.",
     "Excuse me, miss. Could I see your ticket, If you have a pass added to your google wallet I can quickly scan it!",
     "I've scanned it. You're all set to board the subway now.",
@@ -379,7 +375,7 @@ class _MyScreenState extends State<MyScreen>
       print("Returned from scan");
       Navigator.of(context).restorablePush(_dialogBuilder);
     }
-    if (currentIndex == imagePathsListSubWay.length - 6 &&
+    if (currentIndex == imagePathsListSubWay.length - 10 &&
         shouldRenderSubwayWidget) {
       await Future.delayed(Duration(seconds: 2));
       print("Returned from scan");

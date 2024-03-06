@@ -203,6 +203,7 @@ flutter:
     - assets/card2_blurred.png
     - assets/card3_blurred.png
     - assets/card4_blurred.png
+    - assets/drive/d5.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
