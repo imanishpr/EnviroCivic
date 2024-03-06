@@ -867,7 +867,7 @@ class _MyScreenState extends State<MyScreen>
 
   Widget chapter2Welcome() {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Urban Eco Adventures',
       theme: ThemeData(
         useMaterial3: true,
       ),
@@ -1157,7 +1157,7 @@ class _MyScreenState extends State<MyScreen>
 
   Widget byeWidget() {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Urban Eco Adventures',
         theme: ThemeData(
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
@@ -1318,7 +1318,12 @@ Future<void> _launchURL() async {
                 'uri':
                     'https://res.cloudinary.com/parc-india/image/upload/v1709749846/hbkjy00o9ypjdzt1vjyu.png',
               }
-            }
+            },
+            'barcode': {
+              "type": "QR_CODE",
+              "value": "Nami Subway Pass",
+              "alternateText": "Nami Subway Pass",
+            },
           }
         ]
       }
