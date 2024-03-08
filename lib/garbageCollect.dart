@@ -21,15 +21,6 @@ import 'package:lottie/lottie.dart';
 
 var uuid = Uuid();
 
-// void main() {
-//   runApp(
-//     const MaterialApp(
-//       home: ExampleDragAndDrop(),
-//       debugShowCheckedModeBanner: false,
-//     ),
-//   );
-// }
-
 bool isStaticLangEng = true;
 
 enum GarbageType { dry, wet, sanitary, ewaste }
@@ -196,17 +187,16 @@ final List<Item> _items = [
 ];
 
 @immutable
-class ExampleDragAndDrop extends StatefulWidget {
+class GarbageBattle extends StatefulWidget {
   final bool isLangEng;
-  // const ExampleDragAndDrop({super.key});
-  const ExampleDragAndDrop({Key? key, required this.isLangEng})
-      : super(key: key);
+
+  const GarbageBattle({Key? key, required this.isLangEng}) : super(key: key);
 
   @override
-  State<ExampleDragAndDrop> createState() => _ExampleDragAndDropState();
+  State<GarbageBattle> createState() => _GarbageBattleState();
 }
 
-class _ExampleDragAndDropState extends State<ExampleDragAndDrop>
+class _GarbageBattleState extends State<GarbageBattle>
     with TickerProviderStateMixin {
   late ConfettiController _topController;
   late final AnimationController _greenController;

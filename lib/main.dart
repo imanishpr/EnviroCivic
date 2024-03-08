@@ -32,9 +32,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Urban eco adventures",
       home: MyScreen(),
-      // routes: {
-      //   "/garbageBattle": (_) => ExampleDragAndDrop(),
-      // },
     );
   }
 }
@@ -206,12 +203,8 @@ class _MyScreenState extends State<MyScreen>
     "地下鉄のウェブサイトを見て回った後、エミはチケットを購入することを決定しました。数回のクリックで取引を完了し、ボタンが表示され、彼女は便利にチケットをGoogle Walletに追加できます。",
     "ナミは車で家に帰ります",
     "仕事での一日はどうでしたか？"
-    "それは素晴らしかったです！地下鉄でオフィスに通勤するのが便利だと気づき、チケットもオンラインで購入しました。",
+        "それは素晴らしかったです！地下鉄でオフィスに通勤するのが便利だと気づき、チケットもオンラインで購入しました。",
     "次の日、ナミは地下鉄の駅に行きます",
-    
-    
-    
-    
     "入口に到達すると、通勤者の喧騒が空気に充満し、彼女の持続可能なライフスタイルへの旅の始まりを告げていました。",
     "失礼いたします、お嬢さん。チケットを見せていただけますか？Google Walletにパスが追加されていれば、簡単にスキャンできますよ。",
     "スキャンしました。これで地下鉄に乗る準備が整いました。",
@@ -356,10 +349,10 @@ class _MyScreenState extends State<MyScreen>
         !shouldRenderSubwayWidget) {
       shouldRenderSubwayWidget = true;
       // await Future.delayed(Duration(seconds: 5));
-      // Navigate to ExampleDragAndDrop and wait for it to return
+      // Navigate to GarbageBattle and wait for it to return
       await Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => ExampleDragAndDrop(isLangEng: isEnglish),
+          builder: (context) => GarbageBattle(isLangEng: isEnglish),
         ),
       );
       //Navigator.pushReplacementNamed(context, "/garbageBattle");
@@ -368,9 +361,9 @@ class _MyScreenState extends State<MyScreen>
 
       imagePathsList = imagePathsListSubWay;
       texts = subWaytexts;
-      // This code will be executed after ExampleDragAndDrop is popped
+      // This code will be executed after GarbageBattle is popped
       // You can render a widget or perform any action here
-      print("Returned from ExampleDragAndDrop");
+      print("Returned from GarbageBattle");
     }
     if (currentIndex == imagePathsListSubWay.length - 4 &&
         shouldRenderSubwayWidget) {
